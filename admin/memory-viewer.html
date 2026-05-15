@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>記憶データビューア | 記憶管理担当課</title>
+  <link rel="stylesheet" href="../css/admin.css">
+  <style>
+    body { background: #0a0a0a; color: #ccc; }
+
+    #viewer-shell {
+      max-width: 680px;
+      margin: 60px auto;
+      padding: 0 20px 80px;
+    }
+
+    .viewer-header {
+      font-size: 11px;
+      color: #555;
+      letter-spacing: 0.08em;
+      margin-bottom: 28px;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .viewer-title {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 24px;
+      letter-spacing: 0.04em;
+    }
+
+    .viewer-title span {
+      color: #c44;
+      font-size: 11px;
+      margin-left: 10px;
+    }
+
+    /* 同期確認ダイアログ */
+    #sync-confirm {
+      border: 1px solid #333;
+      background: #0e0e0e;
+      padding: 32px 36px;
+      max-width: 500px;
+      margin: 60px auto;
+      text-align: center;
+    }
+
+    #sync-confirm .sc-title {
+      font-size: 12px;
+      color: #666;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+
+    #sync-confirm .sc-body {
+      font-size: 13px;
+      color: #999;
+      line-height: 2.2;
+      margin-bottom: 28px;
+    }
+
+    #sync-confirm .sc-body strong { color: #ccc; }
+
+    #sync-confirm .sc-warn {
+      font-size: 11px;
+      color: #555;
+      margin-bottom: 28px;
+      line-height: 1.8;
+    }
+
+    .sc-btn-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .sc-btn {
+      display: inline-block;
+      padding: 10px 32px;
+      font-size: 12px;
+      cursor: pointer;
+      background: transparent;
+      font-family: inherit;
+      letter-spacing: 0.06em;
+      border: 1px solid #444;
+      color: #888;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .sc-btn:hover { border-color: #888; color: #ccc; }
+    .sc-btn.primary { border-color: #8a4040; color: #c88; }
+    .sc-btn.primary:hover { background: #8a4040; color: #fff; }
+
+    /* 記憶フラグメント表示エリア */
+    #fragment-area {
+      min-height: 340px;
+      font-size: 14px;
+      line-height: 2.4;
+      color: #999;
+      display: none;
+      background: url(../img/scan-noise.png) repeat center/200px auto;
+      background-blend-mode: overlay;
+    }
+
+    .frag {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      margin-bottom: 28px;
+      padding: 0 0 18px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .frag.visible { opacity: 1; }
+
+    .frag-label {
+      font-size: 10px;
+      color: #444;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .frag-text {
+      font-size: 14px;
+      color: #aaa;
+      line-height: 2.2;
+    }
+
+    .frag-text em {
+      color: #ccc;
+      font-style: normal;
+    }
+
+    .frag-text .glitch {
+      color: #c44;
+      font-family: monospace;
+    }
+
+    /* 警告オーバーレイ */
+    #alert-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.96);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    #alert-overlay.show {
+      display: flex;
+      animation: fade-in 1s ease;
+    }
+
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+    .alert-box {
+      max-width: 520px;
+      padding: 40px;
+      border: 1px solid #c44;
+      background: #0f0808;
+    }
+
+    .alert-title {
+      font-size: 13px;
+      color: #c44;
+      letter-spacing: 0.12em;
+      margin-bottom: 24px;
+      font-weight: bold;
+    }
+
+    .alert-body {
+      font-size: 13px;
+      color: #aaa;
+      line-height: 2.2;
+      margin-bottom: 28px;
+    }
+
+    .alert-body strong { color: #ccc; }
+
+    .alert-count {
+      font-size: 11px;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    .alert-btn {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 10px 28px;
+      border: 1px solid #c44;
+      color: #c44;
+      font-size: 12px;
+      cursor: pointer;
+      background: transparent;
+      font-family: inherit;
+      letter-spacing: 0.06em;
+      transition: background 0.2s, color 0.2s;
+    }
+    .alert-btn:hover { background: #c44; color: #000; }
+
+    /* プログレスバー */
+    #scan-bar {
+      width: 100%;
+      max-width: 400px;
+      height: 2px;
+      background: #1a1a1a;
+      margin: 16px auto;
+      display: none;
+    }
+    #scan-fill {
+      height: 100%;
+      background: #c44;
+      width: 0%;
+      transition: width 0.3s linear;
+    }
+
+    #scan-label {
+      font-size: 10px;
+      color: #444;
+      text-align: center;
+      margin-bottom: 24px;
+      letter-spacing: 0.08em;
+      display: none;
+    }
+
+    /* 演出後メッセージ */
+    #after-viewer {
+      display: none;
+      margin-top: 40px;
+      padding: 24px 28px;
+      border: 1px solid #2a2a2a;
+      background: #0c0c0c;
+      font-size: 13px;
+      color: #666;
+      line-height: 2.2;
+      text-align: center;
+    }
+
+    #after-viewer .aw-label {
+      font-size: 10px;
+      color: #3a3a3a;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    #after-viewer .aw-text {
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    #after-viewer .aw-hint {
+      font-size: 12px;
+      color: #555;
+      border-top: 1px solid #1e1e1e;
+      margin-top: 16px;
+      padding-top: 16px;
+      line-height: 2.0;
+    }
+
+    #after-viewer .aw-keyword {
+      color: #a0c8a0;
+      font-family: monospace;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+<div id="viewer-shell">
+  <div class="viewer-header">
+    <span>記憶管理担当課　データビューアシステム　v2.4</span>
+    <span><a href="../index.html" style="color:#333; font-size:10px; text-decoration:none; letter-spacing:0.04em;">← サイトトップへ</a>　<span id="sys-time"></span></span>
+  </div>
+
+  <div class="viewer-title">
+    記憶データ：KAT-001（加藤晴美）
+    <span>採取番号：KT-AGENT-001　分類：人員化済み素材</span>
+  </div>
+
+  <!-- 同期確認ダイアログ -->
+  <div id="sync-confirm">
+    <div class="sc-title">記憶装置接続　確認</div>
+    <div class="sc-body">
+      対象記憶データ：<strong>KAT-001（加藤晴美）</strong><br>
+      採取番号：KT-AGENT-001<br><br>
+      記憶データを閲覧するには、<br>
+      <strong>記憶装置への同期</strong>が必要です。
+    </div>
+    <div class="sc-warn">
+      ※ 同期中は閲覧者の現在のセッション情報が記録されます。<br>
+      ※ 同期を開始すると、中断できません。
+    </div>
+    <div class="sc-btn-row">
+      <button class="sc-btn" id="btn-cancel">キャンセル</button>
+      <button class="sc-btn primary" id="btn-sync">同期して閲覧する</button>
+    </div>
+  </div>
+
+  <!-- スキャンバー（同期開始後に表示） -->
+  <div id="scan-bar"><div id="scan-fill"></div></div>
+  <div id="scan-label">記憶装置に同期しています…</div>
+
+  <!-- フラグメント表示エリア -->
+  <div id="fragment-area"></div>
+
+  <!-- 演出後メッセージ -->
+  <div id="after-viewer">
+    <div class="aw-label">SYNC_COMPLETE　同期完了</div>
+    <div class="aw-text">
+      記憶データの閲覧を完了しました。<br>
+      この記録はセッション情報とともに採取されました。
+    </div>
+    <div class="aw-hint">
+      MEMO-C01（KAT-001 内部通信ログ）は以下に移動されています。<br><br>
+      <a href="chat-log.html" style="color:#a0c8a0; font-size:12px; border:1px solid #3a5a3a; padding:8px 20px; display:inline-block; letter-spacing:0.04em; text-decoration:none;">→ MEMO-C01 内部通信ログを確認する</a>
+    </div>
+    <div style="margin-top:24px; text-align:center;">
+      <a href="index.html" style="color:#555; font-size:11px; text-decoration:none; letter-spacing:0.04em;">← 内部書類一覧へ戻る</a>
+    </div>
+  </div>
+
+  <div style="margin-top:40px; padding-top:12px; border-top:1px solid #1a1a1a; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+    <span style="font-size:10px; color:#333; flex:1; line-height:1.5;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+    <span style="font-size:10px; color:#333; white-space:nowrap; font-family:monospace;">KL-9/10</span>
+  </div>
+</div>
+
+<!-- 警告オーバーレイ（採取通知） -->
+<div id="alert-overlay">
+  <div class="alert-box">
+    <div class="alert-title">記憶採取　完了</div>
+    <div class="alert-body">
+      同期の完了により、<strong>あなたの現在の閲覧記憶が採取されました。</strong><br><br>
+      採取された記憶：<br>
+      ・このサイトを初めて開いたときの記憶<br>
+      ・「なにもなかった3日間」を検索したときの記憶<br>
+      ・加藤晴美という名前を見たときの記憶<br>
+      ・今この画面を読んでいる記憶<br><br>
+      お預かりしたデータは、担当課にて適切に処理いたします。
+    </div>
+    <div class="alert-count" id="alert-count"></div>
+    <button class="alert-btn" id="alert-btn-ok">了解して続ける</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* 時刻 */
+  var timeEl = document.getElementById('sys-time');
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  function tick() {
+    var d = new Date();
+    if (timeEl) timeEl.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  /* ページ記録 */
+  var visits = JSON.parse(sessionStorage.getItem('kt_visits') || '[]');
+  var entry = {
+    t: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' }),
+    id: 'MV-1',
+    title: '記憶データビューア（KAT-001）',
+    url: 'memory-viewer.html'
+  };
+  if (!visits.length || visits[visits.length - 1].url !== entry.url) {
+    visits.push(entry);
+    sessionStorage.setItem('kt_visits', JSON.stringify(visits));
+  }
+
+  /* キャンセルボタン */
+  document.getElementById('btn-cancel').addEventListener('click', function () {
+    history.back();
+  });
+
+  /* 同期ボタン → 演出開始 */
+  document.getElementById('btn-sync').addEventListener('click', function () {
+    document.getElementById('sync-confirm').style.display = 'none';
+    startViewer();
+  });
+
+  /* フラグメントデータ */
+  var fragments = [
+    {
+      label: 'FRAGMENT_001　令和5年4月7日 08:22',
+      text: '今日も普通の朝だ、と思っていた。\n通勤途中、桜がまだ少し残っていた。\n役場に着いて、同僚とコーヒーを飲んだ。いつもの朝。\nデスクに戻ると、古いファイルフォルダが届いていた。'
+    },
+    {
+      label: 'FRAGMENT_002　令和5年4月7日 13:58',
+      text: '「S-40-10-312」という番号がある。\n開いてはいけない気がした。でも開いた。\n昭和40年10月。なにもなかった3日間。\n312名。\n子供たちの名前があった。出生記録から照合された名前たち。\n同意書がない。\n一枚もない。'
+    },
+    {
+      label: 'FRAGMENT_003　令和5年4月7日 14:18',
+      text: '自分の名前を探していた。\nかたつま町生まれ。昭和42年生まれ。\n昭和40年10月のリストには、自分の名前はない。\n少し安堵した、その直後、出生記録一覧に別のリストを見つけた。\n「二次採取対象者（昭和47年〜52年生まれ）」\nそこに自分の名前があった。'
+    },
+    {
+      label: 'FRAGMENT_004　令和5年4月7日 14:31',
+      text: '自分のどの記憶が「ない」のかを考えようとして、気づいた。\n5歳の誕生日の記憶がない。\n保育園で何かがあったはずだが、何も覚えていない。\n6歳の入学式の写真は親のアルバムにある。でも自分の記憶の中に、その朝がない。\nあの頃、「健康診断」があったと母が言っていた。'
+    },
+    {
+      label: 'FRAGMENT_005　令和5年4月7日 14:33',
+      text: '<em>このデータを見ているあなたへ。</em>\n\n私は加藤晴美といいます。この記憶は14:33に採取が開始されたものです。\nこの後、私は何をするつもりだったのか、もう確認する方法がありません。\n\n<em>ただ、覚えておいてください。</em>\n<em>なにもなかった3日間のことを。</em>\n<em>312名のことを。子供たちのことを。</em>\n\n<span class="glitch">-- KAT-001（加藤晴美）　令和5年4月7日 14:33 --</span>'
+    }
+  ];
+
+  function startViewer() {
+    var scanBar = document.getElementById('scan-bar');
+    var scanLabel = document.getElementById('scan-label');
+    var fragArea = document.getElementById('fragment-area');
+
+    scanBar.style.display = 'block';
+    scanLabel.style.display = 'block';
+    fragArea.style.display = 'block';
+
+    var fillEl = document.getElementById('scan-fill');
+    var pct = 0;
+
+    var scanInterval = setInterval(function () {
+      pct += Math.random() * 6 + 3;
+      if (pct >= 100) {
+        pct = 100;
+        clearInterval(scanInterval);
+        showFragments();
+      }
+      if (fillEl) fillEl.style.width = pct.toFixed(0) + '%';
+      if (scanLabel) scanLabel.textContent = '記憶装置に同期しています… ' + pct.toFixed(0) + '%';
+    }, 120);
+
+    function showFragments() {
+      if (scanLabel) scanLabel.textContent = '同期完了。記憶データを展開しています。';
+
+      fragments.forEach(function (f, i) {
+        var div = document.createElement('div');
+        div.className = 'frag';
+        div.innerHTML =
+          '<div class="frag-label">' + f.label + '</div>' +
+          '<div class="frag-text">' + f.text.replace(/\n/g, '<br>') + '</div>';
+        fragArea.appendChild(div);
+        setTimeout(function () { div.classList.add('visible'); }, i * 1800 + 400);
+      });
+
+      /* 全フラグメント後にアラート */
+      setTimeout(function () {
+        showAlert();
+      }, fragments.length * 1800 + 2200);
+    }
+  }
+
+  function showAlert() {
+    var overlay = document.getElementById('alert-overlay');
+    if (overlay) overlay.classList.add('show');
+
+    var visits2 = JSON.parse(sessionStorage.getItem('kt_visits') || '[]');
+    var countEl = document.getElementById('alert-count');
+    if (countEl && visits2.length) {
+      countEl.textContent = '（今回のセッション閲覧数：' + visits2.length + ' ページ）';
+    }
+
+    document.getElementById('alert-btn-ok').addEventListener('click', function () {
+      overlay.classList.remove('show');
+      document.getElementById('after-viewer').style.display = 'block';
+    });
+  }
+
+})();
+</script>
+</body>
+</html>

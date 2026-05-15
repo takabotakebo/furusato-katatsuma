@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>ふるさと納税で「記憶」が買える自治体を見つけた話｜山之内タカシ</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+      background: #fff;
+      color: #333;
+      line-height: 1.8;
+    }
+
+    /* ヘッダー */
+    .site-header {
+      border-bottom: 1px solid #eee;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .site-name {
+      font-size: 20px;
+      font-weight: bold;
+      color: #111;
+      letter-spacing: -0.02em;
+    }
+    .site-name span {
+      color: #555;
+      font-size: 13px;
+      font-weight: normal;
+      margin-left: 8px;
+    }
+
+    /* メインカラム */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 48px 24px 120px;
+    }
+
+    /* 筆者ヘッダー */
+    .author-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #999;
+      flex-shrink: 0;
+    }
+    .author-info-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+    }
+    .author-info-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* タイトル */
+    h1 {
+      font-size: 28px;
+      line-height: 1.4;
+      color: #111;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    /* リード */
+    .lead {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 36px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* 本文 */
+    .body-text {
+      font-size: 16px;
+      color: #333;
+      line-height: 2.0;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: #111;
+      margin: 40px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .quote-block {
+      border-left: 3px solid #ddd;
+      padding: 12px 20px;
+      margin: 24px 0;
+      color: #666;
+      font-size: 15px;
+      line-height: 1.9;
+      background: #fafafa;
+    }
+
+    .link-card {
+      display: block;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin: 32px 0;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .link-card:hover {
+      border-color: #aaa;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .link-card-label {
+      font-size: 11px;
+      color: #aaa;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .link-card-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 4px;
+    }
+    .link-card-url {
+      font-size: 11px;
+      color: #aaa;
+      font-family: monospace;
+    }
+
+    /* タグ */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid #eee;
+    }
+    .tag {
+      font-size: 12px;
+      color: #888;
+      background: #f5f5f5;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* 筆者プロフィール */
+    .author-profile {
+      margin-top: 48px;
+      padding: 24px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .author-profile-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #bbb;
+      flex-shrink: 0;
+    }
+    .author-profile-name {
+      font-size: 15px;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 6px;
+    }
+    .author-profile-bio {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.8;
+    }
+
+    /* フッター */
+    footer {
+      margin-top: 80px;
+      border-top: 1px solid #eee;
+      padding: 24px;
+      text-align: center;
+      font-size: 11px;
+      color: #bbb;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-name">調査メモ<span>— 山之内タカシの雑記</span></div>
+</header>
+
+<div class="container">
+
+  <div class="author-meta">
+    <div class="author-avatar">山</div>
+    <div>
+      <div class="author-info-name">山之内タカシ</div>
+      <div class="author-info-date">2023年11月1日</div>
+    </div>
+  </div>
+
+  <h1>ふるさと納税で「記憶」が買える自治体を見つけた話</h1>
+
+  <p class="lead">
+    ふるさと納税を調べていたら、変なサイトにたどり着いた。
+    返礼品の中に「記憶の整理・保管サービス」がある。最初は冗談かと思った。でも読めば読むほど、何かがおかしい。誰か一緒に見てほしい。
+  </p>
+
+  <p class="body-text">
+    もともと今年のふるさと納税を何にしようか調べていた。米や酒の定番ものを見ていたら、何かの拍子に「かたつま町」というところのサイトが出てきた。山間の小さな自治体らしく、サイトも普通のふるさと納税カタログに見えた。
+  </p>
+
+  <p class="body-text">
+    ところが返礼品のカテゴリに「サービス・体験」というタブがあって、その中に「記憶の整理・保管サービス」とある。
+  </p>
+
+  <div class="quote-block">
+    「かたつま町 記憶管理担当課が提供する記憶データの整理・保管代行サービスです。申請時にご指定いただいた記憶を、担当課が安全に採取・保管いたします。保管期間中は、該当記憶へのアクセスが制限されます。」
+  </div>
+
+  <p class="body-text">
+    ……記憶を「採取」して「保管」する。
+  </p>
+
+  <p class="body-text">
+    最初は脳ドックとか認知症予防のなにかかと思ったが、続きを読むと「基本プランでは採取済み記憶データの『別の保持者への移転』もオプションとして選択可能です」と書いてある。記憶を他人に移転？　注意事項には「他者の記憶データを受け取られた場合、受け取り後しばらくすると、その記憶が自身のものと区別がつかなくなることがあります。これは仕様であり、異常ではありません」とある。
+  </p>
+
+  <p class="body-text">
+    完全に意味がわからない。
+  </p>
+
+  <img src="img/intro-eyecatch.png" alt="かたつま町返礼品カタログのスクリーンショット" style="width:100%; border-radius:4px; margin:32px 0 8px; display:block;">
+
+  <h2>品目名が、また変だった</h2>
+
+  <p class="body-text">
+    さらに調べると、サイト内検索フォームで品目名を入れると詳細ページが開く仕組みになっているらしい。「記憶の整理・保管サービス」以外にも品目があるようで、ほかにも何かが公開されていないか試してみた。
+  </p>
+
+  <p class="body-text">
+    見つけた品目名が「忘れていた夏」「あの人との時間」「未使用の幼少期」——。
+  </p>
+
+  <p class="body-text">
+    「未使用の幼少期」って、何だ。
+  </p>
+
+  <p class="body-text">
+    私は一通り読んだけれど、途中からよく分からなくなってきた。このサイトは何を売っているのか。「記憶管理担当課」というのはどういう組織なのか。「記憶管理条例」というものが実在するらしい。そしてサイト内のどこかに内部管理システムに通じる経路があるらしいことに気づいた——ただ、そこから先に入る方法が私にはわからなかった。
+  </p>
+
+  <h2>誰か調べてみてほしい</h2>
+
+  <p class="body-text">
+    私はこういう調査に向いていないと思う。読み込むほど頭が混乱してきて、どこから手をつけるべきか分からなくなる。でも、このサイトは何かある気がしている。
+  </p>
+
+  <p class="body-text">
+    昭和40年に何かがあったらしい。312人という数字が出てくる。「なにもなかった3日間」という言葉がある。
+  </p>
+
+  <p class="body-text">
+    これが本当に架空のサービスサイトなのか、あるいは——何か別のものなのか。詳しい人や、こういうのが好きな人に渡したほうがいいと思って、ここに書いておく。
+  </p>
+
+  <p class="body-text">
+    サイトはここ。
+  </p>
+
+  <a href="index.html" class="link-card">
+    <div class="link-card-label">EXTERNAL LINK</div>
+    <div class="link-card-title">かたつま町 ふるさと納税返礼品カタログ</div>
+    <div class="link-card-url">katatsuma-furusato / index.html</div>
+  </a>
+
+  <p class="body-text" style="font-size:14px; color:#999; margin-top:8px;">
+    ※ 検索フォームで品目名を入れるといろいろ出てくる。「なにもなかった3日間」という言葉もどこかに書いてあった。
+  </p>
+
+  <div class="tags">
+    <span class="tag">#ふるさと納税</span>
+    <span class="tag">#調査</span>
+    <span class="tag">#かたつま町</span>
+    <span class="tag">#記憶</span>
+  </div>
+
+  <div class="author-profile">
+    <div class="author-profile-avatar">山</div>
+    <div>
+      <div class="author-profile-name">山之内タカシ</div>
+      <div class="author-profile-bio">
+        神奈川県在住。会社員。気になったことをメモしておくブログ。<br>
+        連絡先は持っていません。
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>
+  Copyright ©KAF. All Rights Reserved.
+</footer>
+
+</body>
+</html>

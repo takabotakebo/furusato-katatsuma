@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>検索結果 | かたつま町 ふるさと納税返礼品カタログ</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+    </a>
+    <form class="search-form" id="site-search">
+      <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
+      <button type="submit">検索</button>
+    </form>
+  </div>
+</header>
+<nav>
+  <ul>
+    <li><a href="catalog.html">返礼品一覧</a></li>
+    <li><a href="about.html">自治体紹介</a></li>
+    <li><a href="news.html">お知らせ</a></li>
+    <li><a href="apply.html">寄附の手続き</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul>
+</nav>
+<main>
+  <div class="page-header">
+    <h1>検索結果</h1>
+  </div>
+  <div class="result-box">
+    <p>「<span id="search-query"></span>」に一致するページは見つかりませんでした。</p>
+    <p>キーワードを変えて検索してください。</p>
+    <p class="result-footer">かたつま町 ふるさと納税担当課</p>
+  </div>
+</main>
+<footer>
+  <div class="footer-inner">
+    <p class="copyright">©かたつま町 / ふるさと納税担当課</p>
+  </div>
+
+
+<div class="footer-bottom">
+  <span class="footer-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+</div>
+</footer>
+
+<script src="js/search.js"></script>
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var el = document.getElementById('search-query');
+  if (el) el.textContent = params.get('q') || '';
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>MEMO-004 収集記憶の用途分類 | 記憶管理担当課</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+<div class="admin-sysbar">
+  <span>KTMS &nbsp;/&nbsp; 記憶管理担当課 内部管理システム &nbsp; v3.2</span>
+  <span id="sys-time-top">--:--:--</span>
+</div>
+<div class="admin-header">
+  <span style="font-weight:bold; color:#1a3a5a;">記憶管理担当課　内部文書管理</span>
+  <span>
+    セッション：<span id="session-id" style="font-family:monospace; color:#4a7ab0;">—</span>
+    &nbsp;&nbsp;
+    <a href="../index.html" class="admin-back-link">← 公開サイトへ戻る</a>
+  </span>
+</div>
+<div class="admin-layout">
+  <div class="admin-sidebar">
+    <div class="admin-sidebar-title">DOCUMENT INDEX</div>
+    <ul class="admin-sidebar-nav">
+      <li><a href="index.html">内部書類一覧</a></li>
+      <li class="nav-divider"></li>
+      <li><a href="history.html">MEMO-H01　歴史記録</a></li>
+      <li><a href="memo-001.html">MEMO-001　昭和40年事案</a></li>
+      <li><a href="memo-002.html">MEMO-002　収集月報</a></li>
+      <li><a href="memo-003.html">MEMO-003　エージェント記録</a></li>
+      <li><a href="memo-004.html" class="active">MEMO-004　用途分類</a></li>
+      <li><a href="memo-005.html">MEMO-005　人員管理規程</a></li>
+      <li><a href="access-log.html">MEMO-L01　アクセスログ</a></li>
+      <li class="nav-divider"></li>
+      <li><a href="#" style="color:#c06030; font-size:11px; cursor:default; pointer-events:none;">MEMO-C01　通信ログ ⚠ 制限中</a></li>
+    </ul>
+  </div>
+  <div class="admin-content">
+    <p class="admin-title">MEMO-004　収集記憶の用途分類（内部基準）</p>
+    <div class="memo-body">収集記憶の用途分類（内部基準）
+作成：記憶管理担当課　分類：A / 永久保管
+
+分類A：昭和40年関連記憶
+  → 消去処理。再流通不可。
+
+分類B：販売向け
+  → 「整理済み記憶セット」として流通。副収益。
+
+分類C：人員補充パターン
+  → 空洞化した人員に振る舞いパターンを付与するための素材。
+
+分類D：廃棄
+  → 規格外。内容が断片的・劣化・判別不能のもの。</div>
+    <span class="admin-page-id">KL-6/10</span>
+    <div class="admin-footer-bottom">
+      <span class="admin-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  var el = document.getElementById('sys-time-top');
+  function tick() {
+    var d = new Date();
+    if (el) el.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  tick(); setInterval(tick, 1000);
+  var s = sessionStorage.getItem('kt_session_id');
+  if (!s) { s = 'SID-' + Math.random().toString(36).substr(2,8).toUpperCase(); sessionStorage.setItem('kt_session_id', s); }
+  var sid = document.getElementById('session-id');
+  if (sid) sid.textContent = s;
+})();
+</script>
+</body>
+</html>

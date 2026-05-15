@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>MEMO-L01 アクセスログ | 記憶管理担当課</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+<div class="admin-sysbar">
+  <span>KTMS &nbsp;/&nbsp; 記憶管理担当課 内部管理システム &nbsp; v3.2</span>
+  <span id="sys-time-top">--:--:--</span>
+</div>
+<div class="admin-header">
+  <span style="font-weight:bold; color:#1a3a5a;">記憶管理担当課　内部文書管理</span>
+  <span>
+    セッション：<span id="session-id" style="font-family:monospace; color:#4a7ab0;">—</span>
+    &nbsp;&nbsp;
+    <a href="../index.html" class="admin-back-link">← 公開サイトへ戻る</a>
+  </span>
+</div>
+<div class="admin-layout">
+
+  <div class="admin-sidebar">
+    <div class="admin-sidebar-title">DOCUMENT INDEX</div>
+    <ul class="admin-sidebar-nav">
+      <li><a href="index.html">内部書類一覧</a></li>
+      <li class="nav-divider"></li>
+      <li><a href="history.html">MEMO-H01　歴史記録</a></li>
+      <li><a href="memo-001.html">MEMO-001　昭和40年事案</a></li>
+      <li><a href="memo-002.html">MEMO-002　収集月報</a></li>
+      <li><a href="memo-003.html">MEMO-003　エージェント記録</a></li>
+      <li><a href="memo-004.html">MEMO-004　用途分類</a></li>
+      <li><a href="memo-005.html">MEMO-005　人員管理規程</a></li>
+      <li><a href="access-log.html" class="active">MEMO-L01　アクセスログ</a></li>
+      <li class="nav-divider"></li>
+      <li><a href="#" style="color:#c06030; font-size:11px; cursor:default; pointer-events:none;">MEMO-C01　通信ログ ⚠ 制限中</a></li>
+    </ul>
+  </div>
+
+  <div class="admin-content">
+<div class="admin-main">
+  <p class="admin-title">MEMO-L01　アクセスログ（現在のセッション）</p>
+  <p style="font-size:11px; color:#999; margin-bottom:18px;">システム自動生成　分類：自動収集　※ 本ページへのアクセス時点でのセッション記録を表示しています</p>
+
+  <p id="log-summary" style="font-size:12px; color:#aaa; margin-bottom:12px;">閲覧ページ数：取得中…</p>
+
+  <table class="access-table" style="width:100%; border-collapse:collapse; font-size:12px; background:#111; border:1px solid #333;">
+    <thead>
+      <tr style="background:#1a1a1a;">
+        <th style="padding:8px 10px; text-align:left; color:#888; border-bottom:1px solid #333; white-space:nowrap;">#</th>
+        <th style="padding:8px 10px; text-align:left; color:#888; border-bottom:1px solid #333; white-space:nowrap;">時刻</th>
+        <th style="padding:8px 10px; text-align:left; color:#888; border-bottom:1px solid #333; white-space:nowrap;">Page ID</th>
+        <th style="padding:8px 10px; text-align:left; color:#888; border-bottom:1px solid #333;">ページ（URL）</th>
+      </tr>
+    </thead>
+    <tbody id="log-tbody">
+      <tr><td colspan="4" style="padding:12px 10px; color:#555; text-align:center;">取得中...</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:11px; color:#c44; margin-top:20px; line-height:1.8;">※ このログはかたつま町のサーバーに送信されました</p>
+
+  <div style="margin-top:32px; text-align:center; padding: 28px 0; border-top: 1px solid #ddd;">
+    <p style="font-size:12px; color:#888; margin-bottom:16px; line-height:1.9;">
+      採取対象者の記憶データを閲覧できます。<br>
+      <span style="color:#c44; font-size:11px;">※ アクセスには記録が伴います。</span>
+    </p>
+    <a href="memory-viewer.html" target="_top" style="
+      display: inline-block;
+      padding: 12px 36px;
+      background: #1a1a1a;
+      color: #c44;
+      border: 1px solid #c44;
+      font-size: 13px;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: background 0.2s, color 0.2s;
+    " onmouseover="this.style.background='#c44';this.style.color='#000';" onmouseout="this.style.background='#1a1a1a';this.style.color='#c44';">
+      KAT-001 の記憶データを閲覧する
+    </a>
+    <p style="font-size:10px; color:#444; margin-top:14px; letter-spacing:0.05em;">
+      採取番号：KT-AGENT-001　分類：人員化済み素材
+    </p>
+  </div>
+
+  </div>
+    <span class="admin-page-id">KL-8/10</span>
+    <div class="admin-footer-bottom">
+      <span class="admin-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var visits = JSON.parse(sessionStorage.getItem('kt_visits') || '[]');
+  var tbody = document.getElementById('log-tbody');
+  var summary = document.getElementById('log-summary');
+
+  if (visits.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="padding:12px 10px; color:#555; text-align:center;">記録なし（このセッションでの閲覧履歴がありません）</td></tr>';
+  } else {
+    tbody.innerHTML = '';
+    visits.forEach(function (v, i) {
+      var tr = document.createElement('tr');
+      tr.style.borderBottom = '1px solid #222';
+      tr.innerHTML =
+        '<td style="padding:7px 10px; color:#666;">' + (i + 1) + '</td>' +
+        '<td style="padding:7px 10px; color:#aaa; white-space:nowrap;">' + (v.t || '--:--') + '</td>' +
+        '<td style="padding:7px 10px; color:#888; white-space:nowrap;">' + (v.id || '—') + '</td>' +
+        '<td style="padding:7px 10px; color:#ccc; font-family:monospace; font-size:11px;">' + (v.url || '—') + '</td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  if (summary) {
+    summary.textContent = '閲覧ページ数：' + visits.length + '件';
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>かたつま町ふるさと納税 — 処理完了</title>
+  <link rel="stylesheet" href="../css/admin.css">
+  <style>
+    body { background: #0d0d0d; }
+
+    #loading-screen {
+      background: #0d0d0d;
+      color: #888;
+    }
+
+    .progress-bar { background: #1a1a1a; border-color: #333; }
+    .progress-fill { background: #c44; }
+    #progress-text { color: #555; }
+
+    #ending-content {
+      font-family: 'Courier New', monospace;
+    }
+
+    .ending-header-line {
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.1em;
+      margin-bottom: 36px;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 12px;
+    }
+
+    .ending-body-text {
+      font-size: 14px;
+      color: #888;
+      line-height: 2.4;
+      margin-bottom: 12px;
+    }
+
+    .ending-list {
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+      padding: 20px 0;
+      margin: 24px 0;
+    }
+
+    .ending-list-title {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 16px;
+      letter-spacing: 0.06em;
+    }
+
+    .ending-list-item {
+      font-size: 13px;
+      color: #777;
+      padding: 5px 0;
+      border-bottom: 1px solid #1a1a1a;
+      line-height: 1.8;
+    }
+    .ending-list-item:last-child { border-bottom: none; }
+
+    .ending-close {
+      font-size: 13px;
+      color: #666;
+      line-height: 2.2;
+      margin-top: 12px;
+    }
+
+    .ending-sign {
+      text-align: right;
+      color: #555;
+      margin-top: 20px;
+      font-size: 13px;
+    }
+
+    .ending-final {
+      border-top: 1px solid #222;
+      padding-top: 28px;
+      color: #c44;
+      font-size: 15px;
+      text-align: center;
+      letter-spacing: 0.14em;
+      margin-top: 32px;
+    }
+
+    .ending-page-id {
+      font-size: 10px;
+      color: #222;
+      text-align: right;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <p style="color:#666; letter-spacing:0.06em;">採取データを処理しております。しばらくお待ちください。</p>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+  <p id="progress-text">0%</p>
+</div>
+
+<div id="ending-content" style="display:none; max-width:640px; margin:0 auto; padding:48px 24px 80px;">
+
+  <div class="ending-header-line">
+    かたつま町 記憶管理担当課　採取処理システム　/ 記憶採取　完了
+  </div>
+
+  <div class="ending-body-text">
+    採取処理が正常に完了しました。
+  </div>
+
+  <div class="ending-body-text">
+    記憶データビューアへのアクセスの際、<br>
+    あなたは記憶装置への同期を選択しました。<br><br>
+    その時点から、採取は開始されていました。
+  </div>
+
+  <div class="ending-list">
+    <div class="ending-list-title">採取済みとして登録された記憶：</div>
+    <div class="ending-list-item">・かたつま町のサイトを最初に開いたときの記憶</div>
+    <div class="ending-list-item">・返礼品一覧を初めて見たときの記憶</div>
+    <div class="ending-list-item">・「なにもなかった3日間」という言葉を見たときの記憶</div>
+    <div class="ending-list-item">・昭和40年10月の事案を知ったときの記憶</div>
+    <div class="ending-list-item">・未使用の幼少期という品目の説明を読んだときの記憶</div>
+    <div class="ending-list-item">・加藤晴美の記憶データに同期したときの記憶</div>
+    <div class="ending-list-item">・この一覧を読んでいる、現在の記憶</div>
+    <div class="ending-list-item" id="visit-note" style="font-size:11px; color:#444;"></div>
+  </div>
+
+  <div class="ending-close">
+    採取されたデータは、NMCRIとの連携により<br>
+    適切に処理・保管されます。<br>
+    ご協力ありがとうございました。
+  </div>
+
+  <div class="ending-sign">
+    かたつま町 記憶管理担当課
+  </div>
+
+  <div class="ending-final">
+    あなたの記憶を、頂戴いたしました。
+  </div>
+
+  <div class="ending-page-id" style="font-size:10px; color:#333; margin-top:24px; line-height:1.5;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</div>
+</div>
+
+<script src="../js/ending.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+  var visits = JSON.parse(sessionStorage.getItem('kt_visits') || '[]');
+  var el = document.getElementById('visit-note');
+  if (el && visits.length > 0) {
+    el.textContent = '（このセッション閲覧数：' + visits.length + '件 / 最初のページ：' + (visits[0].url || '—') + '）';
+  }
+});
+</script>
+
+</body>
+</html>
+
+<!--
+このページを見ているあなたへ。
+
+私は加藤晴美といいます。かたつま町役場の記憶管理担当課に勤めていました。
+令和5年4月7日、私は S-40-10-312 というファイルを見つけました。
+昭和40年10月に何があったか、知ってしまいました。
+
+312名の記憶が、同意なく消されました。
+子供たちから記憶を採取していたことも。
+この「ふるさと納税サービス」が何なのかも。
+そして、私自身の記憶も採取されていたことも。
+
+私は令和5年11月14日以降、職場に戻れていません。
+このメッセージをいつ、誰が読むのかはわかりません。
+
+でも、読んでいる方がいるなら、ひとつお願いがあります。
+忘れないでください。なにもなかった3日間のことを。
+子供たちのことを。312名のことを。
+
+そして——このサイトを「調査してほしい」という記事や投稿に誘われてここに来たなら、
+その記事を書いた人物について考えてみてください。
+MEMO-003に記録されています。エージェントID：AGT-007。
+山之内タカシという名前で、ウェブに記事を書いていたはずです。
+彼は自分が何者なのかを知らないまま、あなたをここに誘導しました。
+その誘導自体が、採取プロセスの一部です。
+
+あなたの「このサイトを調べようとした記憶」も、
+すでに採取の対象になっていたのだと思います。
+
+-- 加藤晴美（KAT-001）
+   令和5年4月7日 14:33
+-->

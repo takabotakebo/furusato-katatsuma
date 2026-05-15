@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>ヒント | かたつま町 ARG</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      padding: 40px 20px 80px;
+      line-height: 1.7;
+    }
+    .wrap { max-width: 700px; margin: 0 auto; }
+    h1 { font-size: 1.2em; color: #1a3a5c; margin-bottom: 6px; }
+    .subtitle { font-size: 12px; color: #999; margin-bottom: 28px; }
+    .intro {
+      font-size: 13px; color: #666;
+      border: 1px solid #ddd; padding: 14px 16px;
+      border-radius: 4px; background: #fff;
+      margin-bottom: 32px; line-height: 1.9;
+    }
+    .stage { margin-bottom: 32px; }
+    .stage-title {
+      font-size: 0.95em; color: #1a3a5c;
+      border-left: 4px solid #2a5080;
+      padding-left: 10px; margin-bottom: 8px;
+    }
+    .stage-desc { font-size: 12px; color: #999; margin-bottom: 10px; padding-left: 14px; }
+    details {
+      border: 1px solid #ddd; border-radius: 3px;
+      margin-bottom: 6px; background: #fff;
+    }
+    details[open] { background: #fafafa; }
+    summary {
+      padding: 10px 14px; cursor: pointer; font-size: 13px; color: #444;
+      list-style: none; display: flex; align-items: center; gap: 8px;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before {
+      content: '▶'; font-size: 10px; color: #bbb;
+      transition: transform 0.15s; display: inline-block; flex-shrink: 0;
+    }
+    details[open] summary::before { transform: rotate(90deg); }
+    .level { font-size: 11px; color: #bbb; margin-left: auto; white-space: nowrap; }
+    .hint-body {
+      padding: 10px 16px 14px 30px; font-size: 13px; color: #333;
+      line-height: 1.9; border-top: 1px solid #eee;
+    }
+    .hint-body strong { color: #1a3a5c; }
+    .spoiler {
+      background: #fff3cd; border-left: 3px solid #e0a800;
+      padding: 8px 12px; border-radius: 2px; margin-top: 8px; font-size: 13px;
+    }
+    hr { border: none; border-top: 1px solid #e0e0e0; margin: 28px 0; }
+    .footer-links { margin-top: 48px; text-align: center; font-size: 12px; color: #aaa; }
+    .footer-links a { color: #888; text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>ヒント</h1>
+  <p class="subtitle">かたつま町 ふるさと納税返礼品カタログ — ARGプレイヤー向け</p>
+
+  <div class="intro">
+    このページはARGプレイヤー向けのヒントページです。<br>
+    ネタバレを避けたい方は読まずに探索を続けてください。<br>
+    ヒントは段階的に開示できます。必要な分だけ開いてください。
+  </div>
+
+  <!-- STAGE 1 -->
+  <div class="stage">
+    <h2 class="stage-title">Stage 1 ── 最初の一歩</h2>
+    <p class="stage-desc">サイトに入ったばかりで、何をすればいいか分からない方へ。</p>
+
+    <details>
+      <summary>ヒント 1<span class="level">軽め</span></summary>
+      <div class="hint-body">
+        まずはサイト全体を読んでみましょう。<br>
+        特に<strong>お知らせ</strong>ページをよく確認してください。日付や件名に違和感があります。
+      </div>
+    </details>
+
+    <details>
+      <summary>ヒント 2<span class="level">中程度</span></summary>
+      <div class="hint-body">
+        お知らせページに「4月8日〜10日の業務停止」に関する記事があります。<br>
+        その記事の件名・本文中に、検索フォームに入れるべき言葉が書かれています。
+      </div>
+    </details>
+
+    <details>
+      <summary>ヒント 3（ほぼ答え）<span class="level">強め</span></summary>
+      <div class="hint-body">
+        <div class="spoiler">キーワード：<strong>なにもなかった3日間</strong></div>
+      </div>
+    </details>
+  </div>
+
+  <hr>
+
+  <!-- STAGE 2 -->
+  <div class="stage">
+    <h2 class="stage-title">Stage 2 ── 機密文書にたどり着いたが、次が分からない</h2>
+    <p class="stage-desc">S-40-10-312 事案記録ページに到達した方へ。</p>
+
+    <details>
+      <summary>ヒント 1<span class="level">軽め</span></summary>
+      <div class="hint-body">
+        文書をよく読んでください。文書の中に、次のページへのヒントが書かれています。
+      </div>
+    </details>
+
+    <details>
+      <summary>ヒント 2（ほぼ答え）<span class="level">強め</span></summary>
+      <div class="hint-body">
+        文書末尾の注記に「<strong>返礼品管理ポータル</strong>」または「<strong>返礼品管理</strong>」という言葉が出てきます。<br>
+        それを検索フォームに入力してください。
+        <div class="spoiler">キーワード：<strong>返礼品管理</strong></div>
+      </div>
+    </details>
+  </div>
+
+  <hr>
+
+  <!-- STAGE 3 -->
+  <div class="stage">
+    <h2 class="stage-title">Stage 3 ── 管理ポータルに入ったが、品目ページへの行き方が分からない</h2>
+    <p class="stage-desc">返礼品管理ポータルに到達した方へ。</p>
+
+    <details>
+      <summary>ヒント 1<span class="level">軽め</span></summary>
+      <div class="hint-body">
+        管理ポータルの品目テーブルをよく見てください。<br>
+        「公開停止」「特別管理」の品目の<strong>商品名そのものがキーワード</strong>です。
+      </div>
+    </details>
+
+    <details>
+      <summary>ヒント 2<span class="level">中程度</span></summary>
+      <div class="hint-body">
+        テーブルに並んでいる品目名（「忘れていた夏」「あの人との時間」など）を、<br>
+        そのまま検索フォームに入力すると、各品目の詳細ページに移動できます。<br>
+        担当者コメント欄にも重要な手がかりがあります。
+      </div>
+    </details>
+  </div>
+
+  <hr>
+
+  <!-- STAGE 4 -->
+  <div class="stage">
+    <h2 class="stage-title">Stage 4 ── 品目ページを読んだが、管理書類にたどり着けない</h2>
+    <p class="stage-desc">非公開品目ページに到達した方へ。</p>
+
+    <details>
+      <summary>ヒント 1<span class="level">軽め</span></summary>
+      <div class="hint-body">
+        品目ページの末尾や注記に「条例 KR-<strong>1966</strong>」への言及があります。<br>
+        また、条例の名称も書かれています。
+      </div>
+    </details>
+
+    <details>
+      <summary>ヒント 2（ほぼ答え）<span class="level">強め</span></summary>
+      <div class="hint-body">
+        <div class="spoiler">キーワード：<strong>記憶管理条例</strong>（条例全文ページへ）</div>
+        <div class="spoiler" style="margin-top:6px;">キーワード：<strong>1966</strong>（内部書類一覧へ）</div>
+      </div>
+    </details>
+  </div>
+
+  <hr>
+
+  <!-- STAGE 5 -->
+  <div class="stage">
+    <h2 class="stage-title">Stage 5 ── 内部書類を読み進めると、先に進む方法が分からなくなった</h2>
+    <p class="stage-desc">管理書類一覧（KL-1/10）から書類を読み始めた方へ。</p>
+
+    <details>
+      <summary>ヒント 1<span class="level">軽め</span></summary>
+      <div class="hint-body">
+        書類一覧のすべての文書をリンクから読んでみてください。<br>
+        アクセスログ（MEMO-L01）のページに次のステップへのボタンがあります。
+      </div>
+    </details>
+
+    <details>
+      <summary>ヒント 2（ほぼ答え）<span class="level">強め</span></summary>
+      <div class="hint-body">
+        アクセスログ（MEMO-L01）ページの下部に「KAT-001 の記憶データを閲覧する」ボタンがあります。<br>
+        そこから記憶データビューアへ進み、さらに内部通信ログへと続きます。
+      </div>
+    </details>
+  </div>
+
+  <hr>
+
+  <!-- STAGE 6 -->
+  <div class="stage">
+    <h2 class="stage-title">Stage 6 ── 最後のページへ</h2>
+    <p class="stage-desc">記憶データビューア（KL-9/10）まで到達した方へ。</p>
+
+    <details>
+      <summary>ヒント（エンディングへ）<span class="level">中程度</span></summary>
+      <div class="hint-body">
+        記憶データビューアで同期を完了すると、内部通信ログ（MEMO-C01）へのリンクが表示されます。<br>
+        通信ログの最下部にエンディングへのリンクがあります。<br>
+        <strong>エンディングのソースコードも確認してみてください。</strong>
+      </div>
+    </details>
+  </div>
+
+  <div class="footer-links">
+    <a href="hint-allpages.html">全ページ一覧（ネタバレあり）</a>
+  </div>
+
+  <p style="font-size:10px; color:#bbb; text-align:center; margin-top:40px; line-height:1.5;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</p>
+
+</div>
+</body>
+</html>

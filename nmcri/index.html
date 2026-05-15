@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>国立記憶・認知研究所 | NMCRI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'MS Mincho', Georgia, serif;
+      background: #fff;
+      color: #222;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    a { color: #3a6a9a; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ヘッダー */
+    header {
+      background: #1a2a4a;
+      padding: 22px 40px;
+      border-bottom: 3px solid #4a7ab0;
+    }
+    .site-name {
+      color: #e8f0f8;
+      font-size: 1.35em;
+      letter-spacing: 0.06em;
+    }
+    .site-name-en {
+      color: #7a9abc;
+      font-size: 0.72em;
+      font-family: 'Times New Roman', 'Georgia', serif;
+      letter-spacing: 0.05em;
+      margin-top: 3px;
+    }
+
+    /* ナビ */
+    nav { background: #243550; }
+    nav ul { list-style: none; display: flex; max-width: 960px; margin: 0 auto; padding: 0 20px; }
+    nav a {
+      display: block;
+      color: #b0c8e0;
+      padding: 11px 18px;
+      font-size: 12px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    nav a:hover { background: rgba(255,255,255,0.08); color: #ddeeff; text-decoration: none; }
+
+    /* ヒーロー */
+    .hero {
+      background: linear-gradient(160deg, #1a2a4a 0%, #243a64 60%, #1e3258 100%);
+      color: #e8f0f8;
+      padding: 64px 40px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 1.5em;
+      letter-spacing: 0.1em;
+      margin-bottom: 18px;
+      font-weight: normal;
+      line-height: 1.6;
+    }
+    .hero p {
+      font-size: 0.88em;
+      color: #90b0cc;
+      line-height: 2;
+      max-width: 580px;
+      margin: 0 auto;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+
+    /* メイン */
+    .main-wrap { max-width: 960px; margin: 0 auto; padding: 52px 32px 64px; }
+    section { margin-bottom: 60px; }
+
+    h2 {
+      font-size: 1.05em;
+      color: #1a2a4a;
+      border-left: 4px solid #4a7ab0;
+      padding-left: 12px;
+      margin-bottom: 20px;
+      letter-spacing: 0.04em;
+      font-weight: bold;
+    }
+    p { color: #444; margin-bottom: 14px; font-size: 13.5px; }
+
+    /* 研究分野グリッド */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .research-card {
+      border: 1px solid #c8d8e8;
+      padding: 20px 18px;
+      border-radius: 3px;
+      background: #f6f9fc;
+    }
+    .research-card h3 {
+      font-size: 0.88em;
+      color: #1a2a4a;
+      margin-bottom: 8px;
+      font-weight: bold;
+      letter-spacing: 0.02em;
+    }
+    .research-card p { font-size: 0.82em; color: #666; margin: 0; line-height: 1.7; }
+
+    /* 沿革 */
+    .history-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .history-table tr { border-bottom: 1px solid #e4ecf4; }
+    .history-table td { padding: 11px 14px; vertical-align: top; color: #444; }
+    .history-table td:first-child {
+      width: 110px;
+      color: #4a7ab0;
+      white-space: nowrap;
+      font-weight: bold;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+
+    /* フッター */
+    footer {
+      background: #1a2a4a;
+      padding: 28px 40px;
+      color: #607888;
+      font-size: 11.5px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .footer-inner { max-width: 960px; margin: 0 auto; }
+    .partner-row {
+      border-top: 1px solid #243550;
+      margin-top: 18px;
+      padding-top: 16px;
+      font-size: 11px;
+      color: #4a6070;
+      line-height: 1.9;
+    }
+    .partner-row a { color: #7aaac8; }
+    .partner-row a:hover { color: #aad0e8; text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      .hero { padding: 44px 20px; }
+      .main-wrap { padding: 36px 18px 48px; }
+      nav ul { flex-wrap: wrap; }
+      nav a { padding: 9px 12px; font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="site-name">国立記憶・認知研究所</div>
+  <div class="site-name-en">National Memory and Cognitive Research Institute &nbsp;/&nbsp; NMCRI</div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#">研究所概要</a></li>
+    <li><a href="#">研究プロジェクト</a></li>
+    <li><a href="#">発表・刊行物</a></li>
+    <li><a href="#">連携・協力</a></li>
+    <li><a href="#">アクセス・お問い合わせ</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <h1>人の認知と記録に関する<br>科学的研究の推進</h1>
+  <p>NMCRIは、認知科学・神経科学を基盤として、記憶・学習・認知機能に関する基礎研究および応用研究を行う機関です。</p>
+</div>
+
+<div class="main-wrap">
+
+  <section>
+    <h2>研究所概要</h2>
+    <p>国立記憶・認知研究所（NMCRI）は、昭和28年に設立された認知科学の専門研究機関です。人間の認知機能・記憶プロセス・神経回路の解析を専門領域とし、基礎科学から地域医療支援まで幅広い研究活動を行っております。</p>
+    <p>認知機能の評価手法開発、および長期的な認知データの収集・保存・活用に関する研究を通じて、高齢社会における認知機能維持と地域福祉への貢献を使命としています。</p>
+    <p style="font-size: 12px; color: #aaa; margin-top: 6px;">※ 当研究所のウェブサイトは現在移行作業中です。一部ページが正しく表示されない場合があります。</p>
+  </section>
+
+  <section>
+    <h2>主な研究分野</h2>
+    <div class="research-grid">
+      <div class="research-card">
+        <h3>認知機能評価</h3>
+        <p>記憶・注意・判断に関わる神経科学的評価手法の研究開発</p>
+      </div>
+      <div class="research-card">
+        <h3>長期認知データ保存</h3>
+        <p>個人の認知状態を経年的に記録・保存するアーカイブ技術の研究</p>
+      </div>
+      <div class="research-card">
+        <h3>地域連携型認知研究</h3>
+        <p>自治体と連携した住民参加型の認知機能追跡プログラム</p>
+      </div>
+      <div class="research-card">
+        <h3>認知データ倫理研究</h3>
+        <p>保存された認知記録の学術的・社会的活用に関する倫理的考察</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>沿革</h2>
+    <table class="history-table">
+      <tr><td>昭和28年</td><td>国立記憶・認知研究所設立</td></tr>
+      <tr><td>昭和35年</td><td>地域自治体との連携研究プログラムを開始</td></tr>
+      <tr><td>昭和42年</td><td>第2研究棟竣工。大規模認知データ収集・保管設備を整備</td></tr>
+      <tr><td>昭和54年</td><td>文部省（現 文部科学省）より特別研究機関に認定</td></tr>
+      <tr><td>平成10年</td><td>認知データデジタルアーカイブ化プロジェクト開始</td></tr>
+      <tr><td>平成21年</td><td>国際認知科学連盟（ICCS）との研究協定締結</td></tr>
+      <tr><td>令和3年</td><td>地域連携型認知研究プログラムを拡充。複数の協力自治体と包括協定を締結</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>お問い合わせ</h2>
+    <p style="font-size: 13px; line-height: 2.2;">
+      所在地：非公開（郵便でのお問い合わせのみ受け付けております）<br>
+      受付時間：平日 9:00〜17:00（土日祝・年末年始を除く）<br>
+      ※ 研究協力・連携に関するお問い合わせは、担当部署までご連絡ください。<br>
+      ※ 一般の方からの個別取材・情報提供依頼には対応しておりません。
+    </p>
+  </section>
+
+</div>
+
+<div style="text-align:center; padding:32px 20px 24px; background:#f8f8f8; border-top:1px solid #e0e0e0;">
+  <a href="../index.html" style="display:inline-block; background:#1a2a4a; color:#e8f0f8; text-decoration:none; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif; font-size:14px; letter-spacing:0.08em; padding:14px 40px; border-radius:2px; border:1px solid #4a7ab0;">
+    協力自治体　かたつま町
+  </a>
+  <div style="margin-top:10px; font-size:11px; color:#aaa; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;">
+    かたつま町ふるさと納税サイトへ
+  </div>
+</div>
+
+<div style="max-width:960px; margin:0 auto; padding:10px 32px; border-top:1px solid #d8d8d0; text-align:center; position:relative; background:#f4f4f2;">
+  <span style="font-size:11px; color:#999; line-height:1.7;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+  <span style="font-size:0.72em; color:#bbb; white-space:nowrap; position:absolute; right:32px; top:50%; transform:translateY(-50%);">Page ID: 17/27</span>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p>©国立記憶・認知研究所　/ National Memory and Cognitive Research Institute (NMCRI)</p>
+    <div class="partner-row">
+      研究協力自治体：<a href="../index.html">かたつま町</a> / 他、詳細は非公開<br>
+      当研究所の連携事業に関する詳細は、各協力自治体の担当窓口にお問い合わせください。
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

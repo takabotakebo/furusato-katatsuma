@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>MEMO-005 人員管理規程 | 記憶管理担当課</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+<div class="admin-sysbar">
+  <span>KTMS &nbsp;/&nbsp; 記憶管理担当課 内部管理システム &nbsp; v3.2</span>
+  <span id="sys-time-top">--:--:--</span>
+</div>
+<div class="admin-header">
+  <span style="font-weight:bold; color:#1a3a5a;">記憶管理担当課　内部文書管理</span>
+  <span>
+    セッション：<span id="session-id" style="font-family:monospace; color:#4a7ab0;">—</span>
+    &nbsp;&nbsp;
+    <a href="../index.html" class="admin-back-link">← 公開サイトへ戻る</a>
+  </span>
+</div>
+<div class="admin-layout">
+
+  <div class="admin-sidebar">
+    <div class="admin-sidebar-title">DOCUMENT INDEX</div>
+    <ul class="admin-sidebar-nav">
+      <li><a href="index.html">内部書類一覧</a></li>
+      <li class="nav-divider"></li>
+      <li><a href="history.html">MEMO-H01　歴史記録</a></li>
+      <li><a href="memo-001.html">MEMO-001　昭和40年事案</a></li>
+      <li><a href="memo-002.html">MEMO-002　収集月報</a></li>
+      <li><a href="memo-003.html">MEMO-003　エージェント記録</a></li>
+      <li><a href="memo-004.html">MEMO-004　用途分類</a></li>
+      <li><a href="memo-005.html" class="active">MEMO-005　人員管理規程</a></li>
+      <li><a href="access-log.html">MEMO-L01　アクセスログ</a></li>
+      <li class="nav-divider"></li>
+      <li><a href="#" style="color:#c06030; font-size:11px; cursor:default; pointer-events:none;">MEMO-C01　通信ログ ⚠ 制限中</a></li>
+    </ul>
+  </div>
+
+  <div class="admin-content">
+    <div class="admin-main">
+      <p class="admin-title">MEMO-005　人員管理規程（記憶提供者→人材化プロセス）</p>
+      <div class="memo-body">人員管理規程（記憶提供者→人材化プロセス）
+作成：記憶管理担当課　分類：S / 永久保管
+
+記憶提供者から人材化へのプロセス：
+
+1. 住民または寄附経験者が、3回以上の記憶回収を経て記憶提供者に登録する
+2. 登録後、自発的な定期提供を継続する
+3. 感情反応が基準値以下になった時点で「移行適格」と判定する
+4. 移行後は行政業務に配置する
+5. 定期的に補充記憶（分類C）を投与し、振る舞いを維持する
+
+現在の人材化済み人員：194名
+（うち記憶管理担当課配置：47名）
+
+────────────────────────────────────
+【更新事項】
+
+令和5年度：事案1件　処置完了（詳細：人員管理規程 付則参照）
+令和5年12月1日付での人員管理変更手続き：完了
+引き継ぎ対象業務の移管：完了
+────────────────────────────────────
+
+なお、付則は非公開です。</div>
+    </div>
+    <span class="admin-page-id">KL-7/10</span>
+    <div class="admin-footer-bottom">
+      <span class="admin-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  var el = document.getElementById('sys-time-top');
+  function tick() {
+    var d = new Date();
+    if (el) el.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  tick(); setInterval(tick, 1000);
+  var s = sessionStorage.getItem('kt_session_id');
+  if (!s) { s = 'SID-' + Math.random().toString(36).substr(2,8).toUpperCase(); sessionStorage.setItem('kt_session_id', s); }
+  var sid = document.getElementById('session-id');
+  if (sid) sid.textContent = s;
+})();
+</script>
+</body>
+</html>

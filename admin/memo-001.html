@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>MEMO-001 昭和40年10月事案 | 記憶管理担当課</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+<div class="admin-sysbar">
+  <span>KTMS &nbsp;/&nbsp; 記憶管理担当課 内部管理システム &nbsp; v3.2</span>
+  <span id="sys-time-top">--:--:--</span>
+</div>
+<div class="admin-header">
+  <span style="font-weight:bold; color:#1a3a5a;">記憶管理担当課　内部文書管理</span>
+  <span>
+    セッション：<span id="session-id" style="font-family:monospace; color:#4a7ab0;">—</span>
+    &nbsp;&nbsp;
+    <a href="../index.html" class="admin-back-link">← 公開サイトへ戻る</a>
+  </span>
+</div>
+<div class="admin-layout">
+  <div class="admin-sidebar">
+    <div class="admin-sidebar-title">DOCUMENT INDEX</div>
+    <ul class="admin-sidebar-nav">
+      <li><a href="index.html">内部書類一覧</a></li>
+      <li class="nav-divider"></li>
+      <li><a href="history.html">MEMO-H01　歴史記録</a></li>
+      <li><a href="memo-001.html" class="active">MEMO-001　昭和40年事案</a></li>
+      <li><a href="memo-002.html">MEMO-002　収集月報</a></li>
+      <li><a href="memo-003.html">MEMO-003　エージェント記録</a></li>
+      <li><a href="memo-004.html">MEMO-004　用途分類</a></li>
+      <li><a href="memo-005.html">MEMO-005　人員管理規程</a></li>
+      <li><a href="access-log.html">MEMO-L01　アクセスログ</a></li>
+      <li class="nav-divider"></li>
+      <li><a href="#" style="color:#c06030; font-size:11px; cursor:default; pointer-events:none;">MEMO-C01　通信ログ ⚠ 制限中</a></li>
+    </ul>
+  </div>
+  <div class="admin-content">
+    <p class="admin-title">MEMO-001　昭和40年10月事案の記録（要約）</p>
+    <div class="memo-body">昭和40年10月事案の記録（要約）
+作成：記憶管理担当課　分類：S / 永久保管
+
+【経緯】
+昭和28年より、本町では「記憶素材の研究」を継続実施していた。
+研究内容は、幼少期（0〜7歳）の記憶が成人記憶に対して有する
+認知・感情的優位性の検証、および採取手法の開発。
+
+採取対象は本町在住の児童。
+出生記録の登録手続きに初期採取を昭和32年より組み込んだ。
+対象児童の親権者への通知は行っていない。
+
+【昭和40年10月の事案】
+同年9月、採取の事実が住民の一部に発覚した。
+経緯は不明。内部からの漏洩の可能性が高い。
+
+発覚した住民312名が、証言・告発の準備を開始した。
+一部は外部の行政機関への申告を予定していた。
+
+【対応】
+同年10月、対象の312名に対して記憶回収処置を実施した。
+発覚以前の記憶（採取の事実・証言準備の内容）を回収・消去した。
+
+対象者全員が当該期間の記憶を失い、告発は立ち消えた。
+当該312名は「転居」として記録上処理した。
+
+【その後】
+翌昭和41年、記憶管理条例を制定した。
+以後の採取業務は、法的根拠のもとで継続可能となった。
+
+【現在】
+初期採取（出生記録登録時）は現在も継続中。
+対象児童は令和6年4月時点で累計4,081名。
+
+「未使用の幼少期（一式）」として流通しているものが、その成果の一部である。
+
+なお、昭和40年に記憶を消された312名の元親権者の一部は
+現在もかたつま町の住民または寄附者として記録されている。
+彼らは自分の子どもに何が行われたかを、今も知らない。</div>
+    <span class="admin-page-id">KL-3/10</span>
+    <div class="admin-footer-bottom">
+      <span class="admin-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  var el = document.getElementById('sys-time-top');
+  function tick() {
+    var d = new Date();
+    if (el) el.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  tick(); setInterval(tick, 1000);
+  var s = sessionStorage.getItem('kt_session_id');
+  if (!s) { s = 'SID-' + Math.random().toString(36).substr(2,8).toUpperCase(); sessionStorage.setItem('kt_session_id', s); }
+  var sid = document.getElementById('session-id');
+  if (sid) sid.textContent = s;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>MEMO-003 エージェント生成記録 | 記憶管理担当課</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+<div class="admin-sysbar">
+  <span>KTMS &nbsp;/&nbsp; 記憶管理担当課 内部管理システム &nbsp; v3.2</span>
+  <span id="sys-time-top">--:--:--</span>
+</div>
+<div class="admin-header">
+  <span style="font-weight:bold; color:#1a3a5a;">記憶管理担当課　内部文書管理</span>
+  <span>
+    セッション：<span id="session-id" style="font-family:monospace; color:#4a7ab0;">—</span>
+    &nbsp;&nbsp;
+    <a href="../index.html" class="admin-back-link">← 公開サイトへ戻る</a>
+  </span>
+</div>
+<div class="admin-layout">
+  <div class="admin-sidebar">
+    <div class="admin-sidebar-title">DOCUMENT INDEX</div>
+    <ul class="admin-sidebar-nav">
+      <li><a href="index.html">内部書類一覧</a></li>
+      <li class="nav-divider"></li>
+      <li><a href="history.html">MEMO-H01　歴史記録</a></li>
+      <li><a href="memo-001.html">MEMO-001　昭和40年事案</a></li>
+      <li><a href="memo-002.html">MEMO-002　収集月報</a></li>
+      <li><a href="memo-003.html" class="active">MEMO-003　エージェント記録</a></li>
+      <li><a href="memo-004.html">MEMO-004　用途分類</a></li>
+      <li><a href="memo-005.html">MEMO-005　人員管理規程</a></li>
+      <li><a href="access-log.html">MEMO-L01　アクセスログ</a></li>
+      <li class="nav-divider"></li>
+      <li><a href="#" style="color:#c06030; font-size:11px; cursor:default; pointer-events:none;">MEMO-C01　通信ログ ⚠ 制限中</a></li>
+    </ul>
+  </div>
+  <div class="admin-content">
+    <p class="admin-title">MEMO-003　エージェント生成記録（令和3年度）</p>
+    <div class="memo-body">エージェント生成記録（令和3年度）
+作成：記憶管理担当課　分類：S / 永久保管
+
+■ 山之内タカシ（エージェントID：AGT-007）
+
+生成日：令和3年8月12日
+素材：MEM-0847（40代・男性・神奈川県）/ MEM-1203（30代・男性・埼玉県）
+     MEM-2091（50代・男性・東京都）/ 他9件
+目的：調査誘導用エージェントの生成（新規アクセス者の誘導）
+運用状況：稼働中
+備考：対象者の自発的行動を誘発するよう調整済み。
+     本エージェントは自身の生成経緯を認識していない。
+     誘導実績：ウェブ記事経由の新規アクセス　令和5年11月〜　計7件確認。</div>
+    <span class="admin-page-id">KL-5/10</span>
+    <div class="admin-footer-bottom">
+      <span class="admin-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  var el = document.getElementById('sys-time-top');
+  function tick() {
+    var d = new Date();
+    if (el) el.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  tick(); setInterval(tick, 1000);
+  var s = sessionStorage.getItem('kt_session_id');
+  if (!s) { s = 'SID-' + Math.random().toString(36).substr(2,8).toUpperCase(); sessionStorage.setItem('kt_session_id', s); }
+  var sid = document.getElementById('session-id');
+  if (sid) sid.textContent = s;
+})();
+</script>
+</body>
+</html>
