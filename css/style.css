@@ -327,7 +327,7 @@ main {
 /* ===== 外部バナー ===== */
 .external-banners-wrap {
   max-width: 960px;
-  margin: 48px auto 0;
+  margin: 48px auto 60px;
   padding: 0 32px;
 }
 .external-banners-label {
@@ -1295,6 +1295,9 @@ footer {
   .info-boxes { grid-template-columns: 1fr; }
   .top-quicknav { grid-template-columns: 1fr 1fr; gap: 10px; }
   .feature-info { padding: 20px 20px; }
+  .external-banners-wrap { padding: 0 16px; }
+  .external-banners { flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .external-banners img { width: calc(50% - 5px); max-width: 160px; }
 }
 
 /* ===== Back to portal button ===== */
