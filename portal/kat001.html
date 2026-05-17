@@ -18,6 +18,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
 
     .portal-subheader {
@@ -42,6 +43,7 @@
       margin: 28px auto 40px;
       padding: 0 20px;
       flex: 1;
+      overflow: hidden;
     }
     .drive-path {
       font-size: 11px;
@@ -124,6 +126,8 @@
       margin-top: 20px;
       border: 1px solid #ccd4c4;
       background: #fafcf8;
+      max-width: 100%;
+      overflow: hidden;
     }
     .file-viewer.open { display: block; }
 
@@ -160,6 +164,7 @@
       font-size: 12px;
       line-height: 2.0;
       color: #444;
+      overflow: hidden;
     }
 
     /* 日誌スタイル */
@@ -254,7 +259,7 @@
 
     /* 付箋スタイル */
     .sticky-note {
-      display: inline-block;
+      display: block;
       background: #fffde7;
       border: 1px solid #f0d060;
       padding: 22px 28px;
@@ -265,7 +270,9 @@
       transform: rotate(-1.2deg);
       box-shadow: 2px 3px 8px rgba(0,0,0,0.10);
       margin: 12px 0 8px;
-      width: 380px;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 380px;
     }
     .sticky-label {
       font-size: 10px;
@@ -352,6 +359,21 @@
         margin-top: 0;
         margin-left: 6px;
         vertical-align: middle;
+      }
+      .file-viewer-body {
+        padding: 16px 14px 20px;
+      }
+      .sticky-note {
+        font-size: 18px;
+        padding: 16px 18px;
+        transform: none;
+      }
+      .pdf-frame {
+        padding: 20px 18px;
+        transform: none;
+      }
+      .pdf-frame table {
+        font-size: 11px;
       }
     }
   </style>

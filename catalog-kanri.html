@@ -93,6 +93,26 @@
       background: #fdf4f4;
       color: #5a2020;
     }
+
+    @media (max-width: 600px) {
+      .log-topbar { flex-direction: column; align-items: flex-start; gap: 2px; padding: 6px 16px; }
+      .log-table thead { display: none; }
+      .log-table tr {
+        display: block;
+        border-bottom: 2px solid #d4e4c8;
+        padding: 10px 0;
+      }
+      .log-table td {
+        display: block;
+        padding: 3px 12px;
+        border-bottom: none;
+        width: 100% !important;
+        white-space: normal;
+      }
+      .log-code { color: #aaa; font-size: 11px; }
+      .log-name { font-size: 14px; }
+      .log-date { font-size: 11px; color: #bbb; }
+    }
   </style>
 </head>
 <body>

@@ -41,6 +41,27 @@
       border-radius: 3px;
       margin-bottom: 18px;
     }
+
+    @media (max-width: 600px) {
+      .doc-list thead { display: none; }
+      .doc-list tr {
+        display: block;
+        border-bottom: 2px solid #ddd;
+        padding: 12px 0;
+        margin-bottom: 4px;
+      }
+      .doc-list td {
+        display: block;
+        padding: 3px 12px;
+        border-bottom: none;
+        width: 100% !important;
+        white-space: normal;
+      }
+      .doc-date { color: #999; font-size: 11px; }
+      .doc-from { color: #666; font-size: 12px; }
+      .doc-ref  { font-size: 11px; }
+      .doc-list td.doc-title { font-size: 13px; color: #222; font-weight: bold; }
+    }
   </style>
 </head>
 <body>
