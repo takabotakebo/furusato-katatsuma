@@ -19,8 +19,17 @@
     /* ヘッダー */
     header {
       background: #1a2a4a;
-      padding: 22px 40px;
+      padding: 18px 40px;
       border-bottom: 3px solid #4a7ab0;
+    }
+    .header-inner {
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
     }
     .site-name {
       color: #e8f0f8;
@@ -33,6 +42,37 @@
       font-family: 'Times New Roman', 'Georgia', serif;
       letter-spacing: 0.05em;
       margin-top: 3px;
+    }
+    .nmcri-search {
+      display: flex;
+      flex-shrink: 0;
+    }
+    .nmcri-search input[type="text"] {
+      padding: 7px 12px;
+      font-size: 12px;
+      border: 1px solid #3a5a8a;
+      border-right: none;
+      background: #0e1a2e;
+      color: #b0c8e0;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      width: 220px;
+      outline: none;
+    }
+    .nmcri-search input[type="text"]::placeholder { color: #4a6a8a; }
+    .nmcri-search input[type="text"]:focus { border-color: #6a9ac8; background: #142030; }
+    .nmcri-search button {
+      padding: 7px 14px;
+      font-size: 12px;
+      background: #2a4a7a;
+      color: #b0c8e0;
+      border: 1px solid #3a5a8a;
+      cursor: pointer;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      letter-spacing: 0.03em;
+    }
+    .nmcri-search button:hover { background: #3a5a8a; color: #ddeeff; }
+    @media (max-width: 600px) {
+      .nmcri-search input[type="text"] { width: 140px; }
     }
 
     /* ナビ */
@@ -52,10 +92,22 @@
     /* ヒーロー */
     .hero {
       background: linear-gradient(160deg, #1a2a4a 0%, #243a64 60%, #1e3258 100%);
+      background-image: url('../img/nmcri-hero.png');
+      background-size: cover;
+      background-position: center;
       color: #e8f0f8;
       padding: 64px 40px;
       text-align: center;
+      position: relative;
     }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(18, 28, 52, 0.62);
+      pointer-events: none;
+    }
+    .hero > * { position: relative; }
     .hero h1 {
       font-size: 1.5em;
       letter-spacing: 0.1em;
@@ -73,7 +125,7 @@
     }
 
     /* メイン */
-    .main-wrap { max-width: 960px; margin: 0 auto; padding: 52px 32px 64px; }
+    .main-wrap { max-width: 960px; margin: 0 auto; padding: 52px 32px 20px; }
     section { margin-bottom: 60px; }
 
     h2 {
@@ -153,8 +205,16 @@
 <body>
 
 <header>
-  <div class="site-name">国立記憶・認知研究所</div>
-  <div class="site-name-en">National Memory and Cognitive Research Institute &nbsp;/&nbsp; NMCRI</div>
+  <div class="header-inner">
+    <div>
+      <div class="site-name">国立記憶・認知研究所</div>
+      <div class="site-name-en">National Memory and Cognitive Research Institute &nbsp;/&nbsp; NMCRI</div>
+    </div>
+    <form class="nmcri-search" id="site-search">
+      <input type="text" id="search-input" placeholder="協力自治体サイト内を検索" autocomplete="off">
+      <button type="submit">検索</button>
+    </form>
+  </div>
 </header>
 
 <nav>
@@ -178,7 +238,6 @@
     <h2>研究所概要</h2>
     <p>国立記憶・認知研究所（NMCRI）は、昭和28年に設立された認知科学の専門研究機関です。人間の認知機能・記憶プロセス・神経回路の解析を専門領域とし、基礎科学から地域医療支援まで幅広い研究活動を行っております。</p>
     <p>認知機能の評価手法開発、および長期的な認知データの収集・保存・活用に関する研究を通じて、高齢社会における認知機能維持と地域福祉への貢献を使命としています。</p>
-    <p style="font-size: 12px; color: #aaa; margin-top: 6px;">※ 当研究所のウェブサイトは現在移行作業中です。一部ページが正しく表示されない場合があります。</p>
   </section>
 
   <section>
@@ -236,7 +295,7 @@
 
 </div>
 
-<div style="text-align:center; padding:32px 20px 24px; background:#f8f8f8; border-top:1px solid #e0e0e0;">
+<div style="text-align:center; padding:32px 20px 24px;">
   <a href="../index.html" style="display:inline-block; background:#1a2a4a; color:#e8f0f8; text-decoration:none; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif; font-size:14px; letter-spacing:0.08em; padding:14px 40px; border-radius:2px; border:1px solid #4a7ab0;">
     協力自治体　かたつま町
   </a>
@@ -245,20 +304,11 @@
   </div>
 </div>
 
-<div style="max-width:960px; margin:0 auto; padding:10px 32px; border-top:1px solid #d8d8d0; text-align:center; position:relative; background:#f4f4f2;">
-  <span style="font-size:11px; color:#999; line-height:1.7;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
-  <span style="font-size:0.72em; color:#bbb; white-space:nowrap; position:absolute; right:32px; top:50%; transform:translateY(-50%);">Page ID: 17/27</span>
+<div style="max-width:960px; width:100%; margin:0 auto; padding:0 32px; box-sizing:border-box;">
+  <div style="font-size:11px; color:#bbb; text-align:right; font-family:'Courier New',monospace; padding:6px 0 4px;">Page ID: 18/31</div>
+  <div style="border-top:1px solid #d8d8d0; padding:10px 0 20px; text-align:center; font-size:11px; color:#999; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif; line-height:1.7;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</div>
 </div>
 
-<footer>
-  <div class="footer-inner">
-    <p>©国立記憶・認知研究所　/ National Memory and Cognitive Research Institute (NMCRI)</p>
-    <div class="partner-row">
-      研究協力自治体：<a href="../index.html">かたつま町</a> / 他、詳細は非公開<br>
-      当研究所の連携事業に関する詳細は、各協力自治体の担当窓口にお問い合わせください。
-    </div>
-  </div>
-</footer>
-
+<script src="../js/search.js"></script>
 </body>
 </html>

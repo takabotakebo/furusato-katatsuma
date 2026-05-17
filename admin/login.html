@@ -133,6 +133,12 @@
     </div>
   </div>
 </div>
+<div style="position:fixed; bottom:0; left:0; right:0; background:#0e1520; z-index:10; padding:0 32px 12px;">
+  <div style="max-width:480px; width:100%; margin:0 auto; box-sizing:border-box;">
+    <div style="font-size:11px; font-family:'Courier New',monospace; color:#3a5070; text-align:right; padding:6px 0 4px;">Page ID: 31/31</div>
+    <div style="border-top:1px solid #1e2e44; padding-top:10px; font-size:11px; font-family:'Courier New',monospace; color:#3a5070; text-align:center; line-height:1.6;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</div>
+  </div>
+</div>
 
 <script>
 (function () {
@@ -147,6 +153,7 @@
     var err = document.getElementById('login-error');
 
     if (id === VALID_ID && pw === VALID_PW) {
+      sessionStorage.clear();
       sessionStorage.setItem('ktms_auth', '1');
       window.location.href = 'loading.html';
     } else if (id === VALID_ID && pw !== VALID_PW) {

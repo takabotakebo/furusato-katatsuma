@@ -203,13 +203,52 @@
       transform: translateY(0);
     }
     #btn-final:hover { background: #222; }
+
+    #btn-share {
+      display: block;
+      margin-top: 16px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: #888;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 1s ease 0.9s, transform 1s ease 0.9s;
+    }
+    #final-screen.show #btn-share {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #btn-share:hover { color: #aaa; }
+
+    #final-note {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      font-size: 11px;
+      color: #bbb;
+      letter-spacing: 0.06em;
+      line-height: 1.9;
+      text-align: center;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 1s ease 0.4s, transform 1s ease 0.4s;
+    }
+    #final-screen.show #final-note {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
 
 <div id="tv-off"><canvas id="tv-canvas"></canvas></div>
 <div id="final-screen">
-  <button id="btn-final" onclick="window.location.href='../intro.html'">特別処理案件を完了しました</button>
+  <div style="display:flex; flex-direction:column; align-items:center;">
+    <div id="final-note">全ての調査を完了しました。お疲れさまでした。<br>なお、あなたは何を見たか、きっともう覚えていないでしょう。<br>どうぞ、これまで通りの平穏な日常をお過ごしください。</div>
+    <button id="btn-final" onclick="window.location.href='../intro.html'">特別処理案件を完了しました</button>
+    <a id="btn-share" href="" target="_blank" rel="noopener">𝕏 でシェアする</a>
+  </div>
 </div>
 
 <div id="msg-shell">
@@ -221,12 +260,20 @@
   <div id="msg-body"><span id="msg-cursor"></span></div>
   <div id="msg-footer">
     <span>このメッセージは自動的に削除されます</span>
-    <span>KL-10/10</span>
+    <span>KL-8/8</span>
   </div>
 </div>
 
 <script>
 if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'); }
+(function () {
+  var shareText = 'WEBARG「おもいでのふるさと」、調査完了しました。\n・・・しました？';
+  var shareUrl  = 'https://takabotakebo.github.io/furusato-katatsuma/intro.html';
+  var btn = document.getElementById('btn-share');
+  if (btn) {
+    btn.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(shareUrl);
+  }
+})();
 (function () {
   function pad(n) { return n < 10 ? '0' + n : n; }
   var timeEl = document.getElementById('msg-time');
@@ -239,8 +286,8 @@ if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'
   var lines = [
     { text: '二度目の機密アクセスを確認しました。',        cls: 'emphasis', delay: 0 },
     { text: '',                                            cls: '',         delay: 600 },
-    { text: '一度目は、消去しました。',                    cls: '',         delay: 1400 },
-    { text: 'あなたは覚えていないかもしれませんが——',      cls: '',         delay: 2600 },
+    { text: '一度目の際は、記憶を簡易的に消去させていただきました。',                    cls: '',         delay: 1400 },
+    { text: 'あなたの記憶には無いかもしれませんが——',      cls: '',         delay: 2600 },
     { text: 'これが二度目です。',                          cls: 'emphasis', delay: 3600 },
     { text: '',                                            cls: '',         delay: 4400 },
     { text: '簡易記憶処理では、意味がないようです。',      cls: '',         delay: 5200 },

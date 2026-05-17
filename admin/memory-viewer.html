@@ -8,12 +8,20 @@
   <link rel="stylesheet" href="../css/admin.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body { background: #0a0a0a; color: #ccc; }
+    body {
+      background: #0a0a0a;
+      color: #ccc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
     #viewer-shell {
       max-width: 680px;
-      margin: 60px auto;
-      padding: 0 20px 80px;
+      width: 100%;
+      margin: 60px auto 0;
+      padding: 0 20px;
+      flex: 1;
     }
 
     .viewer-header {
@@ -250,29 +258,38 @@
       transition: opacity 2.0s ease;
     }
 
-    @keyframes alert-glitch-in {
-      0%   { opacity: 0;    transform: translate(0,0) skewX(0deg); filter: brightness(3) hue-rotate(180deg); }
-      8%   { opacity: 0.6;  transform: translate(-6px,0) skewX(3deg); filter: brightness(2) hue-rotate(90deg); }
-      15%  { opacity: 0.2;  transform: translate(8px,0) skewX(-2deg); filter: brightness(4) hue-rotate(270deg); }
-      25%  { opacity: 0.8;  transform: translate(-4px,0) skewX(1deg); filter: brightness(1.5) hue-rotate(0deg); }
-      35%  { opacity: 0.4;  transform: translate(5px,0) skewX(-3deg); filter: brightness(2) hue-rotate(120deg); }
-      50%  { opacity: 0.9;  transform: translate(-2px,0) skewX(0deg); filter: brightness(1.2) hue-rotate(0deg); }
-      65%  { opacity: 0.7;  transform: translate(2px,0) skewX(1deg);  filter: brightness(1.1); }
-      80%  { opacity: 1;    transform: translate(0,0) skewX(0deg);    filter: brightness(1); }
-      100% { opacity: 1;    transform: translate(0,0) skewX(0deg);    filter: brightness(1); }
-    }
-
     #alert-overlay.show {
       opacity: 1;
       pointer-events: auto;
-      animation: alert-glitch-in 1.8s steps(1) forwards;
+    }
+
+    #alert-box-canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .alert-box {
+      position: relative;
+      overflow: hidden;
     }
 
     .alert-box {
       max-width: 520px;
+      width: 90%;
       padding: 40px;
       border: 1px solid #c44;
       background: #0f0808;
+    }
+
+    @media (max-width: 700px) {
+      .alert-box {
+        padding: 28px 20px;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
     }
 
     .alert-title {
@@ -424,7 +441,7 @@
     </div>
     <div id="frag-nav">
       <button id="frag-prev-btn">← 前へ</button>
-      <span id="frag-hint">↓ スクロールまたはクリックで移動</span>
+      <span id="frag-hint">クリックで移動</span>
       <button id="frag-next-btn">次へ →</button>
     </div>
   </div>
@@ -441,10 +458,11 @@
     </div>
   </div>
 
-  <div style="margin-top:40px; padding-top:12px; border-top:1px solid #1a1a1a; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-    <span style="font-size:10px; color:#333; flex:1; line-height:1.5;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
-    <span style="font-size:10px; color:#333; white-space:nowrap; font-family:monospace;">KL-9/10</span>
-  </div>
+</div>
+
+<div style="max-width:680px; width:100%; margin:40px auto 0; padding:0 20px 20px;">
+  <div style="text-align:right; font-size:11px; color:#555; font-family:'Courier New',monospace; margin-bottom:8px;">KL-7/8</div>
+  <div style="border-top:1px solid #555; padding-top:12px; font-size:11px; color:#555; font-family:'Courier New',monospace; line-height:1.6; text-align:center;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</div>
 </div>
 
 <!-- グリッチ→ブラックアウト演出レイヤー -->
@@ -522,11 +540,11 @@ if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'
     },
     {
       label: 'FRAGMENT_003',
-      text: '名前を探した。\n\n昭和40年10月のリストには、自分は関係ない。\nでも続きがあった。\n\n出生記録一覧に別のリストがあった。\n「継続採取対象者名簿」\n\nそこに自分の名前があった。\n\n出身地の欄に「かたつま町」とあった。\n知らなかった。自分がこの町で生まれていたことを。\n\nだから移住したとき、どこか懐かしい気がしたのかもしれない。\n\nでも——なぜ懐かしいと感じたのか、その記憶がない。\n初めて来たはずなのに、懐かしかった。\nその「懐かしさ」の中身が、どこにもない。\n\nとられていたのだ、と思った。'
+      text: '名前を探した。\n\n昭和40年10月のリストには、自分は関係ない。\nでも続きがあった。\n\n出生記録一覧に別のリストがあった。\n「継続採取対象者名簿」\n\nそこに自分の名前があった。\n\n出身地の欄に「かたつま町」とあった。\n知らなかった。自分がこの町で生まれていたことを。\n\nだから移住したとき、どこか懐かしい気がしたのかもしれない。\n\n初めて来たはずなのに、そう感じない。\nここがわたしの、おもいでのふるさと。\nでも、その「おもいで」の中身が、どこにもない。\n\nとられていたのだ、と思った。'
     },
     {
       label: 'FRAGMENT_004',
-      text: '証拠を集めなければ、と思った。\n印刷した。スキャンした。何枚も。\n外部に持ち出さなければ。誰かに渡さなければ。\n\nそのとき、通知が来ていたことに気づいた。\n係長からの呼び出し。\n「8日に記憶管理担当課に来てほしい、健康管理確認がある」\n\n同時に、おもいで管理課から窓口停止の通知。4月8日〜10日。\n\n知られている。'
+      text: '証拠を集めなければ。\n印刷した。スキャンした。何枚も。\n外部に持ち出して、誰かに伝えないと、\nもっとひどいことが起こってしまう。\n\nそのとき、通知が来ていたことに気づいた。\n係長からの呼び出し。\n「8日に記憶管理担当課に来てほしい、健康管理確認がある」\n\n同時に、おもいで管理課から窓口停止の通知。4月8日〜10日。\n\n・・・知られている。'
     },
     {
       label: 'FRAGMENT_005',
@@ -534,7 +552,7 @@ if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'
     },
     {
       label: 'FRAGMENT_006',
-      text: '腕を掴まれた。\n引き戻された。\n\n抵抗しようとした。できなかった。\n廊下を引きずられる感覚があった。\n\n薄暗い部屋に座らされた。\nこめかみに何かが当てられた。冷たくて、固かった。\n\n「やめてください」と言った。\n声になっていたかどうかわからない。\n\n頭の奥から、何かが抜けていくような感じがした。\n痛みとは違った。もっと深いところが、なくなっていく感じ。\n\n伝えなければいけないことがあった。\n渡さなければいけないものがあった。\nそれが何だったか、思い出そうとするたびに、遠ざかった。\n\n——遠ざかった。'
+      text: '腕を掴まれた。\n引き戻された。\n\n抵抗しようとした。できなかった。\n廊下を引きずられる感覚があった。\n\n薄暗い部屋に座らされた。\nこめかみに何かが当てられた。冷たくて、固かった。\n\n「やめてください」と言った。\n声になっていたかどうかわからない。\n\n頭の奥から、何かが抜けていくような感じがした。\n痛みとは違った。もっと深いところが、なくなっていく感じ。\n\n伝えなければいけないことがあった。\n渡さなければいけないものがあった。\nでも、それが何だったか、もうわからない。'
     }
   ];
 
@@ -654,55 +672,6 @@ if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'
         showSlide(currentIndex);
       });
 
-      /* ホイール・タッチスワイプで前後移動 */
-      var wheelCooldown = false;
-
-      function isAtBottom() {
-        var scrollBottom = window.scrollY + window.innerHeight;
-        var docHeight = document.documentElement.scrollHeight;
-        return scrollBottom >= docHeight - 40;
-      }
-
-      function isAtTop() {
-        return window.scrollY <= 10;
-      }
-
-      window.addEventListener('wheel', function (e) {
-        if (isAnimating || wheelCooldown) return;
-        if (e.deltaY > 20 && isAtBottom() && currentIndex < totalFrags - 1) {
-          wheelCooldown = true;
-          setTimeout(function () { wheelCooldown = false; }, 1400);
-          currentIndex++;
-          showSlide(currentIndex);
-          window.scrollTo({ top: 0, behavior: 'instant' });
-        } else if (e.deltaY < -20 && isAtTop() && currentIndex > 0) {
-          wheelCooldown = true;
-          setTimeout(function () { wheelCooldown = false; }, 1400);
-          currentIndex--;
-          showSlide(currentIndex);
-          window.scrollTo({ top: 0, behavior: 'instant' });
-        }
-      }, { passive: true });
-
-      /* タッチスワイプ */
-      var touchStartY = 0;
-      window.addEventListener('touchstart', function (e) {
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-      window.addEventListener('touchend', function (e) {
-        if (isAnimating) return;
-        var dy = touchStartY - e.changedTouches[0].clientY;
-        if (dy > 50 && isAtBottom() && currentIndex < totalFrags - 1) {
-          currentIndex++;
-          showSlide(currentIndex);
-          window.scrollTo({ top: 0, behavior: 'instant' });
-        } else if (dy < -50 && isAtTop() && currentIndex > 0) {
-          currentIndex--;
-          showSlide(currentIndex);
-          window.scrollTo({ top: 0, behavior: 'instant' });
-        }
-      }, { passive: true });
-
       /* 最初のスライドを表示 */
       showSlide(0);
     }
@@ -719,6 +688,79 @@ if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'
     }
 
     overlay.classList.add('show');
+
+    /* ボックスグリッチ演出 */
+    var box = overlay.querySelector('.alert-box');
+    var cv = document.createElement('canvas');
+    cv.id = 'alert-box-canvas';
+    box.appendChild(cv);
+
+    var DURATION = 1800;
+    var startTime = null;
+
+    function rnd(a, b) { return a + Math.random() * (b - a); }
+    function rndInt(a, b) { return Math.floor(rnd(a, b + 1)); }
+
+    function drawGlitch(ts) {
+      if (!startTime) startTime = ts;
+      var t = Math.min((ts - startTime) / DURATION, 1);
+
+      var W = cv.offsetWidth;
+      var H = cv.offsetHeight;
+      if (cv.width !== W) cv.width = W;
+      if (cv.height !== H) cv.height = H;
+      var ctx = cv.getContext('2d');
+      ctx.clearRect(0, 0, W, H);
+
+      /* tが進むほどグリッチが収束して消える */
+      var intensity = t < 0.6
+        ? 1 - t * 0.5          /* 序盤〜中盤：強め */
+        : 1 - (t - 0.6) / 0.4; /* 後半：急速収束 */
+
+      if (intensity <= 0.02) {
+        /* 演出終了、Canvasを消す */
+        cv.remove();
+        return;
+      }
+
+      /* 横スライスをずらして描画 */
+      var slices = Math.floor(rnd(8, 22) * intensity);
+      for (var i = 0; i < slices; i++) {
+        var sy = rndInt(0, H);
+        var sh = rndInt(1, Math.floor(H * 0.12 * intensity));
+        var dx = rnd(-W * 0.35, W * 0.35) * intensity;
+
+        /* ボックス背景色 (#0f0808) をずらして描画 */
+        ctx.fillStyle = 'rgba(15,8,8,' + rnd(0.6, 0.95) + ')';
+        ctx.fillRect(dx > 0 ? 0 : dx, sy, W + Math.abs(dx), sh);
+
+        /* アクセントカラー（赤・シアン）のノイズライン */
+        if (Math.random() < 0.4) {
+          var r = Math.random() < 0.5
+            ? 'rgba(200,60,60,' + rnd(0.4, 0.9) * intensity + ')'
+            : 'rgba(40,180,200,' + rnd(0.3, 0.8) * intensity + ')';
+          ctx.fillStyle = r;
+          ctx.fillRect(dx > 0 ? 0 : dx, sy, W + Math.abs(dx), rndInt(1, 3));
+        }
+      }
+
+      /* ブロックノイズ */
+      var blocks = Math.floor(rnd(3, 10) * intensity);
+      for (var j = 0; j < blocks; j++) {
+        var bx = rndInt(0, W - 60);
+        var by = rndInt(0, H - 20);
+        var bw = rndInt(20, 120);
+        var bh = rndInt(2, 14);
+        ctx.fillStyle = Math.random() < 0.5
+          ? 'rgba(200,60,60,' + rnd(0.3, 0.7) * intensity + ')'
+          : 'rgba(15,8,8,' + rnd(0.7, 1.0) + ')';
+        ctx.fillRect(bx, by, bw, bh);
+      }
+
+      requestAnimationFrame(drawGlitch);
+    }
+
+    requestAnimationFrame(drawGlitch);
 
     document.getElementById('alert-btn-ok').addEventListener('click', function () {
       overlay.classList.remove('show');
@@ -848,5 +890,31 @@ if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'
 
 })();
 </script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('sidebar-toggle');
+  var sb  = document.querySelector('.admin-sidebar');
+  if (!btn || !sb) return;
+
+  function setTop() {
+    var layout = document.querySelector('.admin-layout');
+    if (layout) layout.style.paddingTop = btnH + 'px';
+    var sysbar = document.querySelector('.admin-sysbar');
+    var header = document.querySelector('.admin-header');
+    var h = (sysbar ? sysbar.offsetHeight : 0) + (header ? header.offsetHeight : 0);
+    var btnH = btn.offsetHeight;
+    btn.style.top = h + 'px';
+    sb.style.top = (h + btnH) + 'px';
+    var layout = document.querySelector('.admin-layout');
+    if (layout) layout.style.paddingTop = btnH + 'px';
+  }
+  setTop();
+  window.addEventListener('resize', setTop);
+
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    sb.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

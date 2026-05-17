@@ -4,90 +4,255 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <title>ふるさと納税で「記憶」が買える自治体を見つけた話｜山之内タカシ</title>
+  <title>このふるさと納税のサイト、なんか変じゃないですか｜山之内タカシ｜tone</title>
+  <!-- OGP ※公開URLが変わった場合は og:url を更新すること -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="このふるさと納税のサイト、なんか変じゃないですか｜tone">
+  <meta property="og:description" content="あるふるさと納税サイトが、なんか変だ。気になった人だけ、調べてみてください。">
+  <meta property="og:url" content="https://takabotakebo.github.io/furusato-katatsuma/intro.html">
+  <meta property="og:image" content="https://takabotakebo.github.io/furusato-katatsuma/img/tone-thumb.png">
+  <meta property="og:site_name" content="WEBARG「おもいでのふるさと」導入">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="このふるさと納税のサイト、なんか変じゃないですか｜tone">
+  <meta name="twitter:description" content="あるふるさと納税サイトが、なんか変だ。気になった人だけ、調べてみてください。">
+  <meta name="twitter:image" content="https://takabotakebo.github.io/furusato-katatsuma/img/tone-thumb.png">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
       background: #fff;
       color: #333;
+      font-size: 16px;
       line-height: 1.8;
     }
 
-    /* ヘッダー */
+    /* ===== ヘッダー ===== */
     .site-header {
+      position: sticky;
+      top: 0;
+      background: #fff;
       border-bottom: 1px solid #eee;
-      padding: 14px 24px;
+      height: 56px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      padding: 0 24px;
+      gap: 16px;
+      z-index: 200;
     }
-    .site-name {
-      font-size: 20px;
+    .site-logo {
+      font-size: 36px;
       font-weight: bold;
       color: #111;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.04em;
+      text-decoration: none;
+      flex-shrink: 0;
     }
-    .site-name span {
-      color: #555;
+    .header-search {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 440px;
+      max-width: 40vw;
+    }
+    .header-search input {
+      width: 100%;
+      background: #f5f5f5;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 16px 8px 36px;
       font-size: 13px;
-      font-weight: normal;
-      margin-left: 8px;
+      color: #333;
+      outline: none;
     }
-
-    /* メインカラム */
-    .container {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 48px 24px 120px;
+    .header-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+      font-size: 14px;
     }
-
-    /* 筆者ヘッダー */
-    .author-meta {
+    .header-right {
+      margin-left: auto;
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 32px;
+      gap: 8px;
     }
-    .author-avatar {
-      width: 40px;
-      height: 40px;
+    .btn-post {
+      font-size: 13px;
+      color: #555;
+      background: none;
+      border: none;
+      cursor: default;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-login {
+      font-size: 13px;
+      color: #333;
+      background: none;
+      border: none;
+      cursor: default;
+      padding: 6px 12px;
+    }
+    .btn-signup {
+      font-size: 13px;
+      color: #fff;
+      background: #111;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 20px;
+      cursor: default;
+      font-weight: bold;
+    }
+
+    /* ===== レイアウト ===== */
+    .page-body {
+      display: flex;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+      gap: 0;
+      justify-content: center;
+    }
+
+    /* ===== 左サイドバー ===== */
+    .sidebar {
+      width: 80px;
+      flex-shrink: 0;
+      padding-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      position: fixed;
+      top: 56px;
+      left: max(16px, calc(50% - 600px));
+      height: calc(100vh - 56px);
+    }
+    .sidebar-collapse {
+      font-size: 18px;
+      color: #ccc;
+      cursor: default;
+      margin-bottom: 12px;
+      align-self: flex-start;
+    }
+    .sidebar-avatar {
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
-      background: #ddd;
+      background: #c8d8d0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
-      color: #999;
-      flex-shrink: 0;
-    }
-    .author-info-name {
-      font-size: 14px;
+      font-size: 20px;
       font-weight: bold;
-      color: #333;
+      color: #fff;
+      margin-bottom: 2px;
     }
-    .author-info-date {
-      font-size: 12px;
+    .sidebar-name {
+      font-size: 13px;
+      font-weight: bold;
+      color: #111;
+      margin-bottom: 2px;
+    }
+    .sidebar-bio {
+      font-size: 11px;
       color: #999;
+      margin-bottom: 10px;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .btn-follow-side {
+      font-size: 12px;
+      color: #fff;
+      background: #111;
+      border: none;
+      border-radius: 4px;
+      padding: 7px 14px;
+      cursor: default;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ===== メインコンテンツ ===== */
+    .main {
+      flex: 1;
+      max-width: 680px;
+      padding: 0 40px 120px;
+      min-width: 0;
+    }
+
+    /* ヘッダー画像 */
+    .eyecatch {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      margin-top: 40px;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .eyecatch::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 48px;
+      background: linear-gradient(to top, rgba(0,0,0,0.18) 0%, transparent 100%);
+      pointer-events: none;
     }
 
     /* タイトル */
     h1 {
-      font-size: 28px;
-      line-height: 1.4;
+      font-size: 30px;
+      line-height: 1.5;
       color: #111;
+      font-weight: bold;
       margin-bottom: 16px;
-      letter-spacing: -0.01em;
     }
 
-    /* リード */
-    .lead {
-      font-size: 16px;
-      color: #666;
-      line-height: 1.8;
-      margin-bottom: 36px;
-      padding-bottom: 36px;
-      border-bottom: 1px solid #eee;
+    /* スキ（タイトル直下） */
+    .title-likes {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* 著者メタ（タイトル下） */
+    .author-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .author-avatar-sm {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #c8d8d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .author-meta-name {
+      font-size: 13px;
+      font-weight: bold;
+      color: #333;
+    }
+    .author-meta-date {
+      font-size: 12px;
+      color: #aaa;
     }
 
     /* 本文 */
@@ -95,57 +260,56 @@
       font-size: 16px;
       color: #333;
       line-height: 2.0;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     h2 {
-      font-size: 20px;
+      font-size: 19px;
+      font-weight: bold;
       color: #111;
-      margin: 40px 0 16px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #f0f0f0;
+      margin: 44px 0 18px;
+      line-height: 1.5;
     }
 
-    .quote-block {
-      border-left: 3px solid #ddd;
-      padding: 12px 20px;
-      margin: 24px 0;
-      color: #666;
-      font-size: 15px;
-      line-height: 1.9;
-      background: #fafafa;
-    }
-
+    /* リンクカード */
     .link-card {
-      display: block;
-      border: 1px solid #e0e0e0;
-      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
       padding: 16px 20px;
       margin: 32px 0;
       text-decoration: none;
       color: inherit;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: box-shadow 0.15s;
     }
-    .link-card:hover {
-      border-color: #aaa;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    .link-card-label {
-      font-size: 11px;
-      color: #aaa;
-      letter-spacing: 0.06em;
-      margin-bottom: 6px;
-    }
+    .link-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .link-card-body { flex: 1; min-width: 0; }
     .link-card-title {
       font-size: 15px;
       font-weight: bold;
       color: #222;
       margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .link-card-url {
       font-size: 11px;
-      color: #aaa;
+      color: #bbb;
       font-family: monospace;
+    }
+    .link-card-icon {
+      width: 56px;
+      height: 56px;
+      background: #f5f5f5;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
     }
 
     /* タグ */
@@ -153,45 +317,100 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 40px;
-      padding-top: 32px;
-      border-top: 1px solid #eee;
+      margin: 36px 0;
     }
     .tag {
-      font-size: 12px;
-      color: #888;
+      font-size: 13px;
+      color: #555;
       background: #f5f5f5;
-      padding: 4px 10px;
+      padding: 5px 14px;
       border-radius: 20px;
+      text-decoration: none;
     }
 
-    /* 筆者プロフィール */
-    .author-profile {
-      margin-top: 48px;
-      padding: 24px;
-      border: 1px solid #eee;
-      border-radius: 8px;
+    /* アクションバー（記事末尾） */
+    .action-bar {
       display: flex;
-      gap: 16px;
-      align-items: flex-start;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 40px;
     }
-    .author-profile-avatar {
-      width: 56px;
-      height: 56px;
+    .action-like {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .action-like-btn {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: #e0e0e0;
+      border: 1px solid #e0e0e0;
+      background: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      color: #bbb;
+      font-size: 18px;
+      color: #ccc;
+      cursor: default;
+    }
+    .action-like-count { font-size: 14px; color: #aaa; }
+    .action-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #ccc;
+      cursor: default;
+    }
+
+    /* 著者プロフィール */
+    .author-profile {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 28px 0;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 48px;
+    }
+    .author-profile-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #c8d8d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
       flex-shrink: 0;
     }
+    .author-profile-body { flex: 1; }
+    .author-profile-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
     .author-profile-name {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: bold;
-      color: #222;
-      margin-bottom: 6px;
+      color: #111;
+    }
+    .btn-follow-black {
+      font-size: 13px;
+      color: #fff;
+      background: #111;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 20px;
+      cursor: default;
+      font-weight: bold;
     }
     .author-profile-bio {
       font-size: 13px;
@@ -199,137 +418,291 @@
       line-height: 1.8;
     }
 
+    /* 底部固定アクションバー */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 32px;
+      z-index: 100;
+    }
+    .bottom-bar-like {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: #e05a6a;
+    }
+    .bottom-bar-like-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid #e05a6a;
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: default;
+      color: #e05a6a;
+    }
+    .bottom-bar-icon {
+      font-size: 20px;
+      color: #aaa;
+      cursor: default;
+    }
+
+    /* おすすめ */
+    .recommend {
+      padding: 32px 0 48px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .recommend-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #111;
+      margin-bottom: 20px;
+    }
+    .recommend-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .recommend-card { text-decoration: none; color: inherit; }
+    .recommend-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #e8e8e8;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #bbb;
+    }
+    .recommend-thumb.c1 { background: linear-gradient(135deg, #2a1a0a, #6a3a1a, #c87030); }
+    .recommend-thumb.c2 { background: linear-gradient(135deg, #0a0a1a, #1a1a3a, #2a3a5a); }
+    .recommend-thumb.c3 { background: linear-gradient(135deg, #1a0a2a, #3a1a4a, #6a3a7a); }
+    .recommend-thumb.c4 { background: linear-gradient(135deg, #0a1a1a, #1a3a3a, #2a5a5a); }
+    .recommend-card-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #111;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    .recommend-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+    .recommend-meta-avatar {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #ddd;
+      flex-shrink: 0;
+    }
+    .recommend-likes {
+      font-size: 12px;
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     /* フッター */
     footer {
-      margin-top: 80px;
       border-top: 1px solid #eee;
-      padding: 24px;
-      text-align: center;
+      padding: 24px 24px 80px;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 20px;
+      margin-bottom: 16px;
+    }
+    .footer-links a {
+      color: #41c9b4;
+      text-decoration: none;
+      font-size: 12px;
+    }
+    .footer-copy {
       font-size: 11px;
       color: #bbb;
       line-height: 1.8;
+    }
+
+    @media (max-width: 640px) {
+      .sidebar { display: none; }
+      .main { padding: 0 0 100px; }
+      .page-body { padding: 0 16px; }
+      h1 { font-size: 24px; }
     }
   </style>
 </head>
 <body>
 
 <header class="site-header">
-  <div class="site-name">調査メモ<span>— 山之内タカシの雑記</span></div>
+  <a class="site-logo" href="#">tone</a>
+  <div class="header-search">
+    <span class="header-search-icon">🔍</span>
+    <input type="text" placeholder="キーワードやクリエイターで検索">
+  </div>
+  <div class="header-right">
+    <button class="btn-post">✏ 投稿</button>
+    <button class="btn-login">ログイン</button>
+    <button class="btn-signup">会員登録</button>
+  </div>
 </header>
 
-<div class="container">
+<div class="page-body">
 
-  <div class="author-meta">
-    <div class="author-avatar">山</div>
-    <div>
-      <div class="author-info-name">山之内タカシ</div>
-      <div class="author-info-date">2023年11月1日</div>
-    </div>
+  <!-- 左サイドバー -->
+  <div class="sidebar">
+    <div class="sidebar-collapse">«</div>
+    <div class="sidebar-avatar">山</div>
+    <div class="sidebar-name">山之内タカシ</div>
+    <div class="sidebar-bio">会社員 / 雑記</div>
+    <button class="btn-follow-side">👤 フォロー</button>
   </div>
 
-  <h1>ふるさと納税で「記憶」が買える自治体を見つけた話</h1>
+  <!-- メイン -->
+  <div class="main">
 
-  <p class="lead">
-    ふるさと納税を調べていたら、変なサイトにたどり着いた。
-    返礼品の中に「おもいで詰め合わせセット」がある。最初は冗談かと思った。でも読めば読むほど、何かがおかしい。誰か一緒に見てほしい。
-  </p>
+    <div class="eyecatch"><img src="img/tone-thumb.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
 
-  <p class="body-text">
-    もともと今年のふるさと納税を何にしようか調べていた。米や酒の定番ものを見ていたら、何かの拍子に「かたつま町」というところのサイトが出てきた。山間の小さな自治体らしく、サイトも普通のふるさと納税カタログに見えた。
-  </p>
+    <h1>このふるさと納税のサイト、なんか変じゃないですか</h1>
 
-  <p class="body-text">
-    ところが返礼品のカテゴリに「サービス・体験」というタブがあって、その中に「おもいで詰め合わせセット」とある。
-  </p>
+    <div class="title-likes">♡ 0</div>
 
-  <div class="quote-block">
-    「かたつま町の定期健康管理プログラムを通じて採取・保管されている記憶データの詰め合わせセットです。複数名の日常的な記憶断片が収録されており、他者の人生をさまざまな視点から体験することができます。」
-  </div>
-
-  <p class="body-text">
-    ……「他者の記憶断片」。「他者の人生を体験」。
-  </p>
-
-  <p class="body-text">
-    続きを読むと「マーケティング調査用のペルソナ設計、ユーザーリサーチ、共感体験ツールとして企業にもご利用いただいております」とある。注意事項には「体験後しばらくすると、収録された記憶が自身のものと区別がつかなくなることがあります。これは仕様であり、異常ではありません」とある。
-  </p>
-
-  <p class="body-text">
-    完全に意味がわからない。
-  </p>
-
-  <img src="img/intro-eyecatch.png" alt="かたつま町返礼品カタログのスクリーンショット" style="width:100%; border-radius:4px; margin:32px 0 8px; display:block;">
-
-  <h2>品目名が、また変だった</h2>
-
-  <p class="body-text">
-    さらに調べると、サイト内検索フォームで品目名を入れると詳細ページが開く仕組みになっているらしい。「おもいで詰め合わせセット」以外にも品目があるようで、ほかにも何かが公開されていないか試してみた。
-  </p>
-
-  <p class="body-text">
-    見つけた品目名が「忘れていた夏」「あの人との時間」「幼少期の記憶」——。
-  </p>
-
-  <p class="body-text">
-    「幼少期の記憶（一式）」って、何だ。
-  </p>
-
-  <p class="body-text">
-    私は一通り読んだけれど、途中からよく分からなくなってきた。このサイトは何を売っているのか。「おもいで管理課」というのはどういう組織なのか。「記憶管理条例」というものが実在するらしい。そしてサイト内のどこかに内部管理システムに通じる経路があるらしいことに気づいた——ただ、そこから先に入る方法が私にはわからなかった。
-  </p>
-
-  <h2>誰か調べてみてほしい</h2>
-
-  <p class="body-text">
-    私はこういう調査に向いていないと思う。読み込むほど頭が混乱してきて、どこから手をつけるべきか分からなくなる。でも、このサイトは何かある気がしている。
-  </p>
-
-  <p class="body-text">
-    昭和40年に何かがあったらしい。312人という数字が出てくる。お知らせに気になる「件名」が書いてある。
-  </p>
-
-  <p class="body-text">
-    これが本当に架空のサービスサイトなのか、あるいは——何か別のものなのか。詳しい人や、こういうのが好きな人に渡したほうがいいと思って、ここに書いておく。
-  </p>
-
-  <p class="body-text">
-    サイトはここ。
-  </p>
-
-  <a href="index.html" class="link-card">
-    <div class="link-card-label">EXTERNAL LINK</div>
-    <div class="link-card-title">かたつま町 ふるさと納税返礼品カタログ</div>
-    <div class="link-card-url">katatsuma-furusato / index.html</div>
-  </a>
-
-  <p class="body-text" style="font-size:14px; color:#999; margin-top:8px;">
-    ※ 検索フォームで品目名を入れるといろいろ出てくる。お知らせの件名もそのまま入れてみた。
-  </p>
-
-  <div class="tags">
-    <span class="tag">#ふるさと納税</span>
-    <span class="tag">#調査</span>
-    <span class="tag">#かたつま町</span>
-    <span class="tag">#記憶</span>
-  </div>
-
-  <div class="author-profile">
-    <div class="author-profile-avatar">山</div>
-    <div>
-      <div class="author-profile-name">山之内タカシ</div>
-      <div class="author-profile-bio">
-        神奈川県在住。会社員。気になったことをメモしておくブログ。<br>
-        連絡先は持っていません。
+    <div class="author-meta">
+      <div class="author-avatar-sm">山</div>
+      <div>
+        <div class="author-meta-name">山之内タカシ</div>
+        <div class="author-meta-date">2025年10月14日 23:08</div>
       </div>
     </div>
-  </div>
 
+    <p class="body-text">
+      うまく説明できないんだけど、気になってしまったので書いておく。
+    </p>
+
+    <p class="body-text">
+      先週、ふるさと納税を何にしようか調べていて「かたつま町」というところのサイトを開いた。どこにでもありそうな返礼品カタログで、最初はとくに何も思わなかった。
+    </p>
+
+    <p class="body-text">
+      でもなんとなく読み進めていたら、じわじわと違和感が出てきた。うまく言葉にできないんだけど、返礼品の商品をちゃんと読むと「え？」ってなる部分があって、それから気になって他のページも見ていたら、なんか全体的にちょっとおかしい気がしてきた。
+    </p>
+
+    <p class="body-text">
+      気のせいかもしれない。普通のサイトをただ深読みしてるだけかもしれない。でも一度気になってしまうと、どうしても頭から離れなくて、結局その日の夜もまた開いてしまった。
+    </p>
+
+    <p class="body-text">
+      自分でもう少し調べようとしたんだけど、正直どこから手をつければいいのかわからなかった。サイトをひと通り見て、なんとなくこの先に何かあるんじゃないかという感覚はあるんだけど、それ以上のことは私には無理だった。
+    </p>
+
+    <p class="body-text">
+      こういうの得意な人いたら、見てみてほしいです。私が見落としているだけで何もない普通のサイトなのか、それとも本当に何かあるのか、どっちなのか知りたい。
+    </p>
+
+    <p class="body-text">
+      以下にリンクを置いておきます。
+    </p>
+
+    <a href="index.html" class="link-card">
+      <div class="link-card-body">
+        <div class="link-card-title">かたつま町 ふるさと納税特設サイト</div>
+        <div class="link-card-url">katatsuma-furusato/index.html</div>
+      </div>
+      <div class="link-card-icon">🔗</div>
+    </a>
+
+    <div class="tags">
+      <a class="tag" href="#">#ふるさと納税</a>
+      <a class="tag" href="#">#かたつま町</a>
+      <a class="tag" href="#">#調査</a>
+    </div>
+
+    <div class="action-bar">
+      <div class="action-like">
+        <button class="action-like-btn">♡</button>
+        <span class="action-like-count">0</span>
+      </div>
+      <div class="action-icon">💬</div>
+      <div class="action-icon">⬆</div>
+      <div class="action-icon">···</div>
+    </div>
+
+    <div class="author-profile">
+      <div class="author-profile-avatar">山</div>
+      <div class="author-profile-body">
+        <div class="author-profile-top">
+          <div class="author-profile-name">山之内タカシ</div>
+          <button class="btn-follow-black">フォロー</button>
+        </div>
+        <div class="author-profile-bio">
+          神奈川県在住。会社員。気になったことをメモしておくブログ。<br>
+          連絡先は持っていません。
+        </div>
+      </div>
+    </div>
+
+    <!-- おすすめ -->
+    <div class="recommend">
+      <div class="recommend-title">こちらもおすすめ</div>
+      <div class="recommend-grid">
+        <a class="recommend-card" href="https://note.com/kaf_386/n/n29130066f924" target="_blank" rel="noopener">
+          <div class="recommend-thumb" style="background:#111; padding:0; overflow:hidden;"><img src="img/note-thumb.png" alt="" style="width:100%; height:100%; object-fit:cover;"></div>
+          <div class="recommend-card-title">ARGでカオスになりがちなブラウザタブを救うために、専用ブラウザ型ツールを作った</div>
+          <div class="recommend-meta"><img src="img/note-icon.jpg" alt="" class="recommend-meta-avatar" style="object-fit:cover;">KAF　</div>
+          <div class="recommend-likes">♡ &nbsp; 𝕏</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <footer>
-  このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>
-  Copyright ©KAF. All Rights Reserved.
+  <div class="footer-links">
+    <a href="#">toneプレミアム</a>
+    <a href="#">tone pro</a>
+    <a href="#">ヘルプ</a>
+    <a href="#">プライバシー</a>
+    <a href="#">クリエイターへのお問い合わせ</a>
+    <a href="#">フィードバック</a>
+    <a href="#">ご利用規約</a>
+    <a href="#">特商法表記</a>
+  </div>
+  <div class="footer-copy">
+    このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>
+    Copyright ©KAF. All Rights Reserved.
+  </div>
 </footer>
+
+<div class="bottom-bar">
+  <div class="bottom-bar-like">
+    <button class="bottom-bar-like-btn">♡</button>
+    <span>0</span>
+  </div>
+  <div class="bottom-bar-icon">⬆</div>
+  <div class="bottom-bar-icon">···</div>
+</div>
 
 </body>
 </html>

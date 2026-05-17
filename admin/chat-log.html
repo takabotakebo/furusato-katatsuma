@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -23,14 +23,13 @@
 </div>
 <div class="admin-layout">
 
-  <div class="admin-sidebar">
-    <div class="admin-sidebar-title">DOCUMENT INDEX</div>
+  <div class="admin-sidebar">    <div class="admin-sidebar-title">DOCUMENT INDEX</div>
     <ul class="admin-sidebar-nav">
       <li><a href="index.html">▸ 内部書類一覧</a></li>
       <li class="nav-group-label"><i class="fa-regular fa-file"></i> FILES</li>
-      <li><a href="memo-007.html">FILE01　PROJECT-9について</a></li>
-      <li><a href="memo-003.html">FILE02　AGT-007通達</a></li>
-      <li><a href="memo-report.html">FILE03　稼働実績報告</a></li>
+      <li><a href="file-01.html">FILE01　PROJECT-9について</a></li>
+      <li><a href="file-02.html">FILE02　AGT-007通達</a></li>
+      <li><a href="file-03.html">FILE03　稼働実績報告</a></li>
       <li class="nav-group-label"><i class="fa-solid fa-display"></i> SYSTEM</li>
       <li><a href="access-log.html">アクセスログ</a></li>
       <li><a href="chat-log.html" class="active">秘匿指示通信</a></li>
@@ -102,7 +101,7 @@
 
     </div>
 
-    <span class="admin-page-id">KL-5/6</span>
+    <span class="admin-page-id">KL-6/8</span>
     <div class="admin-footer-bottom">
       <span class="admin-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
     </div>
@@ -111,6 +110,11 @@
 
 <script>
 if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'); }
+(function () {
+  var visits = JSON.parse(sessionStorage.getItem('kt_visits') || '[]');
+  var entry = { t: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' }), id: 'KL-6/8', title: document.title, url: 'chat-log.html' };
+  if (!visits.length || visits[visits.length - 1].url !== entry.url) { visits.push(entry); sessionStorage.setItem('kt_visits', JSON.stringify(visits)); }
+})();
 (function () {
   function pad(n) { return n < 10 ? '0' + n : n; }
   var el = document.getElementById('sys-time-top');
@@ -142,5 +146,70 @@ if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'
   })();
 })();
 </script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('sidebar-toggle');
+  var sb  = document.querySelector('.admin-sidebar');
+  if (!btn || !sb) return;
+
+  function setTop() {
+    var layout = document.querySelector('.admin-layout');
+    if (layout) layout.style.paddingTop = btnH + 'px';
+    var sysbar = document.querySelector('.admin-sysbar');
+    var header = document.querySelector('.admin-header');
+    var h = (sysbar ? sysbar.offsetHeight : 0) + (header ? header.offsetHeight : 0);
+    var btnH = btn.offsetHeight;
+    btn.style.top = h + 'px';
+    sb.style.top = (h + btnH) + 'px';
+    var layout = document.querySelector('.admin-layout');
+    if (layout) layout.style.paddingTop = btnH + 'px';
+  }
+  setTop();
+  window.addEventListener('resize', setTop);
+
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    sb.classList.toggle('open');
+  });
+})();
+</script><div id="sp-nav">
+  <button id="sp-nav-btn">&#9776; MENU</button>
+  <div id="sp-nav-drawer"></div>
+</div>
+<script>
+(function(){
+  if (window.innerWidth > 700) return;
+  var nav    = document.getElementById('sp-nav');
+  var btn    = document.getElementById('sp-nav-btn');
+  var drawer = document.getElementById('sp-nav-drawer');
+  var sidebar = document.querySelector('.admin-sidebar-nav');
+  if (!nav || !btn || !drawer || !sidebar) return;
+
+  drawer.innerHTML = sidebar.outerHTML;
+
+  function positionBtn() {
+    var header = document.querySelector('.admin-header');
+    if (!header) return;
+    var rect = header.getBoundingClientRect();
+    var btnH = btn.offsetHeight;
+    nav.style.top = (rect.top + (rect.height - btnH) / 2) + 'px';
+    drawer.style.top = rect.bottom + 'px';
+  }
+  positionBtn();
+  window.addEventListener('resize', positionBtn);
+  window.addEventListener('scroll', positionBtn);
+
+  btn.addEventListener('click', function(){
+    var open = drawer.classList.toggle('open');
+    btn.textContent = open ? '✕ CLOSE' : '☰ MENU';
+  });
+
+  document.addEventListener('click', function(e){
+    if (!document.getElementById('sp-nav').contains(e.target)) {
+      drawer.classList.remove('open');
+      btn.textContent = '☰ MENU';
+    }
+  });
+})();
+</script></body>
 </html>

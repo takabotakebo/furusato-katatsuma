@@ -250,7 +250,7 @@ body {
 .admin-footer-bottom {
   margin-top: 40px;
   padding: 12px 0;
-  border-top: 1px solid #1a2a3a;
+  border-top: 1px solid #4a5a6a;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -259,14 +259,14 @@ body {
 }
 .admin-disclaimer {
   font-size: 11px;
-  color: #2a3a4a;
+  color: #c8d4e0;
   flex: 1;
   line-height: 1.6;
 }
 .admin-page-id {
   display: block;
   font-size: 11px;
-  color: #2a4a6a;
+  color: #c8d4e0;
   text-align: right;
   white-space: nowrap;
   font-family: 'Courier New', monospace;
@@ -482,23 +482,91 @@ body {
 }
 .ending-rule { border: none; border-top: 1px solid #1a2a3a; margin: 20px 0; }
 
+/* ===== SP nav (mobile only) ===== */
+#sp-nav {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  #sp-nav {
+    display: block;
+    position: fixed;
+    top: calc(27px + (43px - 28px) / 2);
+    right: 16px;
+    z-index: 9000;
+  }
+
+  #sp-nav-btn {
+    background: #0e1520;
+    color: #7aaac8;
+    border: 1px solid #2a3a5a;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 0 14px;
+    cursor: pointer;
+    height: 36px;
+    line-height: 36px;
+    display: block;
+  }
+
+  #sp-nav-drawer {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 240px;
+    background: #0c1018;
+    border: 1px solid #2a3a5a;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.8);
+    max-height: 70vh;
+    overflow-y: auto;
+    z-index: 9000;
+  }
+  #sp-nav-drawer.open {
+    display: block;
+  }
+
+  #sp-nav-drawer .admin-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+  }
+  #sp-nav-drawer .admin-sidebar-nav li a {
+    padding: 10px 18px;
+    font-size: 12px;
+    color: #4a7090;
+    display: block;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+  #sp-nav-drawer .admin-sidebar-nav li a:hover,
+  #sp-nav-drawer .admin-sidebar-nav li a.active {
+    background: rgba(74,138,184,0.12);
+    color: #a8ccee;
+    border-left-color: #2a6a9a;
+  }
+  #sp-nav-drawer .admin-sidebar-nav li.nav-group-label {
+    font-size: 9px;
+    color: #2a4a6a;
+    letter-spacing: 0.14em;
+    font-family: 'Courier New', monospace;
+    padding: 10px 18px 4px;
+  }
+  #sp-nav-drawer .admin-sidebar-nav li.nav-disabled a {
+    color: #2a3a4a;
+    pointer-events: none;
+  }
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 700px) {
   .admin-layout { flex-direction: column; min-height: auto; }
-  .admin-sidebar {
-    width: 100%;
-    height: auto;
-    min-height: auto;
-    position: static;
-    padding: 8px 0;
-    overflow: visible;
-  }
-  .admin-sidebar-title { padding: 6px 14px 8px; }
-  .admin-sidebar-nav { display: flex; flex-wrap: wrap; padding: 0 10px 8px; gap: 2px; }
-  .admin-sidebar-nav li { flex: none; }
-  .admin-sidebar-nav li a { padding: 5px 10px; font-size: 11px; border-left: none; }
-  .admin-sidebar-nav li a.active { background: rgba(74,138,184,0.18); }
-  .admin-sidebar-nav li.nav-divider { display: none; }
+
+  /* サイドバーはスマホ時非表示 */
+  .admin-sidebar { display: none; }
+  .admin-sidebar-title { display: none; }
+
   .admin-content { padding: 16px 14px; }
   .admin-content > * { max-width: 100%; }
   .admin-doclist-header,

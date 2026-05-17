@@ -1,536 +1,544 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <title>全ページ一覧 | かたつま町 ARG</title>
+  <title>Page Index — おもいでのふるさと</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
-      background: #f5f5f5;
-      color: #333;
-      padding: 40px 20px 80px;
+      background: #0f1318;
+      color: #c8d4e0;
+      padding: 48px 24px 100px;
       font-size: 13px;
       line-height: 1.7;
     }
 
     .wrap {
-      max-width: 1000px;
+      max-width: 1040px;
       margin: 0 auto;
     }
 
-    h1 {
-      font-size: 1.2em;
-      color: #1a3a5c;
-      margin-bottom: 4px;
+    /* ヘッダー */
+    .page-header {
+      margin-bottom: 32px;
+      border-bottom: 1px solid #1e2a38;
+      padding-bottom: 20px;
     }
 
-    .subtitle {
-      font-size: 12px;
-      color: #999;
-      margin-bottom: 6px;
+    .page-header h1 {
+      font-size: 1.05em;
+      font-weight: normal;
+      color: #7aaac8;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
     }
 
     .warning {
-      font-size: 12px;
+      display: inline-block;
+      font-size: 11px;
       color: #c0392b;
-      background: #fdf2f0;
-      border: 1px solid #f5c6c0;
-      padding: 10px 14px;
-      border-radius: 3px;
-      margin-bottom: 32px;
+      background: rgba(192,57,43,0.08);
+      border: 1px solid rgba(192,57,43,0.3);
+      padding: 6px 14px;
+      border-radius: 2px;
+      letter-spacing: 0.03em;
     }
 
-    h2 {
-      font-size: 0.95em;
-      color: #1a3a5c;
-      border-left: 4px solid #2a5080;
-      padding-left: 10px;
-      margin: 32px 0 12px;
+    /* セクション */
+    .section {
+      margin-bottom: 48px;
     }
 
-    .kw-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 8px;
-      background: #fff;
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
     }
 
-    .kw-table th {
-      background: #1a3a5c;
-      color: #fff;
-      padding: 8px 12px;
-      text-align: left;
+    .section-title {
+      font-size: 11px;
+      color: #4a7090;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       font-weight: normal;
-      font-size: 12px;
     }
 
-    .kw-table td {
-      padding: 8px 12px;
-      border-bottom: 1px solid #eee;
-      vertical-align: top;
+    .btn-reveal-all {
+      font-size: 11px;
+      padding: 5px 16px;
+      background: transparent;
+      color: #4a7090;
+      border: 1px solid #2a4060;
+      border-radius: 2px;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 0.06em;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .btn-reveal-all:hover {
+      color: #7aaac8;
+      border-color: #4a7090;
     }
 
-    .kw-table tr:last-child td { border-bottom: none; }
-    .kw-table tr:hover td { background: #f9f9f9; }
-
-    .kw {
-      font-weight: bold;
-      color: #1a3a5c;
-      white-space: nowrap;
-    }
-
+    /* テーブル */
     .page-table {
       width: 100%;
       border-collapse: collapse;
-      background: #fff;
+      background: #141c28;
+      border: 1px solid #1e2a38;
     }
 
-    .page-table th {
-      background: #2a5080;
-      color: #fff;
-      padding: 8px 10px;
+    .page-table thead th {
+      background: #0d1520;
+      color: #3a6080;
+      padding: 9px 14px;
       text-align: left;
       font-weight: normal;
-      font-size: 12px;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #1e2a38;
       white-space: nowrap;
     }
+
+    .page-table tbody tr {
+      cursor: pointer;
+      border-bottom: 1px solid #1a2434;
+      transition: background 0.1s;
+    }
+    .page-table tbody tr:last-child { border-bottom: none; }
+    .page-table tbody tr:hover { background: #192030; }
+    .page-table tbody tr.revealed { background: #141c28; }
+    .page-table tbody tr.revealed:hover { background: #192030; }
 
     .page-table td {
-      padding: 8px 10px;
-      border-bottom: 1px solid #eee;
+      padding: 10px 14px;
       vertical-align: top;
       font-size: 12px;
+      color: #8aa0b8;
     }
-
-    .page-table tr:last-child td { border-bottom: none; }
-    .page-table tr:hover td { background: #f9f9f9; }
 
     .page-id {
-      color: #888;
+      color: #3a6080;
       white-space: nowrap;
       text-align: center;
-    }
-
-    .filename {
-      font-family: 'Courier New', Courier, monospace;
+      width: 72px;
+      font-family: 'Courier New', monospace;
       font-size: 11px;
-      color: #555;
-      white-space: nowrap;
+      letter-spacing: 0.06em;
     }
 
-    .hint-info { color: #c0392b; }
-    .hint-info strong { color: #a93226; }
-
-    .dash { color: #ccc; }
-
-    .mgmt-row td {
-      background: #f0f4f0;
-      color: #1a4020;
+    /* スポイラー */
+    .spoiler {
+      display: inline;
+      color: transparent;
+      background: #1e2a3a;
+      border-radius: 2px;
+      user-select: none;
+      transition: color 0.2s, background 0.2s;
     }
 
-    .admin-row td {
-      background: #1c1c1c;
-      color: #888;
+    tr.revealed .spoiler {
+      color: inherit;
+      background: transparent;
     }
 
-    .admin-row.dark td {
-      background: #111;
-      color: #c44;
+    .table-revealed .spoiler {
+      color: inherit !important;
+      background: transparent !important;
     }
 
-    .kw-row td {
-      background: #fffbf0;
+    /* 列ごとのスタイル */
+    .col-name {
+      color: #a0bcd0;
+      min-width: 160px;
     }
 
+    .col-access {
+      min-width: 200px;
+      line-height: 1.8;
+    }
+
+    .col-hint {
+      min-width: 180px;
+      color: #6a8a9a;
+      line-height: 1.8;
+    }
+
+    .dash { color: #2a3a4a; }
+
+    .search-kw {
+      color: #5aabcf;
+      font-weight: bold;
+    }
+
+    .spoiler .search-kw {
+      color: transparent;
+    }
+
+    tr.revealed .spoiler .search-kw,
+    .table-revealed .spoiler .search-kw {
+      color: #5aabcf;
+    }
+
+    /* バックリンク */
     .back-link {
       margin-top: 48px;
       text-align: center;
-      font-size: 12px;
-      color: #aaa;
+      font-size: 11px;
     }
 
-    .back-link a { color: #888; text-decoration: none; }
-    .back-link a:hover { text-decoration: underline; }
+    .back-link a {
+      color: #2a4060;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.15s;
+    }
+    .back-link a:hover { color: #4a7090; }
 
-    @media (max-width: 600px) {
-      .page-table, .kw-table { font-size: 11px; }
-      .page-table th, .page-table td,
-      .kw-table th, .kw-table td { padding: 6px 8px; }
+    .footer-note {
+      font-size: 10px;
+      color: #1e2a38;
+      text-align: center;
+      margin-top: 24px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 700px) {
+      .page-table thead th,
+      .page-table td { padding: 8px 10px; font-size: 11px; }
     }
   </style>
 </head>
 <body>
+
 <div class="wrap">
 
-  <h1>全ページ一覧</h1>
-  <p class="subtitle">かたつま町 ふるさと納税返礼品カタログ — ARGプレイヤー向け完全リファレンス</p>
-  <div class="warning">このページにはすべてのネタバレが含まれます。自力で解いてから参照することを強くおすすめします。</div>
+  <div class="page-header">
+    <h1>Page Index — おもいでのふるさと</h1>
+    <span class="warning">このページにはすべてのネタバレが含まれます。自力で解いてから参照することを強くおすすめします。</span>
+  </div>
 
-  <h2>キーワード一覧（11個）</h2>
-  <table class="kw-table">
-    <tr>
-      <th>#</th>
-      <th>入力キーワード</th>
-      <th>遷移先ページ</th>
-      <th>ヒントの在り処</th>
-    </tr>
-    <tr>
-      <td class="page-id">K-01</td>
-      <td class="kw">大規模採取作業</td>
-      <td>item-kioku-5.html（機密文書）</td>
-      <td>nmcri/index.html（研究所サイト）沿革「昭和40年：大規模採取作業を実施」</td>
-    </tr>
-    <tr>
-      <td class="page-id">K-02</td>
-      <td class="kw">返礼品管理 / 返礼品管理ログ</td>
-      <td>catalog-kanri.html（管理ポータル）</td>
-      <td>機密文書（18/27）末尾の注記</td>
-    </tr>
-    <tr>
-      <td class="page-id">K-03</td>
-      <td class="kw">忘れていた夏</td>
-      <td>item-kioku-3.html（20/27）</td>
-      <td>管理ポータル 品目テーブル内の商品名</td>
-    </tr>
-    <tr>
-      <td class="page-id">K-04</td>
-      <td class="kw">あの人との時間</td>
-      <td>item-kioku-4.html（21/27）</td>
-      <td>管理ポータル 品目テーブル内の商品名</td>
-    </tr>
-    <tr>
-      <td class="page-id">K-05</td>
-      <td class="kw">幼少期の記憶 / 幼少期の記憶（一式）</td>
-      <td>item-kioku-6.html（22/27）</td>
-      <td>管理ポータル 品目テーブル内の商品名</td>
-    </tr>
-    <tr>
-      <td class="page-id">K-06</td>
-      <td class="kw">昭和時代の記憶セット / 昭和時代の記憶セット（混合）</td>
-      <td>item-kioku-7.html（23/27）</td>
-      <td>管理ポータル 品目テーブル内の商品名</td>
-    </tr>
-    <tr>
-      <td class="page-id">K-07</td>
-      <td class="kw">はじめての記憶</td>
-      <td>item-kioku-8.html（26/27）</td>
-      <td>23/27 本文 / 25/27 寄附者の声</td>
-    </tr>
-    <tr>
-      <td class="page-id">K-08</td>
-      <td class="kw">寄附者の声</td>
-      <td>testimonials.html（25/27）</td>
-      <td>管理ポータル レビュー管理セクション / 23/27 本文</td>
-    </tr>
-    <tr>
-      <td class="page-id">K-08b</td>
-      <td class="kw">記憶管理課</td>
-      <td>dept-kioku.html（24/27）</td>
-      <td>削除済み商品ページ（20〜23/27）の注記「旧：記憶管理課」/ intro.html でのタカシの言及</td>
-    </tr>
-    <tr>
-      <td class="page-id">K-09</td>
-      <td class="kw">記憶管理条例</td>
-      <td>jorei/kioku-kanri.html（27/27）</td>
-      <td>24/27 業務概要で初出 / 22/27・23/27・26/27 の注記</td>
-    </tr>
-    <tr>
-      <td class="page-id">K-10</td>
-      <td class="kw">KR-1966</td>
-      <td>admin/index.html（KL-1/10）</td>
-      <td>27/27（条例全文）管理番号「<strong>KR-1966</strong>」が条文中に明記 / about.html 沿革</td>
-    </tr>
-  </table>
+  <!-- 通常サイト + 隠しページ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Main Site — 1/31 〜 31/31</span>
+      <button class="btn-reveal-all" data-target="table-main">すべてのヒントを見る</button>
+    </div>
+    <table class="page-table" id="table-main">
+      <thead>
+        <tr>
+          <th>Page ID</th>
+          <th>ページ名</th>
+          <th>アクセス方法</th>
+          <th>キーワードの発見場所</th>
+        </tr>
+      </thead>
+      <tbody>
 
-  <h2>全ページ一覧 — 探索ルートマップ</h2>
-  <table class="page-table">
-    <tr>
-      <th>Page ID</th>
-      <th>ページ名</th>
-      <th>ファイル名</th>
-      <th>アクセス方法</th>
-      <th>ヒント / 備考</th>
-    </tr>
+        <tr>
+          <td class="page-id">1/31</td>
+          <td class="col-name"><span class="spoiler">トップページ</span></td>
+          <td class="col-access"><span class="spoiler">URL直打ち・ナビバーからリンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">2/31</td>
+          <td class="col-name"><span class="spoiler">返礼品一覧</span></td>
+          <td class="col-access"><span class="spoiler">ナビバーからリンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">3/31</td>
+          <td class="col-name"><span class="spoiler">自治体紹介</span></td>
+          <td class="col-access"><span class="spoiler">ナビバーからリンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">4/31</td>
+          <td class="col-name"><span class="spoiler">お知らせ</span></td>
+          <td class="col-access"><span class="spoiler">ナビバーからリンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">5/31</td>
+          <td class="col-name"><span class="spoiler">寄附の手続き</span></td>
+          <td class="col-access"><span class="spoiler">ナビバーからリンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">6/31</td>
+          <td class="col-name"><span class="spoiler">お問い合わせ</span></td>
+          <td class="col-access"><span class="spoiler">ナビバーからリンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">7/31</td>
+          <td class="col-name"><span class="spoiler">かたつま米</span></td>
+          <td class="col-access"><span class="spoiler">返礼品一覧内リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">8/31</td>
+          <td class="col-name"><span class="spoiler">かたつまそば 手打ち乾麺</span></td>
+          <td class="col-access"><span class="spoiler">返礼品一覧内リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">9/31</td>
+          <td class="col-name"><span class="spoiler">旬の野菜詰め合わせ</span></td>
+          <td class="col-access"><span class="spoiler">返礼品一覧内リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">10/31</td>
+          <td class="col-name"><span class="spoiler">山の幸詰め合わせ</span></td>
+          <td class="col-access"><span class="spoiler">返礼品一覧内リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">11/31</td>
+          <td class="col-name"><span class="spoiler">かたつまの霧 純米大吟醸</span></td>
+          <td class="col-access"><span class="spoiler">返礼品一覧内リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">12/31</td>
+          <td class="col-name"><span class="spoiler">山里味噌 3年熟成</span></td>
+          <td class="col-access"><span class="spoiler">返礼品一覧内リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">13/31</td>
+          <td class="col-name"><span class="spoiler">おもいで詰め合わせセット</span></td>
+          <td class="col-access"><span class="spoiler">返礼品一覧内リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">14/31</td>
+          <td class="col-name"><span class="spoiler">しあわせな記憶（一回分）</span></td>
+          <td class="col-access"><span class="spoiler">返礼品一覧内リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">15/31</td>
+          <td class="col-name"><span class="spoiler">かたつま町　移住レポート</span></td>
+          <td class="col-access"><span class="spoiler">トップページ・返礼品一覧のバナーまたはお知らせから</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">16/31</td>
+          <td class="col-name"><span class="spoiler">寄附者の声</span></td>
+          <td class="col-access"><span class="spoiler">かたつま町移住レポートからリンク / <span class="search-kw">「寄附者の声」</span> で検索</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">17/31</td>
+          <td class="col-name"><span class="spoiler">連携機関 往復文書一覧（NMCRI）</span></td>
+          <td class="col-access"><span class="spoiler"><span class="search-kw">「NMCRI」</span> で検索</span></td>
+          <td class="col-hint"><span class="spoiler">自治体紹介内の「連携・協力機関」より</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">18/31</td>
+          <td class="col-name"><span class="spoiler">国立記憶・認知研究所 公式サイト</span></td>
+          <td class="col-access"><span class="spoiler">連携機関 往復文書一覧内リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">19/31</td>
+          <td class="col-name"><span class="spoiler">MNE法　新処理プロトコルのご案内</span></td>
+          <td class="col-access"><span class="spoiler"><span class="search-kw">「MNE法」</span> で検索</span></td>
+          <td class="col-hint"><span class="spoiler">国立記憶・認知研究所 公式サイト内</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">20/31</td>
+          <td class="col-name"><span class="spoiler">【機密】S-40-10-312 事案記録</span></td>
+          <td class="col-access"><span class="spoiler"><span class="search-kw">「大規模採取作業」</span> で検索</span></td>
+          <td class="col-hint"><span class="spoiler">国立記憶・認知研究所 公式サイト内</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">21/31</td>
+          <td class="col-name"><span class="spoiler">返礼品管理ログ</span></td>
+          <td class="col-access"><span class="spoiler"><span class="search-kw">「返礼品管理」</span> で検索（表記揺れ対応あり）</span></td>
+          <td class="col-hint"><span class="spoiler">【機密】S-40-10-312 事案記録内</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">22/31</td>
+          <td class="col-name"><span class="spoiler">忘れていた夏（1回分）</span></td>
+          <td class="col-access"><span class="spoiler"><span class="search-kw">「忘れていた夏」</span> で検索</span></td>
+          <td class="col-hint"><span class="spoiler">返礼品管理ログ「サービス品目（公開停止・審査保留）」内</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">23/31</td>
+          <td class="col-name"><span class="spoiler">あの人との時間（5分以内）</span></td>
+          <td class="col-access"><span class="spoiler"><span class="search-kw">「あの人との時間」</span> で検索</span></td>
+          <td class="col-hint"><span class="spoiler">返礼品管理ログ「サービス品目（公開停止・審査保留）」内</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">24/31</td>
+          <td class="col-name"><span class="spoiler">幼少期の記憶（一式）</span></td>
+          <td class="col-access"><span class="spoiler"><span class="search-kw">「幼少期の記憶」</span> で検索</span></td>
+          <td class="col-hint"><span class="spoiler">返礼品管理ログ「サービス品目（公開停止・審査保留）」内</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">25/31</td>
+          <td class="col-name"><span class="spoiler">昭和時代の記憶セット（混合）</span></td>
+          <td class="col-access"><span class="spoiler"><span class="search-kw">「昭和時代の記憶セット」</span> で検索</span></td>
+          <td class="col-hint"><span class="spoiler">返礼品管理ログ「サービス品目（公開停止・審査保留）」内</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">26/31</td>
+          <td class="col-name"><span class="spoiler">はじめての記憶（複製不可）</span></td>
+          <td class="col-access"><span class="spoiler"><span class="search-kw">「はじめての記憶」</span> で検索</span></td>
+          <td class="col-hint"><span class="spoiler">返礼品管理ログ「サービス品目（公開停止・審査保留）」内</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">27/31</td>
+          <td class="col-name"><span class="spoiler">おもいで管理課（旧：記憶管理課）業務概要</span></td>
+          <td class="col-access"><span class="spoiler"><span class="search-kw">「記憶管理課」</span> で検索</span></td>
+          <td class="col-hint"><span class="spoiler">サービス品目（公開停止・審査保留）の全商品ページ下部より</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">28/31</td>
+          <td class="col-name"><span class="spoiler">記憶管理条例（条例全文）</span></td>
+          <td class="col-access"><span class="spoiler"><span class="search-kw">「記憶管理条例」</span> で検索</span></td>
+          <td class="col-hint"><span class="spoiler">おもいで管理課（旧：記憶管理課）業務概要内</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">29/31</td>
+          <td class="col-name"><span class="spoiler">職員ポータル ログイン</span></td>
+          <td class="col-access"><span class="spoiler">KTMS ログイン画面内リンク / <span class="search-kw">「職員ポータル」</span> で検索</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">30/31</td>
+          <td class="col-name"><span class="spoiler">職員ポータル（KAT-001）</span></td>
+          <td class="col-access"><span class="spoiler">職員ポータル ログインで<br>職員ID: KAT-001 / パスワード: 1208</span></td>
+          <td class="col-hint"><span class="spoiler">職員IDは【機密】S-40-10-312 事案記録の特記事項内ほか<br>パスワードは移住者レポの内容から</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">31/31</td>
+          <td class="col-name"><span class="spoiler">KTMS ログイン</span></td>
+          <td class="col-access"><span class="spoiler">記憶管理条例内リンク / <span class="search-kw">「KTMS」</span> で検索</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
 
-    <tr>
-      <td class="page-id">1/27</td>
-      <td>トップページ</td>
-      <td class="filename">index.html</td>
-      <td>URL直打ち・ナビ</td>
-      <td class="dash">—</td>
-    </tr>
-    <tr>
-      <td class="page-id">2/27</td>
-      <td>自治体紹介</td>
-      <td class="filename">about.html</td>
-      <td>ナビ</td>
-      <td>沿革「昭和40年：記録なし」「昭和41年：特別条例」「令和3年：NMCRI連携」。K-10補強情報</td>
-    </tr>
-    <tr>
-      <td class="page-id">3/27</td>
-      <td>返礼品一覧</td>
-      <td class="filename">catalog.html</td>
-      <td>ナビ</td>
-      <td>サービス・体験タブに2品目のみ表示。「一部品目は検索からのみ」注記あり</td>
-    </tr>
-    <tr>
-      <td class="page-id">4/27</td>
-      <td>かたつま米</td>
-      <td class="filename">item-kome.html</td>
-      <td>カタログリンク</td>
-      <td class="dash">—</td>
-    </tr>
-    <tr>
-      <td class="page-id">5/27</td>
-      <td>山の幸詰め合わせ</td>
-      <td class="filename">item-yama.html</td>
-      <td>カタログリンク</td>
-      <td class="dash">—</td>
-    </tr>
-    <tr>
-      <td class="page-id">6/27</td>
-      <td>旬の野菜詰め合わせ</td>
-      <td class="filename">item-yasai.html</td>
-      <td>カタログリンク</td>
-      <td class="dash">—</td>
-    </tr>
-    <tr>
-      <td class="page-id">7/27</td>
-      <td>かたつまの霧 純米大吟醸</td>
-      <td class="filename">item-sake.html</td>
-      <td>カタログリンク</td>
-      <td class="dash">—</td>
-    </tr>
-    <tr>
-      <td class="page-id">8/27</td>
-      <td>山里味噌 3年熟成</td>
-      <td class="filename">item-miso.html</td>
-      <td>カタログリンク</td>
-      <td class="dash">—</td>
-    </tr>
-    <tr>
-      <td class="page-id">9/27</td>
-      <td>かたつまそば 手打ち乾麺</td>
-      <td class="filename">item-soba.html</td>
-      <td>カタログリンク</td>
-      <td class="dash">—</td>
-    </tr>
-    <tr>
-      <td class="page-id">10/27</td>
-      <td>お知らせ</td>
-      <td class="filename">news.html</td>
-      <td>ナビ</td>
-      <td class="hint-info"><strong>K-01ヒント</strong>：nmcri/index.html 沿革「昭和40年 大規模採取作業」</td>
-    </tr>
-    <tr>
-      <td class="page-id">11/27</td>
-      <td>寄附の手続き</td>
-      <td class="filename">apply.html</td>
-      <td>ナビ</td>
-      <td>返礼品種別に「記憶提供者として登録」選択肢あり（JS演出）</td>
-    </tr>
-    <tr>
-      <td class="page-id">12/27</td>
-      <td>寄附金の使いみち</td>
-      <td class="filename">usage.html</td>
-      <td>ナビ</td>
-      <td>「特別事務局関連費用は別途管理」の文言あり</td>
-    </tr>
-    <tr>
-      <td class="page-id">13/27</td>
-      <td>お問い合わせ</td>
-      <td class="filename">contact.html</td>
-      <td>ナビ</td>
-      <td>「おもいで管理課」が担当窓口として登場</td>
-    </tr>
-    <tr>
-      <td class="page-id">14/27</td>
-      <td>おもいで詰め合わせセット</td>
-      <td class="filename">item-kioku-1.html</td>
-      <td>カタログ「サービス・体験」タブから直接リンク</td>
-      <td>公開品目。他者の記憶断片の詰め合わせ。企業のペルソナ用途など。採取元は知らない。</td>
-    </tr>
-    <tr>
-      <td class="page-id">15/27</td>
-      <td>しあわせな記憶（一回分）</td>
-      <td class="filename">item-kioku-2.html</td>
-      <td>カタログ「サービス・体験」タブから直接リンク</td>
-      <td>公開品目。幸福感の高い記憶を一件提供。採取元への通知なし。</td>
-    </tr>
-    <tr>
-      <td class="page-id">16/27</td>
-      <td>連携機関 往復文書一覧（NMCRI）</td>
-      <td class="filename">nmcri-log.html</td>
-      <td>about.html 連携機関セクションのリンク / 検索「NMCRI」「国立記憶・認知研究所」</td>
-      <td>かたつま町とNMCRIの行政往復文書4件。簡素な一覧のみ。NMCRIサイトへのリンクあり</td>
-    </tr>
-    <tr>
-      <td class="page-id">17/27</td>
-      <td>国立記憶・認知研究所 公式サイト</td>
-      <td class="filename">nmcri/index.html</td>
-      <td>about.htmlリンク / nmcri-log.htmlリンク</td>
-      <td>一見普通の認知科学研究所。記憶採取への言及なし。フッターに「研究協力自治体：かたつま町」ボタンあり</td>
-    </tr>
-    <tr class="kw-row">
-      <td class="page-id">18/27</td>
-      <td>【機密】S-40-10-312 事案記録</td>
-      <td class="filename">item-kioku-5.html</td>
-      <td><strong>K-01「大規模採取作業」</strong>で検索</td>
-      <td class="hint-info"><strong>K-02ヒント</strong>：文書末尾「返礼品管理ログ」または「返礼品管理」で検索。昭和40年10月8〜10日・312名の事実。KAT-001最終閲覧記録</td>
-    </tr>
-    <tr class="mgmt-row kw-row">
-      <td class="page-id" style="color:#2a5020;">19/27</td>
-      <td style="color:#2a5020;">返礼品管理ログ</td>
-      <td class="filename" style="color:#3a6030;">catalog-kanri.html</td>
-      <td style="color:#3a6030;"><strong>K-02「返礼品管理」</strong>で検索（表記揺れ対応あり）</td>
-      <td style="color:#555;">品目テーブルに全記憶品目の商品名が平文表示（K-03〜K-06・K-08のヒント源）。担当者コメントに「担当K」の要対応フラグあり。閲覧制限品目に「特別条例」の言及。</td>
-    </tr>
-    <tr class="kw-row">
-      <td class="page-id">20/27</td>
-      <td>忘れていた夏（1回分）</td>
-      <td class="filename">item-kioku-3.html</td>
-      <td><strong>K-03「忘れていた夏」</strong>で検索</td>
-      <td class="hint-info">12歳少女の夏記憶（令和4年8月採取）。白衣人物の写り込み。採取同意書審査保留中。関連：<strong>あの人との時間</strong>・<strong>昭和時代の記憶セット</strong>（太字）。注記に「旧：記憶管理課」表示</td>
-    </tr>
-    <tr class="kw-row">
-      <td class="page-id">21/27</td>
-      <td>あの人との時間（5分以内）</td>
-      <td class="filename">item-kioku-4.html</td>
-      <td><strong>K-04「あの人との時間」</strong>で検索</td>
-      <td class="hint-info">54歳男性の母親との午後記憶。4:12に母が突然こちらを向く。5分で途切れる。「最後の記憶がない」本人の問い合わせ。採取同意書不存在（法務確認中）。注記に「旧：記憶管理課」表示</td>
-    </tr>
-    <tr class="kw-row">
-      <td class="page-id">22/27</td>
-      <td>幼少期の記憶（一式）</td>
-      <td class="filename">item-kioku-6.html</td>
-      <td><strong>K-05「幼少期の記憶」</strong>で検索</td>
-      <td class="hint-info">大規模採取作業（昭和40年10月）由来。0〜7歳の記憶群。採取元（複数名）は現在も存命。KAT-001倫理問題報告コメント。注記に「旧：記憶管理課」表示</td>
-    </tr>
-    <tr class="kw-row">
-      <td class="page-id">23/27</td>
-      <td>昭和時代の記憶セット（混合）</td>
-      <td class="filename">item-kioku-7.html</td>
-      <td><strong>K-06「昭和時代の記憶セット」</strong>で検索</td>
-      <td class="hint-info">大規模採取作業（昭和40年10月）由来。3〜12名分の記憶混合。「このページを読んでいる場面が含まれている場合があります」の一文。夢に見知らぬ人が出ると複数報告。<strong>K-07・K-08ヒント</strong>：太字「はじめての記憶」・「寄附者の声」。注記に「旧：記憶管理課」表示</td>
-    </tr>
-    <tr class="kw-row">
-      <td class="page-id">24/27</td>
-      <td>おもいで管理課（旧：記憶管理課）業務概要</td>
-      <td class="filename">dept-kioku.html</td>
-      <td><strong>K-08b「記憶管理課」</strong>で検索</td>
-      <td class="hint-info">令和4年4月に「記憶管理課」から「おもいで管理課」へ名称変更した経緯。業務内容一覧。<strong>K-09ヒント</strong>：「記憶管理条例」が設置根拠として明記</td>
-    </tr>
-    <tr class="kw-row">
-      <td class="page-id">25/27</td>
-      <td>寄附者の声</td>
-      <td class="filename">testimonials.html</td>
-      <td><strong>K-08「寄附者の声」</strong>で検索 / 23/27リンク</td>
-      <td class="hint-info"><strong>K-07補強</strong>：レビュー本文に「はじめての記憶」への言及・検索誘導。食品レビューから始まり徐々に怪文書化</td>
-    </tr>
-    <tr class="kw-row">
-      <td class="page-id">26/27</td>
-      <td>はじめての記憶（複製不可）</td>
-      <td class="filename">item-kioku-8.html</td>
-      <td><strong>K-07「はじめての記憶」</strong>で検索</td>
-      <td class="hint-info">S-40-10-001（312名中最初の一件、1965年10月9日）。現在の持ち主59〜60代。NMCRI研究員へ一時貸出→行方不明。<strong>K-09ヒント</strong>：注意事項「記憶管理条例」</td>
-    </tr>
-    <tr class="kw-row">
-      <td class="page-id">27/27</td>
-      <td>記憶管理条例（条例全文）</td>
-      <td class="filename">jorei/kioku-kanri.html</td>
-      <td><strong>K-09「記憶管理条例」</strong>で検索</td>
-      <td class="hint-info"><strong>K-10ヒント</strong>：管理番号「KR-<strong>1966</strong>」が大きく記載。第7条・第12条の実態との乖離</td>
-    </tr>
-    <tr class="admin-row">
-      <td class="page-id" style="color:#888;">KL-1/10</td>
-      <td style="color:#aaa;">内部書類一覧</td>
-      <td class="filename" style="color:#666;">admin/index.html</td>
-      <td style="color:#777;"><strong style="color:#aaa;">K-10「KR-1966」</strong>で検索</td>
-      <td style="color:#666;">MEMO-H01〜MEMO-005・アクセスログへのリンク一覧。MEMO-C01は「アクセス制限中」表示</td>
-    </tr>
-    <tr class="admin-row">
-      <td class="page-id" style="color:#888;">KL-2/10</td>
-      <td style="color:#aaa;">かたつま町 歴史記録（非公式）</td>
-      <td class="filename" style="color:#666;">admin/history.html</td>
-      <td style="color:#666;">KL-1/10 リンク</td>
-      <td style="color:#c44;">末尾に「加藤晴美」強調表示</td>
-    </tr>
-    <tr class="admin-row">
-      <td class="page-id" style="color:#888;">KL-3/10</td>
-      <td style="color:#aaa;">MEMO-001 昭和40年10月事案（要約）</td>
-      <td class="filename" style="color:#666;">admin/memo-001.html</td>
-      <td style="color:#666;">KL-1/10 リンク</td>
-      <td style="color:#666;">312名への処置の詳細・子供からの無断採取・NMCRIとの連携</td>
-    </tr>
-    <tr class="admin-row">
-      <td class="page-id" style="color:#888;">KL-4/10</td>
-      <td style="color:#aaa;">MEMO-002 記憶収集月報（令和8年4月）</td>
-      <td class="filename" style="color:#666;">admin/memo-002.html</td>
-      <td style="color:#666;">KL-1/10 リンク</td>
-      <td style="color:#666;">収集件数・令和8年4月 特別処理案件処置完了の記録・「担当K事案後の引き継ぎ完了」備考欄</td>
-    </tr>
-    <tr class="admin-row">
-      <td class="page-id" style="color:#888;">KL-5/10</td>
-      <td style="color:#aaa;">MEMO-003 エージェント生成記録</td>
-      <td class="filename" style="color:#666;">admin/memo-003.html</td>
-      <td style="color:#666;">KL-1/10 リンク</td>
-      <td style="color:#666;">採取記憶からの人格パターン再構成・AGT-007 山之内タカシの正体</td>
-    </tr>
-    <tr class="admin-row">
-      <td class="page-id" style="color:#888;">KL-6/10</td>
-      <td style="color:#aaa;">MEMO-004 収集記憶の用途分類</td>
-      <td class="filename" style="color:#666;">admin/memo-004.html</td>
-      <td style="color:#666;">KL-1/10 リンク</td>
-      <td style="color:#666;">記憶の分類基準（A〜D）。昭和40年関連は消去処理として分類</td>
-    </tr>
-    <tr class="admin-row">
-      <td class="page-id" style="color:#888;">KL-7/10</td>
-      <td style="color:#aaa;">MEMO-005 人員管理規程</td>
-      <td class="filename" style="color:#666;">admin/memo-005.html</td>
-      <td style="color:#666;">KL-1/10 リンク</td>
-      <td style="color:#666;">「KAT-001：事案処置完了」の記録。194名の人材化済み人員</td>
-    </tr>
-    <tr class="admin-row dark">
-      <td class="page-id" style="color:#c44;">KL-8/10</td>
-      <td style="color:#e66;">アクセスログ（現在のセッション）</td>
-      <td class="filename" style="color:#c44;">admin/access-log.html</td>
-      <td style="color:#c44;">KL-1/10 リンク</td>
-      <td style="color:#c44;">プレイヤーの閲覧履歴をリアルタイム表示。「サーバーに送信されました」。「KAT-001 の記憶データを閲覧する」ボタンへ</td>
-    </tr>
-    <tr class="admin-row dark">
-      <td class="page-id" style="color:#c44;">KL-9/10</td>
-      <td style="color:#e66;">記憶データビューア（KAT-001）</td>
-      <td class="filename" style="color:#c44;">admin/memory-viewer.html</td>
-      <td style="color:#c44;">KL-8/10 ボタン</td>
-      <td style="color:#c44;">「記憶装置に同期しますか？」確認ダイアログ → 同期開始 → 加藤晴美の5つの記憶断片を時系列表示 → 「記憶採取完了」警告 → 「了解」後、内部通信ログへのリンク表示</td>
-    </tr>
-    <tr class="admin-row dark">
-      <td class="page-id" style="color:#c44;">KL-10/10</td>
-      <td style="color:#e66;">内部通信ログ（令和8年4月）</td>
-      <td class="filename" style="color:#c44;">admin/chat-log.html</td>
-      <td style="color:#c44;">KL-9/10 完了後リンク</td>
-      <td style="color:#c44;">令和8年4月の加藤晴美の発見〜特別処理案件処置完了の全経緯チャット記録。最下部リンクからending.htmlへ</td>
-    </tr>
-    <tr class="admin-row dark">
-      <td class="page-id" style="color:#c44;">—</td>
-      <td style="color:#e66;">エンディング</td>
-      <td class="filename" style="color:#c44;">admin/ending.html</td>
-      <td style="color:#c44;">chat-log.html（KL-10）最下部リンクから遷移</td>
-      <td style="color:#c44;">「記憶装置に同期した = 記憶採取完了」のロジック。「あなたの記憶を、頂戴いたしました。」。HTMLコメントに加藤晴美からのメッセージ含む</td>
-    </tr>
+      </tbody>
+    </table>
+  </div>
 
-  </table>
+  <!-- KTMS内部 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">KTMS Internal — KL-1/8 〜 KL-8/8</span>
+      <button class="btn-reveal-all" data-target="table-ktms">すべてのヒントを見る</button>
+    </div>
+    <table class="page-table" id="table-ktms">
+      <thead>
+        <tr>
+          <th>Page ID</th>
+          <th>ページ名</th>
+          <th>アクセス方法</th>
+          <th>キーワードの発見場所</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="page-id">KL-1/8</td>
+          <td class="col-name"><span class="spoiler">内部書類一覧</span></td>
+          <td class="col-access"><span class="spoiler">KTMS ログインで<br>職員ID: AGT-007 / パスワード: R0801</span></td>
+          <td class="col-hint"><span class="spoiler">職員IDは加藤の職員ポータル内付箋<br>パスワードは記憶管理条例「担当課内部通知」ほか</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">KL-2/8</td>
+          <td class="col-name"><span class="spoiler">FILE01　PROJECT-9について</span></td>
+          <td class="col-access"><span class="spoiler">内部書類一覧リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">KL-3/8</td>
+          <td class="col-name"><span class="spoiler">FILE02　AGT-007通達</span></td>
+          <td class="col-access"><span class="spoiler">内部書類一覧リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">KL-4/8</td>
+          <td class="col-name"><span class="spoiler">FILE03　稼働実績報告</span></td>
+          <td class="col-access"><span class="spoiler">内部書類一覧リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">KL-5/8</td>
+          <td class="col-name"><span class="spoiler">アクセスログ（現在のセッション）</span></td>
+          <td class="col-access"><span class="spoiler">内部書類一覧リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">KL-6/8</td>
+          <td class="col-name"><span class="spoiler">秘匿指示通信</span></td>
+          <td class="col-access"><span class="spoiler">内部書類一覧リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">KL-7/8</td>
+          <td class="col-name"><span class="spoiler">採取記憶データ　KT-Z001（記憶データビューア）</span></td>
+          <td class="col-access"><span class="spoiler">内部書類一覧リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="page-id">KL-8/8</td>
+          <td class="col-name"><span class="spoiler">エンディング</span></td>
+          <td class="col-access"><span class="spoiler">採取記憶データ閲覧終了後リンク</span></td>
+          <td class="col-hint"><span class="dash">—</span></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
 
   <div class="back-link">
     <a href="hint.html">← 段階的ヒントに戻る</a>
   </div>
 
-  <p style="font-size:10px; color:#bbb; text-align:center; margin-top:40px; line-height:1.5;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</p>
+  <p class="footer-note">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</p>
 
 </div>
+
+<script>
+(function () {
+  // 行クリックで個別展開
+  document.querySelectorAll('.page-table tbody tr').forEach(function (row) {
+    row.addEventListener('click', function () {
+      row.classList.toggle('revealed');
+    });
+  });
+
+  // 「すべてのヒントを見る」ボタン
+  document.querySelectorAll('.btn-reveal-all').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var tableId = btn.getAttribute('data-target');
+      var table = document.getElementById(tableId);
+      var rows = table.querySelectorAll('tbody tr');
+      var allRevealed = Array.from(rows).every(function (r) { return r.classList.contains('revealed'); });
+      rows.forEach(function (r) {
+        if (allRevealed) {
+          r.classList.remove('revealed');
+        } else {
+          r.classList.add('revealed');
+        }
+      });
+      btn.textContent = allRevealed ? 'すべてのヒントを見る' : 'すべて隠す';
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
