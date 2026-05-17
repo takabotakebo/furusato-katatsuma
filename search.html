@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -6,18 +6,125 @@
   <meta name="robots" content="noindex">
   <title>検索結果 | かたつま町 ふるさと納税返礼品カタログ</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .search-result-found {
+      padding: 28px 32px;
+      background: #fff;
+      border: 1px solid #d8d8d8;
+      border-radius: 3px;
+      margin-top: 8px;
+    }
+    .search-result-query {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 18px;
+    }
+    .search-result-query span {
+      color: #555;
+      font-weight: bold;
+    }
+    .search-result-count {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    /* 通常ヒット */
+    .result-item {
+      border: 1px solid #e0e0e0;
+      border-radius: 3px;
+      padding: 16px 20px;
+      background: #fafafa;
+    }
+    .result-item-title {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .result-item-title a {
+      color: #2a5080;
+      text-decoration: none;
+    }
+    .result-item-title a:hover {
+      text-decoration: underline;
+    }
+    .result-item-meta {
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    /* 隠しページヒット */
+    .result-item-hidden {
+      border: 1px solid #c0b8a8;
+      border-radius: 3px;
+      padding: 18px 22px;
+      background: #faf8f4;
+      position: relative;
+    }
+    .result-hidden-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      color: #7a6a50;
+      background: #ede8de;
+      border: 1px solid #c8c0a8;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+    .result-hidden-message {
+      font-size: 14px;
+      color: #4a3e2e;
+      line-height: 2.0;
+      margin-bottom: 16px;
+    }
+    .result-hidden-card {
+      display: block;
+      text-decoration: none;
+      border: 1px solid #c0b8a8;
+      border-radius: 4px;
+      padding: 14px 18px;
+      background: #fff;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .result-hidden-card:hover {
+      background: #f5f0e8;
+      border-color: #a09080;
+    }
+    .result-hidden-card-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #2a1a10;
+      margin-bottom: 4px;
+    }
+    .result-hidden-card-sub {
+      font-size: 12px;
+      color: #999;
+    }
+    .result-hidden-note {
+      font-size: 11px;
+      color: #b0a888;
+      margin-top: 12px;
+      line-height: 1.8;
+    }
+  </style>
 </head>
 <body>
 <header>
   <div class="header-inner">
     <a href="index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -30,21 +137,22 @@
   </ul>
 </nav>
 <main>
-  <div class="page-header">
+  <div class="page-header" style="display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;">
     <h1>検索結果</h1>
+    <span id="page-header-query" style="font-size:13px; color:#999;"></span>
   </div>
-  <div class="result-box">
-    <p>「<span id="search-query"></span>」に一致するページは見つかりませんでした。</p>
-    <p>キーワードを変えて検索してください。</p>
-    <p class="result-footer">かたつま町 ふるさと納税担当課</p>
-  </div>
+  <div id="search-output"></div>
 </main>
 <footer>
   <div class="footer-inner">
-    <p class="copyright">©かたつま町 / ふるさと納税担当課</p>
+    <div class="footer-left">
+      <p class="copyright">©かたつま町 / ふるさと納税担当課</p>
+    </div>
+    <div class="footer-address">
+      〒879-XXXX　かたつま郡かたつま町大字かたつま1番地<br>
+      かたつま町役場　ふるさと納税担当課
+    </div>
   </div>
-
-
 <div class="footer-bottom">
   <span class="footer-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
 </div>
@@ -52,11 +160,71 @@
 
 <script src="js/search.js"></script>
 <script>
-(function(){
+(function () {
   var params = new URLSearchParams(window.location.search);
-  var el = document.getElementById('search-query');
-  if (el) el.textContent = params.get('q') || '';
+  var q     = params.get('q') || '';
+  var dest  = params.get('dest') || '';
+  var type  = params.get('type') || '';
+  var title = params.get('title') || '';
+  var sub   = params.get('sub') || '';
+  var out   = document.getElementById('search-output');
+
+  if (q) {
+    var headerQuery = document.getElementById('page-header-query');
+    if (headerQuery) headerQuery.innerHTML = '検索ワード：<strong style="color:#555;">' + esc(q) + '</strong>';
+  }
+
+  function esc(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  if (!dest) {
+    /* ヒットなし */
+    out.innerHTML =
+      '<div class="search-result-found">' +
+        '<p>「<strong>' + esc(q) + '</strong>」に一致するページは見つかりませんでした。</p>' +
+        '<p style="margin-top:8px; color:#888; font-size:13px;">キーワードを変えて再度検索してください。</p>' +
+      '</div>';
+    return;
+  }
+
+  if (type === 'hidden') {
+    /* 隠しページヒット */
+    out.innerHTML =
+      '<div class="search-result-found">' +
+        '<div class="result-item-hidden">' +
+          '<p class="result-hidden-message">' +
+            'アーカイブまたは削除されたページを発見しました。' +
+          '</p>' +
+          '<a href="' + esc(dest) + '" class="result-hidden-card">' +
+            '<div class="result-hidden-card-title">' + esc(title || dest) + '</div>' +
+            (sub ? '<div class="result-hidden-card-sub">' + esc(sub) + '</div>' : '') +
+          '</a>' +
+          '<p class="result-hidden-note">※ 本ページへのアクセスは記録されています。</p>' +
+        '</div>' +
+      '</div>';
+  } else {
+    /* 通常ヒット */
+    out.innerHTML =
+      '<div class="search-result-found">' +
+        '<p class="search-result-count">1件見つかりました</p>' +
+        '<div class="result-item">' +
+          '<div class="result-item-title"><a href="' + esc(dest) + '">' + esc(q) + '</a></div>' +
+          '<div class="result-item-meta">かたつま町 ふるさと納税返礼品カタログ</div>' +
+        '</div>' +
+      '</div>';
+  }
 })();
 </script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

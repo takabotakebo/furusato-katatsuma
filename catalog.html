@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -11,13 +11,17 @@
 <header>
   <div class="header-inner">
     <a href="index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索・品目名検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -36,7 +40,7 @@
 
   <p style="font-size:13px; color:#666; margin-bottom:24px; line-height:1.9;">
     かたつま町の特産品・返礼品をご紹介します。農産物から地域の体験サービスまで、心を込めてお届けします。<br>
-    <strong>一部品目はサイト内検索からのみご覧いただけます。</strong>品目名を直接ご入力ください。
+    <strong>一部品目は通常カタログへの掲載を停止しています。</strong>担当課窓口にてご確認ください。
   </p>
 
   <div class="catalog-tabs">
@@ -143,28 +147,28 @@
       <div class="catalog-grid">
         <div class="catalog-card">
           <a href="item-kioku-1.html">
-            <div class="card-img-placeholder service">記録保管</div>
+            <div class="card-img-placeholder service">おもいで</div>
             <div class="card-body">
-              <div class="card-title">記憶の整理・保管サービス（基本プラン）</div>
+              <div class="card-title">おもいで詰め合わせセット</div>
               <div class="card-price">寄附金額：20,000円〜</div>
-              <div class="card-desc">担当課が提供する記憶データの整理・保管代行。詳細は申請後にご案内。</div>
+              <div class="card-desc">他者の記憶断片を複数収録。マーケティング用途・個人利用に。</div>
             </div>
           </a>
         </div>
         <div class="catalog-card">
           <a href="item-kioku-2.html">
-            <div class="card-img-placeholder service">アーカイブ</div>
+            <div class="card-img-placeholder service">しあわせ</div>
             <div class="card-body">
-              <div class="card-title">思い出アーカイブ（1年分）</div>
-              <div class="card-price">寄附金額：25,000円</div>
-              <div class="card-desc">ご指定期間（1年分）の記憶を専用システムにて保管するサービスです。</div>
+              <div class="card-title">しあわせな記憶（一回分）</div>
+              <div class="card-price">寄附金額：15,000円</div>
+              <div class="card-desc">幸福感の高い記憶を一件お届けします。贈り物にも。</div>
             </div>
           </a>
         </div>
       </div>
 
       <div class="notice-box" style="margin-top:24px;">
-        ※ サービス品目の一部は通常カタログへの掲載を行っておりません。品目名を直接サイト内検索でご入力いただくか、担当課窓口にお問い合わせください。
+        ※ サービス品目の一部は、令和5年度より通常カタログへの掲載を停止しております。詳細は担当課窓口にお問い合わせください。
       </div>
     </div>
   </div>
@@ -207,5 +211,15 @@
   });
 })();
 </script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

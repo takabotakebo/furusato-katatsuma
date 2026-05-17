@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>かたつま町移住レポ | 加藤晴美</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #2d6a3f;
+      --green-mid: #4a8c5c;
+      --green-light: #e4f0e8;
+      --green-pale: #f2f8f4;
+      --cream: #faf7f0;
+      --cream-mid: #f0ebe0;
+      --text: #1e1e1e;
+      --text-sub: #5a5a5a;
+      --text-light: #999;
+      --border: #dde8e0;
+    }
+
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Meiryo', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.85;
+    }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ===== Top bar ===== */
+    .top-bar {
+      background: rgba(255,255,255,0.92);
+      border-bottom: 1px solid var(--border);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+    }
+    .top-bar.scrolled {
+      background: rgba(255,255,255,0.0);
+      border-bottom-color: transparent;
+      backdrop-filter: blur(0px);
+    }
+    .top-bar-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .top-bar-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--green);
+      background: var(--green-light);
+      border: 1px solid #b8d8c0;
+      border-radius: 20px;
+      padding: 5px 14px;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .top-bar-link::before { content: '←'; font-size: 11px; }
+    .top-bar-link:hover { background: #d0ecd8; border-color: var(--green); text-decoration: none; }
+    .top-bar-search {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .top-bar-search input {
+      border: 1px solid #c8d8c0;
+      border-right: none;
+      background: #f8faf6;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-family: inherit;
+      color: var(--text);
+      outline: none;
+      border-radius: 20px 0 0 20px;
+      width: 180px;
+    }
+    .top-bar-search input:focus {
+      border-color: var(--green);
+      background: #fff;
+    }
+    .top-bar-search button {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 0 20px 20px 0;
+      transition: background 0.2s;
+    }
+    .top-bar-search button:hover { background: var(--green-mid); }
+
+    /* ===== Header ===== */
+    .site-header {
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      margin-top: 48px; /* top-bar の高さ分 */
+    }
+    .site-header-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      opacity: 0.85;
+    }
+    .site-header-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(250,247,240,0.15) 0%, rgba(250,247,240,0.65) 100%);
+    }
+    .site-header-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 28px 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+    }
+    .site-logo-img {
+      height: 200px;
+      width: auto;
+      display: block;
+    }
+    .site-header-tagline {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      background: rgba(255,255,255,0.75);
+      padding: 6px 18px;
+      border-radius: 6px;
+    }
+
+    /* ===== Nav ===== */
+    .blog-nav {
+      background: var(--green);
+      border-bottom: none;
+    }
+    .blog-nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      gap: 0;
+    }
+    .blog-nav a {
+      display: block;
+      padding: 11px 18px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.04em;
+      border-bottom: 2px solid transparent;
+    }
+    .blog-nav a:hover { color: #fff; text-decoration: none; }
+    .blog-nav a.active { color: #fff; border-bottom-color: rgba(255,255,255,0.6); font-weight: bold; }
+
+    /* ===== Main layout ===== */
+    .blog-layout {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 28px 60px;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ===== Author card (sidebar) ===== */
+    .sidebar {}
+    .author-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 20px;
+      text-align: center;
+      position: sticky;
+      top: 24px;
+    }
+    .author-avatar-wrap {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--green-light);
+      margin: 0 auto 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: var(--green);
+      border: 3px solid var(--border);
+    }
+    .author-name {
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .author-role {
+      font-size: 11px;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .author-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.8;
+      text-align: left;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+    .deco-img {
+      width: 100%;
+      margin-top: 20px;
+      border-radius: 10px;
+      opacity: 0.9;
+    }
+
+    /* ===== Article list ===== */
+    .article-list { display: flex; flex-direction: column; gap: 36px; }
+
+    /* ===== Article card ===== */
+    .article-card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .article-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+      transform: translateY(-2px);
+    }
+
+    .article-card-img {
+      width: 100%;
+      aspect-ratio: 16 / 8;
+      overflow: hidden;
+      position: relative;
+    }
+    .article-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .article-card:hover .article-card-img img {
+      transform: scale(1.04);
+    }
+    /* 波形マスク */
+    .article-card-img::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 28px;
+      background: #fff;
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    .article-card-body {
+      padding: 20px 28px 24px;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .article-date {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .article-tag {
+      font-size: 11px;
+      background: var(--green-light);
+      color: var(--green);
+      padding: 2px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.03em;
+      font-weight: bold;
+    }
+    .article-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .article-title a { color: inherit; }
+    .article-title a:hover { color: var(--green); text-decoration: none; }
+
+    .article-excerpt {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+
+    .expand-btn {
+      background: var(--green);
+      border: none;
+      color: #fff;
+      font-size: 13px;
+      padding: 8px 22px;
+      border-radius: 24px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: bold;
+      letter-spacing: 0.04em;
+      transition: background 0.2s;
+    }
+    .expand-btn:hover { background: var(--green-mid); }
+
+    /* ===== Article body (expanded) ===== */
+    .article-full {
+      padding: 0 28px 28px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 2.0;
+      display: none;
+      border-top: 1px solid var(--border);
+      margin-top: 0;
+      padding-top: 24px;
+    }
+    .article-full.open { display: block; }
+    .article-full p { margin-bottom: 1.3em; }
+    .article-full h3 {
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--green);
+      margin: 1.8em 0 0.7em;
+      padding: 6px 12px;
+      background: var(--green-pale);
+      border-radius: 6px;
+      border-left: 3px solid var(--green);
+    }
+    .article-full .photo-block {
+      background: var(--cream-mid);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 12px;
+      color: var(--text-light);
+      text-align: center;
+      margin: 1.5em 0;
+    }
+    .article-full .caption {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: -0.8em;
+      margin-bottom: 1.3em;
+      text-align: center;
+    }
+    .article-full .note {
+      background: var(--green-pale);
+      border: 1px dashed #b0ccb8;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--text-sub);
+      margin: 1.4em 0;
+      line-height: 1.8;
+    }
+
+    /* ===== Link card ===== */
+    a.link-card {
+      display: block;
+      border: 2px solid #9ec4aa;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 1.5em 0;
+      text-decoration: none;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    a.link-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 4px 16px rgba(45,106,63,0.15);
+      text-decoration: none;
+    }
+    .link-card-label {
+      font-size: 11px;
+      color: var(--text-light);
+      letter-spacing: 0.04em;
+      margin-bottom: 5px;
+    }
+    .link-card-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .link-card-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    /* ===== Footer ===== */
+    .blog-footer {
+      background: var(--green);
+      color: rgba(255,255,255,0.7);
+      padding: 32px 28px;
+      margin-top: 0;
+    }
+    .blog-footer-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .blog-footer-left { font-size: 12px; line-height: 1.9; }
+    .blog-footer-left strong { color: #fff; font-size: 14px; }
+    .blog-footer-right { font-size: 11px; color: rgba(255,255,255,0.45); text-align: right; line-height: 1.8; }
+    .back-link {
+      display: inline-block;
+      font-size: 12px;
+      color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .back-link:hover { background: rgba(255,255,255,0.1); color: #fff; text-decoration: none; }
+
+    @media (max-width: 700px) {
+      .blog-layout {
+        grid-template-columns: 1fr;
+        padding: 28px 18px 40px;
+      }
+      .sidebar { order: -1; }
+      .author-card { position: static; }
+      .site-header-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .site-logo-img { height: 44px; }
+      .article-card-body { padding: 16px 18px 20px; }
+      .article-full { padding: 16px 18px 20px; }
+      .article-title { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="index.html" class="top-bar-link">かたつま町 ふるさと納税サイト</a>
+    <form class="top-bar-search" id="site-search" action="index.html">
+      <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
+      <button type="submit">検索</button>
+    </form>
+  </div>
+</div>
+
+<header class="site-header">
+  <img src="img/iju-header-bg.png" alt="" class="site-header-bg">
+  <div class="site-header-overlay"></div>
+  <div class="site-header-inner">
+    <img src="img/iju-logo.png" alt="かたつま町 移住レポ" class="site-logo-img">
+    <div class="site-header-tagline">
+      かたつま町に移住した加藤晴美による、リアル移住ブログです。移住を考えている方、ぜひ読んでみてください！
+    </div>
+  </div>
+</header>
+
+<nav class="blog-nav">
+  <div class="blog-nav-inner">
+    <a href="#" class="active">すべての記事</a>
+  </div>
+</nav>
+
+<div class="blog-layout">
+  <main>
+    <div class="article-list">
+
+      <!-- 記事1 -->
+      <article class="article-card" id="post-4">
+        <div class="article-card-img">
+          <img src="img/iju-thumb-01.png" alt="夜の役場前の通り">
+        </div>
+        <div class="article-card-body">
+          <div class="article-meta">
+            <span class="article-date">2026.03.08</span>
+            <span class="article-tag">仕事・暮らし</span>
+          </div>
+          <h2 class="article-title"><a href="#" onclick="togglePost('post-4-full'); return false;">移住して1年！かたつま町、やっぱり最高でした。</a></h2>
+          <p class="article-excerpt">
+            気づいたらあっという間に1年！正直、移住前はドキドキしかなかったけど、
+            今は「来てよかった〜！」という気持ちでいっぱいです。
+            1年間の正直レポ、書きます！
+          </p>
+          <button class="expand-btn" onclick="togglePost('post-4-full')">続きを読む</button>
+        </div>
+        <div class="article-full" id="post-4-full">
+          <p>
+            去年の4月にかたつま町へ引っ越してきてから、もう1年！
+            時間の経つのが本当に早くてびっくりしています。
+            最初は「知り合いゼロ・土地勘ゼロ」でかなり不安だったんですが……
+            今は毎日がすごく充実しています。
+          </p>
+          <h3>職場の人たちが最高すぎる</h3>
+          <p>
+            役場の同僚のみなさん、本当に親切で！
+            わからないことがあるとすぐ声をかけてもらえるし、
+            ランチや休憩も一緒に過ごすことが多くなりました。
+            担当の課長さんもいつも丁寧に教えてくれて、本当に恵まれた環境だなと思っています。
+          </p>
+          <p>
+            仕事はふるさと納税の受付や返礼品の管理が中心。
+            覚えることはたくさんあるけど、「地域の魅力を届ける仕事」って考えるとすごくやりがいがあります！
+          </p>
+          <p>
+            役場には「おもいで管理課」という、ちょっと不思議な名前の部署があって、
+            最初に聞いたとき思わず「え、おもいで？」って聞き返してしまいました（笑）。
+            実は最近名前が変わったらしくて、昔は違う名前だったそうです。
+            詳しくは教えてもらえなかったんですが、なんとなく気になっています（笑）！
+          </p>
+          <h3>夜の星空が、本当にきれい！</h3>
+          <p>
+            最初は夜が暗すぎてちょっと怖かったんですが（笑）、
+            慣れてくると夜空の星がものすごくきれいで……！
+            晴れた夜は外に出てぼーっとしてしまいます。
+            都会では絶対に見られない景色です。移住したら絶対に見てほしい！
+          </p>
+          <p>
+            そうそう、この1年でかたつま町のふるさと納税に寄附してくださった方たちの声をまとめたページも公開しています！
+            寄附してくださった皆さんの感想が届いてとても嬉しくて、「みんなにも読んでほしい！」と職場にお願いしたら、担当課の方がページを立ち上げてくれました。
+            ぜひチェックしてみてください！
+          </p>
+          <a href="testimonials.html" class="link-card">
+            <div class="link-card-label">かたつま町 ふるさと納税返礼品カタログ</div>
+            <div class="link-card-title">寄附者の声</div>
+            <div class="link-card-desc">かたつま町のふるさと納税に寄附してくださった方々からいただいた感想・体験談をご紹介しています。</div>
+          </a>
+          <div class="note">
+            次回は春の農産物情報を書こうと思っています。やっと山菜の季節！楽しみ〜！
+          </div>
+        </div>
+      </article>
+
+      <!-- 記事2 -->
+      <article class="article-card" id="post-3">
+        <div class="article-card-img">
+          <img src="img/iju-thumb-02.png" alt="かたつま秋祭りの屋台">
+        </div>
+        <div class="article-card-body">
+          <div class="article-meta">
+            <span class="article-date">2025.10.02</span>
+            <span class="article-tag">地域・イベント</span>
+          </div>
+          <h2 class="article-title"><a href="#" onclick="togglePost('post-3-full'); return false;">かたつま秋祭り、最高すぎた話。</a></h2>
+          <p class="article-excerpt">
+            9月末の「かたつま秋祭り」に初参加してきました！
+            地元の食べ物がとにかくおいしくて、人があたたかくて……
+            「かたつま町に来てよかった！」と心から思えた一日でした。
+          </p>
+          <button class="expand-btn" onclick="togglePost('post-3-full')">続きを読む</button>
+        </div>
+        <div class="article-full" id="post-3-full">
+          <p>
+            9月末の3連休、毎年恒例の「かたつま秋祭り」が開催されました！
+            屋台がずらっと並んで、地元の高校の吹奏楽部の演奏もあって、
+            もう最初から雰囲気が最高でした。
+          </p>
+          <h3>地元グルメが神レベルにおいしい！</h3>
+          <p>
+            かたつま米のおにぎり、猪汁、山の幸の天ぷら……全部食べました（笑）。
+            素朴なんだけど、素材の味がしっかりしてて、
+            「これが本物の地の食べ物だ！」ってなりました。
+            おにぎりのお店のおばあさんに「移住してきたの？よかったよかった！」って
+            何度も言ってもらえて、じーんとしちゃいました。
+          </p>
+          <div class="photo-block"><img src="img/iju-photo-matsuri.png" alt="おにぎりを持つ手。秋祭りの灯り。" style="width:100%; border-radius:8px; display:block;"></div>
+          <p>
+            お祭りに来ていた地元の方たちもみんなフレンドリーで、
+            初対面なのにたくさん話しかけてもらいました。
+            「地域のつながり」って、こういうことなんだな〜と実感した一日でした！
+          </p>
+          <p>
+            そういえば来月、12月8日が誕生日です。
+            かたつま町で迎える初めての誕生日……どんな一日になるんだろう。
+            去年まではひとりで近所のケーキ屋さんに行くくらいだったけど、
+            今年は誰かと一緒に過ごせそうな気がして、それだけでなんかじーんとしています。
+          </p>
+          <div class="note">
+            次は冬の暮らしについて書こうと思っています。雪、どのくらい降るんだろう……ドキドキ！
+          </div>
+        </div>
+      </article>
+
+      <!-- 記事3 -->
+      <article class="article-card" id="post-2">
+        <div class="article-card-img">
+          <img src="img/iju-thumb-03.png" alt="かたつまの山の眺め">
+        </div>
+        <div class="article-card-body">
+          <div class="article-meta">
+            <span class="article-date">2025.07.18</span>
+            <span class="article-tag">暮らし・住まい</span>
+          </div>
+          <h2 class="article-title"><a href="#" onclick="togglePost('post-2-full'); return false;">移住3ヶ月で気づいた！かたつま町の好きなところ5選</a></h2>
+          <p class="article-excerpt">
+            移住してはや3ヶ月！生活にも慣れてきたので、
+            「かたつま町ってここがいい！」と感じたことを正直にまとめてみました。
+            移住を考えている方に届けたい！
+          </p>
+          <button class="expand-btn" onclick="togglePost('post-2-full')">続きを読む</button>
+        </div>
+        <div class="article-full" id="post-2-full">
+          <p>
+            かたつま町に来て3ヶ月！引っ越し疲れも落ち着いて、
+            ようやく「ここが私の町だ！」という感覚が出てきました。
+            正直、移住前は不安もいっぱいだったんですが、今は来てよかったと毎日思っています。
+          </p>
+          <h3>① 空気と水がおいしい！</h3>
+          <p>
+            朝、窓を開けたときの空気が都会と全然違います！
+            水道水もそのまま飲めるくらいおいしくて、お米を炊くときは特に感動しました。
+            かたつま米はふるさと納税の返礼品にもなっているんですが、それもそのはず、という感じです。
+          </p>
+          <h3>② 町の人がとにかく親切！</h3>
+          <p>
+            スーパーでも道端でも、みなさんが声をかけてくれます！
+            最初はちょっとびっくりしたけど（笑）、今は自分からも挨拶するようになりました。
+            「地域のあたたかさ」って本物でした。
+          </p>
+          <h3>③ 食費がびっくりするくらい安い！</h3>
+          <p>
+            野菜や米の値段が都会の感覚とぜんぜん違います！
+            農家さんが直接持ってきてくれることもあって、食費が東京の頃の半分以下になりました。
+            これは地方移住の最大のメリットかも。
+          </p>
+          <h3>④ よく眠れる！</h3>
+          <p>
+            最初は夜が静かすぎて眠れなかったんですが（笑）、
+            慣れたら逆に毎日爆睡できるようになりました。
+            東京の夜ってあんなにうるさかったんだなと、改めて気づきました。
+          </p>
+          <h3>⑤ 職場の雰囲気がいい！</h3>
+          <p>
+            役場の同僚のみなさんが本当にあたたかくて、
+            ランチに誘ってもらったり、仕事のことを丁寧に教えてもらったりと、
+            毎日楽しく働けています。移住先の職場環境って大事だな〜とつくづく思います！
+          </p>
+          <div class="note">
+            秋になったらお祭りがあるそうです！楽しみすぎる〜！
+          </div>
+        </div>
+      </article>
+
+      <!-- 記事4（最初の記事） -->
+      <article class="article-card" id="post-1">
+        <div class="article-card-img">
+          <img src="img/iju-thumb-04.png" alt="かたつま町役場の正面玄関">
+        </div>
+        <div class="article-card-body">
+          <div class="article-meta">
+            <span class="article-date">2025.05.12</span>
+            <span class="article-tag">移住・はじめまして</span>
+          </div>
+          <h2 class="article-title"><a href="#" onclick="togglePost('post-1-full'); return false;">はじめまして！かたつま町に移住してきました。</a></h2>
+          <p class="article-excerpt">
+            2025年4月、かたつま町役場のふるさと納税担当課に配属された加藤です！
+            移住のリアルな体験や、かたつま町のいいところを発信していきます。
+            どうぞよろしくお願いします！
+          </p>
+          <button class="expand-btn" onclick="togglePost('post-1-full')">続きを読む</button>
+        </div>
+        <div class="article-full" id="post-1-full">
+          <p>
+            はじめまして、加藤晴美といいます！
+            今年の春、かたつま町に移住してきました。
+            以前は都市部で別の仕事をしていたのですが、
+            地域おこし枠の求人を見て応募したのがきっかけです。
+          </p>
+          <h3>なぜかたつま町に？</h3>
+          <p>
+            正直に言うと、いくつかの自治体に応募して、
+            ここが採用してくれた、というのが最初のきっかけでした。
+            でも来てみたら山が近くて、空が広くて、思いのほか大好きになっています！
+            「ご縁があったんだな〜」という感じです。
+          </p>
+          <h3>私のこと、少し</h3>
+          <p>
+            東京にいたころ、仲の良い友人によく冗談を言われていました。
+            「晴美って本当に忘れっぽいよね、誕生日も忘れちゃうんじゃないの？」って（笑）。
+            否定できなかったです……。パスワードとか、日付とか、数字系は本当に苦手で。
+            でも誕生日だけはさすがに忘れないです！よろしくお願いします（笑）。
+          </p>
+          <div class="photo-block"><img src="img/iju-photo-yakuba.png" alt="役場からの眺め。遠くに山の稜線が見える。" style="width:100%; border-radius:8px; display:block;"></div>
+          <h3>このブログでやること</h3>
+          <p>
+            移住してみて気づいたこと、かたつま町のおすすめスポット、
+            地元のおいしいものなど、リアルな移住ライフをゆるく発信していきます！
+            「地方移住に興味があるけど不安……」という方の参考になれたら嬉しいです。
+            一緒にかたつま町を楽しみましょう！
+          </p>
+          <div class="note">
+            担当課の先輩に「このブログ、あとで担当課のサイトでも紹介しますね」と言われました。やったー！
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <aside class="sidebar">
+    <div class="author-card">
+      <div class="author-avatar-wrap">加</div>
+      <div class="author-name">加藤 晴美</div>
+      <div class="author-role">かたつま町役場<br>ふるさと納税担当課</div>
+      <div class="author-desc">
+        2025年4月、かたつま町に移住。地域おこし枠で採用された移住1年生です。
+        山と米と味噌汁が好き。毎日のお気に入りはかたつま米の朝ごはんです。
+      </div>
+      <img src="img/iju-deco.png" alt="" class="deco-img">
+    </div>
+  </aside>
+</div>
+
+<footer class="blog-footer">
+  <div class="blog-footer-inner">
+    <div class="blog-footer-left">
+      <strong>かたつま町移住レポ</strong><br>
+      加藤 晴美 ／ かたつま町役場 ふるさと納税担当課<br>
+      <a href="news.html" class="back-link">← かたつま町 ふるさと納税サイトへ</a>
+    </div>
+    <div class="blog-footer-right">
+      このWebサイトの内容はフィクションであり、<br>実在の人物・団体とは一切関係がありません。<br>
+      Copyright ©KAF. All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="js/search.js"></script>
+<script>
+function togglePost(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('open');
+}
+
+(function () {
+  var bar = document.querySelector('.top-bar');
+  var headerH = document.querySelector('.site-header').offsetHeight;
+  function onScroll() {
+    if (window.scrollY > headerH * 0.6) {
+      bar.classList.add('scrolled');
+    } else {
+      bar.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -11,13 +11,17 @@
 <header>
   <div class="header-inner">
     <a href="index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索・品目名検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -37,7 +41,25 @@
   <ul class="news-list">
 
     <li class="news-item">
-      <span class="news-date">2024.03.20</span>
+      <span class="news-date">2026.04.11</span>
+      <span class="news-text">
+        <span class="news-category news-cat-admin">業務報告</span>
+        4月8日〜10日の業務停止期間は終了しました。ご不便をおかけし申し訳ございませんでした。
+        <span style="font-size:12px; color:#bbb;">（担当：ふるさと納税担当課　加藤）</span>
+      </span>
+    </li>
+
+    <li class="news-item">
+      <span class="news-date">2026.04.07</span>
+      <span class="news-text" style="color:#999;">
+        <span class="news-category news-cat-admin">内部通知</span>
+        明日4月8日より3日間、担当課にて内部事務処理を行います。窓口業務を一時停止いたします。
+        <span style="font-size:12px; color:#bbb;">（令和8年度業務記録 No.04　件名：令和8年4月 特別処理案件）</span>
+      </span>
+    </li>
+
+    <li class="news-item">
+      <span class="news-date">2026.03.20</span>
       <span class="news-text">
         <span class="news-category news-cat-info">新着</span>
         春の農産物シーズン到来のお知らせ。旬の野菜詰め合わせ・山菜セットの新着品目を追加しました。今年は例年より雪解けが早く、山菜の生育が順調です。
@@ -45,87 +67,35 @@
     </li>
 
     <li class="news-item">
-      <span class="news-date">2024.02.30</span>
-      <span class="news-text" style="color:#c04040;">
-        <span class="news-category news-cat-notice">重要</span>
-        一部品目の在庫状況について変更があります。詳細はサイト内検索にて品目名を直接入力してください。
-        <!-- ARG: 2024.02.30は存在しない日付 -->
-      </span>
-    </li>
-
-    <li class="news-item">
-      <span class="news-date">2024.01.11</span>
+      <span class="news-date">2026.01.10</span>
       <span class="news-text">
         <span class="news-category news-cat-info">お知らせ</span>
-        年末年始の発送休止期間は終了しました。通常通り受付を再開しております。ご寄附いただいた皆様には順次対応いたします。
+        令和7年度のふるさと納税受付総額が発表されました。皆様のご支援に感謝申し上げます。本年度も引き続きよろしくお願いいたします。
       </span>
     </li>
 
     <li class="news-item">
-      <span class="news-date">2023.11.27</span>
-      <span class="news-text">
-        <span class="news-category news-cat-notice">条例改正</span>
-        条例の一部改正について（令和5年11月施行）。担当課窓口での配布資料をご確認ください。内容の詳細については担当課にお問い合わせいただくか、サイト内検索をご利用ください。
-      </span>
-    </li>
-
-    <li class="news-item">
-      <span class="news-date">2023.10.15</span>
-      <span class="news-text">
-        <span class="news-category news-cat-notice">担当変更</span>
-        担当窓口の変更について。令和5年10月より、一部手続きの担当者が変更となりました。ご不便をおかけし申し訳ございません。引き続きご利用いただけますようお願い申し上げます。
-      </span>
-    </li>
-
-    <li class="news-item">
-      <span class="news-date">2023.04.11</span>
-      <span class="news-text">
-        <span class="news-category news-cat-admin">業務報告</span>
-        4月8日〜10日の業務停止期間は終了しました。ご不便をおかけし申し訳ございませんでした。
-        当該期間の処理経緯については、担当課において適切に記録・管理しております。
-        内容についてのお問い合わせは、担当課窓口または当サイトにてご確認ください。
-        <span style="font-size:12px; color:#bbb;">（担当：ふるさと納税担当課　加藤）</span>
-      </span>
-    </li>
-
-    <li class="news-item">
-      <span class="news-date">2023.04.07</span>
-      <span class="news-text" style="color:#999;">
-        <span class="news-category news-cat-admin">内部通知</span>
-        明日4月8日より3日間、担当課にて内部事務処理を行います。窓口業務を一時停止いたします。
-        <span style="font-size:12px; color:#bbb;">（件名：なにもなかった3日間　令和5年度業務記録 No.23）</span>
-      </span>
-    </li>
-
-    <li class="news-item">
-      <span class="news-date">2023.01.10</span>
+      <span class="news-date">2025.06.15</span>
       <span class="news-text">
         <span class="news-category news-cat-info">お知らせ</span>
-        令和4年度のふるさと納税受付総額が発表されました。皆様のご支援に感謝申し上げます。本年度も引き続きよろしくお願いいたします。
+        夏の返礼品特集ページを公開しました。地元農家より直送の夏野菜セットほか、新着品目を順次追加予定です。
       </span>
     </li>
 
     <li class="news-item">
-      <span class="news-date">2022.10.01</span>
+      <span class="news-date">2025.05.12</span>
       <span class="news-text">
-        <span class="news-category news-cat-admin">内部通知</span>
-        健康管理記録提出期間のお知らせ（令和4年度）。本町にご在住・ご出身の対象住民の方は、担当課窓口までご確認ください。対象者には個別に連絡いたします。
+        <span class="news-category news-cat-info">特集</span>
+        ふるさと納税担当課　加藤による「<a href="iju-report.html" style="color:#4a7a4a;">かたつま町移住レポ</a>」を公開しました。
+        <span style="font-size:12px; color:#bbb;">（担当：加藤）</span>
       </span>
     </li>
 
     <li class="news-item">
-      <span class="news-date">2022.06.15</span>
+      <span class="news-date">2025.01.15</span>
       <span class="news-text">
-        <span class="news-category news-cat-notice">体制変更</span>
-        ふるさと納税担当課のスタッフ体制変更のお知らせ。担当者の交代に伴い、一部の手続きフローが変更となります。詳細は窓口までお問い合わせください。
-      </span>
-    </li>
-
-    <li class="news-item">
-      <span class="news-date">2021.04.01</span>
-      <span class="news-text">
-        <span class="news-category news-cat-info">サービス開始</span>
-        記録・保管サービス品目の提供を開始しました。詳細は「サービス・体験」カテゴリよりご確認ください。国立記憶・認知研究所（NMCRI）との連携による高品質なサービスです。
+        <span class="news-category news-cat-info">お知らせ</span>
+        令和6年度のふるさと納税受付総額を発表いたしました。多くの皆様にご支援いただき、誠にありがとうございます。詳細は担当課窓口にてご確認いただけます。
       </span>
     </li>
 
@@ -151,5 +121,15 @@
 </footer>
 
 <script src="js/search.js"></script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

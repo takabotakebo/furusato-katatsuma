@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>ログイン | おもいで管理課 KTMS</title>
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0e1520;
+    }
+    .login-box {
+      width: 340px;
+      background: #141e2e;
+      border: 1px solid #2a3a5a;
+      padding: 36px 32px 32px;
+    }
+    .login-logo {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .login-logo-main {
+      font-size: 13px;
+      color: #7aaac8;
+      letter-spacing: 0.08em;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .login-logo-sub {
+      font-size: 11px;
+      color: #3a5070;
+      margin-top: 4px;
+      font-family: 'Times New Roman', Georgia, serif;
+      letter-spacing: 0.06em;
+    }
+    .login-divider {
+      border: none;
+      border-top: 1px solid #1e2e44;
+      margin: 0 0 24px;
+    }
+    .login-field {
+      margin-bottom: 16px;
+    }
+    .login-field label {
+      display: block;
+      font-size: 11px;
+      color: #5a7090;
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .login-field input {
+      width: 100%;
+      background: #0a1018;
+      border: 1px solid #2a3a5a;
+      color: #c0d8f0;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-family: 'Courier New', monospace;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .login-field input:focus {
+      border-color: #4a7ab0;
+    }
+    .login-btn {
+      width: 100%;
+      background: #1a2a4a;
+      color: #a0c0e0;
+      border: 1px solid #3a5a8a;
+      padding: 10px;
+      font-size: 13px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .login-btn:hover {
+      background: #243a5a;
+      color: #c8e0f8;
+    }
+    .login-error {
+      display: none;
+      margin-top: 14px;
+      padding: 8px 12px;
+      background: #1e0a0a;
+      border: 1px solid #5a2020;
+      color: #c04040;
+      font-size: 12px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      text-align: center;
+    }
+    .login-notice {
+      margin-top: 20px;
+      font-size: 10px;
+      color: #2a3a50;
+      text-align: center;
+      line-height: 1.8;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+  </style>
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-logo-main">おもいで管理課</div>
+      <div class="login-logo-sub">KTMS — Kioku Torishimari Management System</div>
+    </div>
+    <hr class="login-divider">
+    <form id="login-form" autocomplete="off">
+      <div class="login-field">
+        <label>職員ID</label>
+        <input type="text" id="login-id" placeholder="" spellcheck="false">
+      </div>
+      <div class="login-field">
+        <label>パスワード</label>
+        <input type="password" id="login-pw" placeholder="">
+      </div>
+      <button type="submit" class="login-btn">ログイン</button>
+      <div class="login-error" id="login-error">IDまたはパスワードが正しくありません</div>
+    </form>
+    <div class="login-notice">
+      このシステムへのアクセスは記録されます。
+    </div>
+    <div style="margin-top:18px; border-top:1px solid #1e2e44; padding-top:16px; text-align:center;">
+      <a href="../portal/login.html" style="display:inline-block; width:100%; padding:10px; background:#0e1a2e; color:#7aaac8; border:1px solid #2a3a5a; font-size:12px; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif; letter-spacing:0.05em; text-decoration:none; box-sizing:border-box;">一般職員用ポータル</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* ID / パスワードはここで設定する */
+  var VALID_ID = 'AGT-007';
+  var VALID_PW = 'R0801';
+
+  document.getElementById('login-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var id = document.getElementById('login-id').value;
+    var pw = document.getElementById('login-pw').value;
+    var err = document.getElementById('login-error');
+
+    if (id === VALID_ID && pw === VALID_PW) {
+      sessionStorage.setItem('ktms_auth', '1');
+      window.location.href = 'loading.html';
+    } else if (id === VALID_ID && pw !== VALID_PW) {
+      err.textContent = 'パスワードが正しくありません';
+      err.style.display = 'block';
+      document.getElementById('login-pw').value = '';
+    } else {
+      err.textContent = 'IDまたはパスワードが正しくありません';
+      err.style.display = 'block';
+      document.getElementById('login-pw').value = '';
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -11,13 +11,17 @@
 <header>
   <div class="header-inner">
     <a href="index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -30,35 +34,22 @@
   </ul>
 </nav>
 <div class="top-hero">
+  <img src="img/hero-bg.png" alt="" class="top-hero-bg">
   <div class="top-hero-inner">
-    <div class="top-hero-label">Katatsumacho Furusato Nozei</div>
-    <div class="top-hero-title">かたつま町<br>ふるさと納税</div>
+    <img src="img/logo-w.png" alt="かたつま町" class="top-hero-logo">
+    <div class="top-hero-title">ふるさと納税</div>
     <div class="top-hero-sub">山あいの清流と霧深い気候が育てた、本物の味。<br>かたつまの恵みを全国の皆様にお届けします。</div>
     <a href="catalog.html" class="top-hero-btn">返礼品を見る</a>
+  </div>
+  <div class="top-hero-wave">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
+      <path d="M0,80 L0,40 Q180,0 360,30 Q540,60 720,20 Q900,-10 1080,30 Q1260,65 1440,30 L1440,80 Z" fill="#ffffff"/>
+    </svg>
   </div>
 </div>
 
 <main>
 
-  <!-- クイックナビ -->
-  <div class="top-quicknav">
-    <a href="usage.html" class="top-quicknav-item">
-      <h3>はじめての方へ</h3>
-      <p>制度のしくみ・寄附の流れをご案内します</p>
-    </a>
-    <a href="catalog.html" class="top-quicknav-item">
-      <h3>返礼品を探す</h3>
-      <p>農産物・加工品・各種サービス品目</p>
-    </a>
-    <a href="apply.html" class="top-quicknav-item">
-      <h3>寄附の手続き</h3>
-      <p>お申し込みフォームはこちら</p>
-    </a>
-    <a href="faq.html" class="top-quicknav-item">
-      <h3>よくあるご質問</h3>
-      <p>お手続き・お届けについて</p>
-    </a>
-  </div>
 
   <!-- 人気の返礼品フィーチャー -->
   <h2 class="section-title">人気の返礼品</h2>
@@ -144,24 +135,26 @@
   <h2 class="section-title">お知らせ</h2>
   <ul class="news-list">
     <li class="news-item">
-      <span class="news-date">2024.03.20</span>
-      <span class="news-text">
-        <span class="news-category news-cat-info">新着</span>
-        春の農産物シーズン到来。山菜・野菜の新着品目が追加されました。
-      </span>
-    </li>
-    <li class="news-item">
-      <span class="news-date">2024.02.30</span>
-      <span class="news-text" style="color:#b84040;">
-        <span class="news-category news-cat-notice">重要</span>
-        一部品目の受付状況に変更があります。詳細はサイト内検索または担当課窓口にてご確認ください。
-      </span>
-    </li>
-    <li class="news-item">
-      <span class="news-date">2023.04.11</span>
+      <span class="news-date">2026.04.11</span>
       <span class="news-text">
         <span class="news-category news-cat-admin">業務報告</span>
         4月8日〜10日の業務停止期間は終了しました。ご不便をおかけし申し訳ございませんでした。
+        <span style="font-size:12px; color:#bbb;">（担当：ふるさと納税担当課　加藤）</span>
+      </span>
+    </li>
+    <li class="news-item">
+      <span class="news-date">2026.04.07</span>
+      <span class="news-text" style="color:#999;">
+        <span class="news-category news-cat-admin">内部通知</span>
+        明日4月8日より3日間、担当課にて内部事務処理を行います。窓口業務を一時停止いたします。
+        <span style="font-size:12px; color:#bbb;">（令和8年度業務記録 No.04　件名：令和8年4月 特別処理案件）</span>
+      </span>
+    </li>
+    <li class="news-item">
+      <span class="news-date">2026.03.20</span>
+      <span class="news-text">
+        <span class="news-category news-cat-info">新着</span>
+        春の農産物シーズン到来のお知らせ。旬の野菜詰め合わせ・山菜セットの新着品目を追加しました。今年は例年より雪解けが早く、山菜の生育が順調です。
       </span>
     </li>
   </ul>
@@ -201,5 +194,15 @@
 </footer>
 
 <script src="js/search.js"></script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

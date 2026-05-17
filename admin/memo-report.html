@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>FILE03 稼働実績報告 | おもいで管理課</title>
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .report-section {
+      margin-bottom: 28px;
+    }
+    .report-section-title {
+      font-size: 11px;
+      font-family: 'Courier New', monospace;
+      color: #3a6a9a;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #1a2a3a;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-bottom: 8px;
+      color: #c8d4e0;
+    }
+    .report-table th {
+      background: #0c1822;
+      border: 1px solid #1a2a3a;
+      padding: 6px 10px;
+      text-align: left;
+      font-weight: bold;
+      letter-spacing: 0.04em;
+      color: #4a8ab0;
+      white-space: nowrap;
+    }
+    .report-table td {
+      border: 1px solid #1a2a3a;
+      padding: 6px 10px;
+      vertical-align: top;
+      line-height: 1.7;
+    }
+    .report-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+    .report-table tr.row-highlight td { background: rgba(160,60,30,0.08); }
+    .status-ok { color: #4a9a4a; font-weight: bold; }
+    .status-done { color: #4a7aaa; font-weight: bold; }
+    .status-active { color: #c06030; font-weight: bold; }
+    .status-none { color: #556070; }
+    .report-note {
+      font-size: 11px;
+      color: #4a6a8a;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      line-height: 1.8;
+    }
+    .report-footer {
+      margin-top: 32px;
+      padding-top: 12px;
+      border-top: 1px solid #1a2a3a;
+      font-size: 11px;
+      color: #3a5a7a;
+      line-height: 2.0;
+    }
+  </style>
+</head>
+<body>
+<div class="admin-sysbar">
+  <span>KTMS &nbsp;/&nbsp; おもいで管理課 内部管理システム &nbsp; v3.2</span>
+  <span id="sys-time-top">--:--:--</span>
+</div>
+<div class="admin-header">
+  <span style="font-weight:bold; color:#1a3a5a;">おもいで管理課　内部文書管理</span>
+  <span>
+    セッション：<span id="session-id" style="font-family:monospace; color:#4a7ab0;">—</span>
+    &nbsp;&nbsp;
+    <a href="../index.html" class="admin-back-link">← 公開サイトへ戻る</a>
+  </span>
+</div>
+<div class="admin-layout">
+  <div class="admin-sidebar">
+    <div class="admin-sidebar-title">DOCUMENT INDEX</div>
+    <ul class="admin-sidebar-nav">
+      <li><a href="index.html">▸ 内部書類一覧</a></li>
+      <li class="nav-group-label"><i class="fa-regular fa-file"></i> FILES</li>
+      <li><a href="memo-007.html">FILE01　PROJECT-9について</a></li>
+      <li><a href="memo-003.html">FILE02　AGT-007通達</a></li>
+      <li><a href="memo-report.html" class="active">FILE03　稼働実績報告</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-display"></i> SYSTEM</li>
+      <li><a href="access-log.html">アクセスログ</a></li>
+      <li><a href="chat-log.html">秘匿指示通信</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-database"></i> DATA</li>
+      <li><a href="memory-viewer.html">採取記憶データ　KT-Z001</a></li>
+      <li class="nav-disabled"><a>採取記憶データ　KT-Z002</a></li>
+    </ul>
+  </div>
+  <div class="admin-content">
+    <p class="admin-title">FILE03　稼働実績報告</p>
+    <p style="font-size:11px; color:#4a6a8a; margin-bottom:24px;">PROJECT-9 / AGT-007　分類：S ／ 随時更新　令和8年1月〜</p>
+
+    <div class="report-section">
+      <div class="report-section-title">誘導実績　令和8年1月〜4月</div>
+      <table class="report-table">
+        <tr>
+          <th>No.</th>
+          <th>実施月</th>
+          <th>誘導経路</th>
+          <th>KTMS到達</th>
+          <th>採取番号</th>
+          <th>状況</th>
+        </tr>
+        <tr>
+          <td>01</td>
+          <td>令和8年1月</td>
+          <td>SNS投稿（ふるさと納税おすすめ特集）</td>
+          <td class="status-none">未到達</td>
+          <td>—</td>
+          <td class="status-none">未登録</td>
+        </tr>
+        <tr>
+          <td>02</td>
+          <td>令和8年1月</td>
+          <td>個人ブログ記事（返礼品レビュー記事）</td>
+          <td class="status-none">未到達</td>
+          <td>—</td>
+          <td class="status-none">未登録</td>
+        </tr>
+        <tr>
+          <td>03</td>
+          <td>令和8年2月</td>
+          <td>掲示板投稿（地方移住・ふるさと納税情報）</td>
+          <td class="status-none">未到達</td>
+          <td>—</td>
+          <td class="status-none">未登録</td>
+        </tr>
+        <tr>
+          <td>04</td>
+          <td>令和8年2月</td>
+          <td>まとめサイト記事（かたつま町特集）</td>
+          <td class="status-none">未到達</td>
+          <td>—</td>
+          <td class="status-none">未登録</td>
+        </tr>
+        <tr>
+          <td>05</td>
+          <td>令和8年3月</td>
+          <td>ニュースコメント欄への誘導投稿</td>
+          <td class="status-none">未到達</td>
+          <td>—</td>
+          <td class="status-none">未登録</td>
+        </tr>
+        <tr>
+          <td>06</td>
+          <td>令和8年3月</td>
+          <td>動画コメント（ふるさと納税紹介動画）</td>
+          <td class="status-none">未到達</td>
+          <td>—</td>
+          <td class="status-none">未登録</td>
+        </tr>
+        <tr class="row-highlight">
+          <td>07</td>
+          <td>令和8年4月</td>
+          <td>個人ブログ記事（不審サイト調査記事）</td>
+          <td style="color:#c8d4e0; font-weight:bold;">到達</td>
+          <td style="color:#c8d4e0; font-family:'Courier New',monospace;">KT-Z002</td>
+          <td><span class="status-done">簡易記憶処理　完了</span></td>
+        </tr>
+        <tr>
+          <td>08</td>
+          <td>令和8年4月</td>
+          <td>SNS投稿（ふるさと納税比較）</td>
+          <td class="status-none">未到達</td>
+          <td>—</td>
+          <td class="status-none">未登録</td>
+        </tr>
+        <tr>
+          <td>09</td>
+          <td>令和8年4月〜</td>
+          <td>継続誘導（複数経路）</td>
+          <td style="color:#c8d4e0; font-weight:bold;">到達</td>
+          <td style="color:#c06030; font-family:'Courier New',monospace;">未確定</td>
+          <td><span class="status-active">セッション継続中</span></td>
+        </tr>
+      </table>
+      <p class="report-note">※ KTMS到達：KTMSログイン後、内部文書を1件以上閲覧した者を指す<br>
+      ※ No.07（KT-Z002）：簡易記憶処理を実施。詳細は採取記憶データに記録なし（処理規模：軽微）</p>
+    </div>
+
+    <div class="report-section">
+      <div class="report-section-title">特別処理案件</div>
+      <table class="report-table">
+        <tr>
+          <th>管理番号</th>
+          <th>採取番号</th>
+          <th>対象</th>
+          <th>経緯</th>
+          <th>処理完了</th>
+        </tr>
+        <tr>
+          <td>SP-001</td>
+          <td style="font-family:'Courier New',monospace;">KT-Z001</td>
+          <td>加藤 晴美（職員）</td>
+          <td>業務中に「新生還流計画 概要資料」へ誤アクセス。外部告発を試みた。</td>
+          <td><span class="status-ok">完了（令和8年4月8日）</span></td>
+        </tr>
+      </table>
+      <p class="report-note">※ KT-Z001の採取記憶データは採取記憶データ　KT-Z001（KTMS内）に格納済み</p>
+    </div>
+
+    <div class="report-footer">
+      現在セッション継続中の対象は本報告書の閲覧者と同一である可能性がある。<br>
+      おもいで管理課　連携推進室　令和8年4月（随時更新）
+    </div>
+
+    <span class="admin-page-id">KL-3/6</span>
+    <div class="admin-footer-bottom">
+      <span class="admin-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+    </div>
+  </div>
+</div>
+<script>
+if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'); }
+(function () {
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  var el = document.getElementById('sys-time-top');
+  function tick() {
+    var d = new Date();
+    if (el) el.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  tick(); setInterval(tick, 1000);
+  var s = sessionStorage.getItem('kt_session_id');
+  if (!s) { s = 'SID-' + Math.random().toString(36).substr(2,8).toUpperCase(); sessionStorage.setItem('kt_session_id', s); }
+  var sid = document.getElementById('session-id');
+  if (sid) sid.textContent = s;
+})();
+</script>
+</body>
+</html>

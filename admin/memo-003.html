@@ -1,19 +1,122 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <title>MEMO-003 エージェント生成記録 | 記憶管理担当課</title>
+  <title>FILE02 AGT-007通達 | おもいで管理課</title>
   <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .pdf-frame {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #f5f0e8;
+      border: 1px solid #2a3a2a;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.04);
+      padding: 48px 52px 56px;
+      font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Georgia', serif;
+      color: #1a1a18;
+      font-size: 13px;
+      line-height: 2.1;
+      position: relative;
+      filter: contrast(1.03) brightness(0.96);
+      transform: rotate(0.15deg);
+    }
+    .pdf-frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('../img/pdf-paper-texture.png') repeat center/300px auto;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .pdf-stamp {
+      position: absolute;
+      top: 32px;
+      right: 40px;
+      border: 2px solid rgba(160,40,40,0.55);
+      color: rgba(160,40,40,0.55);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      padding: 4px 10px;
+      transform: rotate(3deg);
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      white-space: nowrap;
+    }
+    .pdf-title-block {
+      text-align: center;
+      border-bottom: 2px solid #333;
+      padding-bottom: 18px;
+      margin-bottom: 28px;
+    }
+    .pdf-title-block .doc-num {
+      font-size: 11px;
+      color: #666;
+      letter-spacing: 0.1em;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 8px;
+    }
+    .pdf-title-block h1 {
+      font-size: 17px;
+      font-weight: bold;
+      letter-spacing: 0.06em;
+      color: #111;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .pdf-title-block .doc-meta {
+      font-size: 11px;
+      color: #555;
+      line-height: 2.0;
+    }
+    .pdf-section { margin-bottom: 24px; }
+    .pdf-section h2 {
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid #aaa;
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+      color: #222;
+    }
+    .pdf-section p { margin-bottom: 10px; text-align: justify; }
+    .pdf-section ol, .pdf-section ul { padding-left: 20px; margin-bottom: 10px; }
+    .pdf-section li { margin-bottom: 6px; }
+    .pdf-warn {
+      border: 1px solid #888;
+      padding: 10px 14px;
+      font-size: 12px;
+      margin: 20px 0;
+      background: rgba(0,0,0,0.03);
+    }
+    .pdf-footer {
+      margin-top: 36px;
+      padding-top: 12px;
+      border-top: 1px solid #aaa;
+      font-size: 11px;
+      color: #666;
+      text-align: right;
+    }
+    .pdf-to {
+      border: 1px solid #ccc;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      font-size: 12px;
+      background: rgba(0,0,0,0.02);
+    }
+    .pdf-to table { width: 100%; border-collapse: collapse; }
+    .pdf-to td { padding: 3px 8px; vertical-align: top; }
+    .pdf-to td:first-child { width: 80px; color: #666; white-space: nowrap; }
+  </style>
 </head>
 <body>
 <div class="admin-sysbar">
-  <span>KTMS &nbsp;/&nbsp; 記憶管理担当課 内部管理システム &nbsp; v3.2</span>
+  <span>KTMS &nbsp;/&nbsp; おもいで管理課 内部管理システム &nbsp; v3.2</span>
   <span id="sys-time-top">--:--:--</span>
 </div>
 <div class="admin-header">
-  <span style="font-weight:bold; color:#1a3a5a;">記憶管理担当課　内部文書管理</span>
+  <span style="font-weight:bold; color:#1a3a5a;">おもいで管理課　内部文書管理</span>
   <span>
     セッション：<span id="session-id" style="font-family:monospace; color:#4a7ab0;">—</span>
     &nbsp;&nbsp;
@@ -24,41 +127,82 @@
   <div class="admin-sidebar">
     <div class="admin-sidebar-title">DOCUMENT INDEX</div>
     <ul class="admin-sidebar-nav">
-      <li><a href="index.html">内部書類一覧</a></li>
-      <li class="nav-divider"></li>
-      <li><a href="history.html">MEMO-H01　歴史記録</a></li>
-      <li><a href="memo-001.html">MEMO-001　昭和40年事案</a></li>
-      <li><a href="memo-002.html">MEMO-002　収集月報</a></li>
-      <li><a href="memo-003.html" class="active">MEMO-003　エージェント記録</a></li>
-      <li><a href="memo-004.html">MEMO-004　用途分類</a></li>
-      <li><a href="memo-005.html">MEMO-005　人員管理規程</a></li>
-      <li><a href="access-log.html">MEMO-L01　アクセスログ</a></li>
-      <li class="nav-divider"></li>
-      <li><a href="#" style="color:#c06030; font-size:11px; cursor:default; pointer-events:none;">MEMO-C01　通信ログ ⚠ 制限中</a></li>
+      <li><a href="index.html">▸ 内部書類一覧</a></li>
+      <li class="nav-group-label"><i class="fa-regular fa-file"></i> FILES</li>
+      <li><a href="memo-007.html">FILE01　PROJECT-9について</a></li>
+      <li><a href="memo-003.html" class="active">FILE02　AGT-007通達</a></li>
+      <li><a href="memo-report.html">FILE03　稼働実績報告</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-display"></i> SYSTEM</li>
+      <li><a href="access-log.html">アクセスログ</a></li>
+      <li><a href="chat-log.html">秘匿指示通信</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-database"></i> DATA</li>
+      <li><a href="memory-viewer.html">採取記憶データ　KT-Z001</a></li>
+      <li class="nav-disabled"><a>採取記憶データ　KT-Z002</a></li>
     </ul>
   </div>
   <div class="admin-content">
-    <p class="admin-title">MEMO-003　エージェント生成記録（令和3年度）</p>
-    <div class="memo-body">エージェント生成記録（令和3年度）
-作成：記憶管理担当課　分類：S / 永久保管
+    <div class="pdf-frame">
+      <div class="pdf-stamp">AGT-007 宛　最高機密</div>
+      <div class="pdf-title-block">
+        <div class="doc-num">FILE02 ／ 分類：SS ／ 永久保管</div>
+        <h1>AGT-007通達<br>AGT-007（山之内タカシ）宛</h1>
+        <div class="doc-meta">
+          発行：おもいで管理課　連携推進室<br>
+          令和8年1月
+        </div>
+      </div>
 
-■ 山之内タカシ（エージェントID：AGT-007）
+      <div class="pdf-to">
+        <table>
+          <tr><td>宛先</td><td>AGT-007　山之内タカシ</td></tr>
+          <tr><td>発信元</td><td>おもいで管理課　連携推進室</td></tr>
+          <tr><td>件名</td><td>PROJECT-9 運用開始に係るエージェント通達</td></tr>
+          <tr><td>発行日</td><td>令和8年1月</td></tr>
+        </table>
+      </div>
 
-生成日：令和3年8月12日
-素材：MEM-0847（40代・男性・神奈川県）/ MEM-1203（30代・男性・埼玉県）
-     MEM-2091（50代・男性・東京都）/ 他9件
-目的：調査誘導用エージェントの生成（新規アクセス者の誘導）
-運用状況：稼働中
-備考：対象者の自発的行動を誘発するよう調整済み。
-     本エージェントは自身の生成経緯を認識していない。
-     誘導実績：ウェブ記事経由の新規アクセス　令和5年11月〜　計7件確認。</div>
-    <span class="admin-page-id">KL-5/10</span>
+      <div class="pdf-section">
+        <h2>一　通達の目的</h2>
+        <p>本通達は、PROJECT-9の始動に伴いAGT-007に対して運用上の役割・権限・制約を明示するものである。本文書はAGT-007専用の閲覧権限が付与されており、他者への開示は禁止される。</p>
+      </div>
+
+      <div class="pdf-section">
+        <h2>二　AGT-007の生成について</h2>
+        <p>AGT-007は、MNE法により採取した人間の記憶を素材として人格再構成を行い、自立型エージェントとして書き込んだ存在である。</p>
+        <p>採取元：ふるさと納税寄附者　1名（男性・30代・神奈川県）。採取元の人格は処理後に廃棄済み。社会的痕跡は当課管理下に置かれている。</p>
+        <p>AGT-007の人格・記憶・行動傾向は、「インターネット上での調査・情報収集への強い動機」を中核として設計されている。この動機はAGT-007自身にとって「自分の性格・関心」として自然に感じられるよう調整されている。</p>
+      </div>
+
+      <div class="pdf-section">
+        <h2>三　自己認識の調整について</h2>
+        <p>AGT-007は自身が人工的に生成された存在であることを認識しているが、その認識に対して違和感・拒否感・疑問を抱かないよう心理的調整が施されている。これは書き込み時に「自身の存在を肯定的に受け入れる記憶」を埋め込むことで実現している。</p>
+        <p>本通達を閲覧した場合においても、AGT-007が動揺・拒絶反応を示す可能性は低い。ただし、繰り返しの自己参照によって認知的摩擦が蓄積する可能性があるため、本文書への過剰なアクセスは推奨しない。</p>
+      </div>
+
+      <div class="pdf-section">
+        <h2>四　PROJECT-9における役割</h2>
+        <p>AGT-007はPROJECT-9の主要実行エージェントとして以下を担当する。</p>
+        <ul>
+          <li>ウェブ上に記事・投稿を作成し、かたつま町ふるさと納税サイトへの誘導を行うこと</li>
+          <li>誘導した対象者がKTMS内部システムに到達した時点で、採取対象として自動登録されることを認識すること</li>
+          <li>対象者の行動・記憶を継続収集し、適切な時点で速やかに処理すること</li>
+        </ul>
+      </div>
+
+      <div class="pdf-footer">
+        おもいで管理課　連携推進室　令和8年1月<br>
+        稼働実績については FILE03 参照
+      </div>
+    </div>
+
+    <span class="admin-page-id">KL-2/6</span>
     <div class="admin-footer-bottom">
       <span class="admin-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
     </div>
   </div>
 </div>
 <script>
+if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'); }
 (function () {
   function pad(n) { return n < 10 ? '0' + n : n; }
   var el = document.getElementById('sys-time-top');

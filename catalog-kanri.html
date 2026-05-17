@@ -1,295 +1,379 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>返礼品管理ポータル | かたつま町 ふるさと納税担当課 内部</title>
-  <link rel="stylesheet" href="css/catalog-kanri.css">
+  <title>返礼品管理ログ | かたつま町 ふるさと納税担当課 内部</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .log-topbar {
+      background: #f4f8f0;
+      border-bottom: 1px solid #d4e4c8;
+      padding: 7px 32px;
+      font-size: 11px;
+      color: #888;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .log-topbar span { color: #6a8a5a; }
+
+    .log-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: #fff;
+      margin-bottom: 32px;
+    }
+    .log-table th {
+      padding: 9px 14px;
+      background: #f4f8f0;
+      border-bottom: 2px solid #d4e4c8;
+      text-align: left;
+      color: #555;
+      font-weight: normal;
+      white-space: nowrap;
+    }
+    .log-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #eef2ea;
+      vertical-align: top;
+      color: #444;
+      line-height: 1.7;
+    }
+    .log-table tr:hover td { background: #fafcf8; }
+
+    .log-code { font-size: 11px; color: #aaa; white-space: nowrap; width: 80px; }
+    .log-name { font-weight: bold; color: #1a4010; }
+    .log-note { font-size: 12px; color: #888; }
+    .log-note.flag { color: #8a3020; }
+    .log-date { font-size: 11px; color: #bbb; white-space: nowrap; width: 110px; }
+
+    .status-badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+    .s-active    { background: #e4f4dc; color: #246a1a; border: 1px solid #a4d484; }
+    .s-suspended { background: #fff0e0; color: #8a4010; border: 1px solid #e8c090; }
+    .s-special   { background: #fce8e8; color: #8a2020; border: 1px solid #e0a0a0; }
+    .s-locked    { background: #ebebf0; color: #404070; border: 1px solid #c0c0d8; }
+    .s-new       { background: #e4eef8; color: #1a4a80; border: 1px solid #a0c0e0; }
+
+    .log-section-title {
+      font-size: 0.95em;
+      color: #1a4010;
+      border-left: 3px solid #38712a;
+      padding-left: 12px;
+      margin: 36px 0 12px;
+      font-weight: bold;
+    }
+
+    .log-note-box {
+      font-size: 12px;
+      color: #666;
+      background: #f8faf4;
+      border: 1px solid #dce8d0;
+      border-left: 3px solid #aac890;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      line-height: 1.9;
+    }
+    .log-note-box.warn {
+      border-left-color: #c87010;
+      background: #fdf8f0;
+      color: #5a3a10;
+    }
+    .log-note-box.alert {
+      border-left-color: #b03030;
+      background: #fdf4f4;
+      color: #5a2020;
+    }
+  </style>
 </head>
 <body>
 
-<div class="sys-topbar">
-  <span>かたつま町ふるさと納税担当課　返礼品管理ポータル　/ 内部利用限定</span>
-  <span><span id="sys-time"></span></span>
+<div class="log-topbar">
+  <span>かたつま町ふるさと納税担当課　返礼品管理ログ　／　内部利用限定</span>
+  <span id="log-time"></span>
 </div>
 
-<div class="sys-header">
-  <div>
-    <div class="sys-logo">返礼品管理ポータル <span>Ver. 4.1.3 — かたつま町ふるさと納税担当課</span></div>
-    <div style="margin-top:6px;"><a href="index.html" style="color:#a0c8e8; font-size:12px; text-decoration:none;">← かたつま町 ふるさと納税サイトへ戻る</a></div>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
+    </a>
+    <form class="search-form" id="site-search">
+      <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
+      <button type="submit">検索</button>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-  <ul class="sys-nav">
-    <li><a href="#" class="active">商品管理</a></li>
-    <li><a href="#">在庫管理</a></li>
-    <li><a href="#">寄附者管理</a></li>
-    <li><a href="#">レポート</a></li>
+</header>
+<nav>
+  <ul>
+    <li><a href="catalog.html">返礼品一覧</a></li>
+    <li><a href="about.html">自治体紹介</a></li>
+    <li><a href="news.html">お知らせ</a></li>
+    <li><a href="apply.html">寄附の手続き</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
   </ul>
-</div>
+</nav>
 
-<div class="sys-main">
-
-  <div class="sys-page-title">商品一覧</div>
-  <div class="sys-page-sub">全品目の公開状態・在庫状況を確認できます。特別管理品目の詳細は品目名を直接検索してください。</div>
-
-  <div class="sys-stats">
-    <div class="sys-stat">
-      <span class="sys-stat-num">8</span>
-      <div class="sys-stat-label">公開中</div>
-    </div>
-    <div class="sys-stat">
-      <span class="sys-stat-num">2</span>
-      <div class="sys-stat-label">公開停止</div>
-    </div>
-    <div class="sys-stat">
-      <span class="sys-stat-num" style="color:#9a2020;">5</span>
-      <div class="sys-stat-label">特別管理</div>
-    </div>
-    <div class="sys-stat">
-      <span class="sys-stat-num" style="color:#9a4a10;">1</span>
-      <div class="sys-stat-label">アクセス制限</div>
-    </div>
-  </div>
+<main>
+  <p class="breadcrumb"><a href="index.html">トップ</a><span>›</span>返礼品管理ログ</p>
+  <h1 style="font-size:1.3em; color:#1a4010; margin-bottom:6px;">返礼品管理ログ</h1>
+  <p style="font-size:12px; color:#aaa; margin-bottom:28px;">全品目の公開状態・更新履歴を表示しています。</p>
 
   <!-- 通常品目 -->
-  <div class="sys-section">
-    <div class="sys-section-title">通常品目（農産物・加工品）</div>
-  </div>
-
-  <table class="prod-table">
+  <div class="log-section-title">通常品目（農産物・加工品）</div>
+  <table class="log-table">
     <thead>
       <tr>
-        <th style="width:90px;">商品コード</th>
-        <th>商品名</th>
-        <th style="width:90px;">公開状態</th>
-        <th style="width:70px;">在庫</th>
-        <th>担当者コメント</th>
+        <th class="log-code">コード</th>
+        <th>品目名</th>
+        <th style="width:90px;">状態</th>
+        <th style="width:80px;">在庫</th>
+        <th>更新ログ</th>
+        <th class="log-date">最終更新</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="prod-code">KT-F001</td>
-        <td class="prod-name"><a href="item-kome.html">かたつま米 特別栽培（2kg×5袋）</a></td>
-        <td><span class="status status-active">公開中</span></td>
+        <td class="log-code">KT-F001</td>
+        <td class="log-name"><a href="item-kome.html">かたつま米 特別栽培（2kg×5袋）</a></td>
+        <td><span class="status-badge s-active">公開中</span></td>
         <td>在庫あり</td>
-        <td class="prod-note">—</td>
+        <td class="log-note">—</td>
+        <td class="log-date">令和8年3月</td>
       </tr>
       <tr>
-        <td class="prod-code">KT-F002</td>
-        <td class="prod-name"><a href="item-soba.html">かたつまそば 手打ち乾麺（200g×5束）</a></td>
-        <td><span class="status status-active">公開中</span></td>
+        <td class="log-code">KT-F002</td>
+        <td class="log-name"><a href="item-soba.html">かたつまそば 手打ち乾麺（200g×5束）</a></td>
+        <td><span class="status-badge s-active">公開中</span></td>
         <td>在庫あり</td>
-        <td class="prod-note">—</td>
+        <td class="log-note">—</td>
+        <td class="log-date">令和8年3月</td>
       </tr>
       <tr>
-        <td class="prod-code">KT-F003</td>
-        <td class="prod-name"><a href="item-yasai.html">旬の野菜詰め合わせ 12品以上</a></td>
-        <td><span class="status status-active">公開中</span></td>
+        <td class="log-code">KT-F003</td>
+        <td class="log-name"><a href="item-yasai.html">旬の野菜詰め合わせ 12品以上</a></td>
+        <td><span class="status-badge s-active">公開中</span></td>
         <td>季節在庫</td>
-        <td class="prod-note">—</td>
+        <td class="log-note">—</td>
+        <td class="log-date">令和8年3月</td>
       </tr>
       <tr>
-        <td class="prod-code">KT-F004</td>
-        <td class="prod-name"><a href="item-yama.html">山の幸詰め合わせ（秋）</a></td>
-        <td><span class="status status-active">公開中</span></td>
+        <td class="log-code">KT-F004</td>
+        <td class="log-name"><a href="item-yama.html">山の幸詰め合わせ（秋）</a></td>
+        <td><span class="status-badge s-active">公開中</span></td>
         <td>在庫あり</td>
-        <td class="prod-note">—</td>
+        <td class="log-note">—</td>
+        <td class="log-date">令和7年10月</td>
       </tr>
       <tr>
-        <td class="prod-code">KT-F005</td>
-        <td class="prod-name"><a href="item-sake.html">かたつまの霧 純米大吟醸（720ml×2本）</a></td>
-        <td><span class="status status-active">公開中</span></td>
+        <td class="log-code">KT-F005</td>
+        <td class="log-name"><a href="item-sake.html">かたつまの霧 純米大吟醸（720ml×2本）</a></td>
+        <td><span class="status-badge s-active">公開中</span></td>
         <td>残り少数</td>
-        <td class="prod-note">今期分は残りわずか。次期入荷は来春。</td>
+        <td class="log-note">今期分残りわずか。次期入荷は来春予定。</td>
+        <td class="log-date">令和8年2月</td>
       </tr>
       <tr>
-        <td class="prod-code">KT-F006</td>
-        <td class="prod-name"><a href="item-miso.html">山里味噌 3年熟成（1kg×3袋）</a></td>
-        <td><span class="status status-active">公開中</span></td>
+        <td class="log-code">KT-F006</td>
+        <td class="log-name"><a href="item-miso.html">山里味噌 3年熟成（1kg×3袋）</a></td>
+        <td><span class="status-badge s-active">公開中</span></td>
         <td>在庫あり</td>
-        <td class="prod-note">—</td>
+        <td class="log-note">—</td>
+        <td class="log-date">令和8年3月</td>
       </tr>
     </tbody>
   </table>
 
   <!-- サービス品目（公開） -->
-  <div class="sys-section">
-    <div class="sys-section-title">サービス品目（公開中）</div>
-  </div>
-
-  <table class="prod-table">
+  <div class="log-section-title">サービス品目（公開中）</div>
+  <table class="log-table">
     <thead>
       <tr>
-        <th style="width:90px;">商品コード</th>
-        <th>商品名</th>
-        <th style="width:90px;">公開状態</th>
-        <th style="width:70px;">在庫</th>
-        <th>担当者コメント</th>
+        <th class="log-code">コード</th>
+        <th>品目名</th>
+        <th style="width:90px;">状態</th>
+        <th style="width:80px;">在庫</th>
+        <th>更新ログ</th>
+        <th class="log-date">最終更新</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="prod-code">KT-M001</td>
-        <td class="prod-name"><a href="item-kioku-1.html">記憶の整理・保管サービス（基本プラン）</a></td>
-        <td><span class="status status-active">公開中</span></td>
+        <td class="log-code">KT-M001</td>
+        <td class="log-name"><a href="item-kioku-1.html">おもいで詰め合わせセット</a></td>
+        <td><span class="status-badge s-active">公開中</span></td>
         <td>受付中</td>
-        <td class="prod-note">特別条例第2条に基づき提供。外部委託先：国立記憶・認知研究所</td>
+        <td class="log-note">特別条例第2条に基づき提供。外部委託先：国立記憶・認知研究所</td>
+        <td class="log-date">令和8年4月</td>
       </tr>
       <tr>
-        <td class="prod-code">KT-M002</td>
-        <td class="prod-name"><a href="item-kioku-2.html">思い出アーカイブ（1年分）</a></td>
-        <td><span class="status status-active">公開中</span></td>
+        <td class="log-code">KT-M002</td>
+        <td class="log-name"><a href="item-kioku-2.html">しあわせな記憶（一回分）</a></td>
+        <td><span class="status-badge s-active">公開中</span></td>
         <td>受付中</td>
-        <td class="prod-note">保管期間中は採取元からの切り離しが発生。条例第4条準拠。</td>
+        <td class="log-note">幸福感の高い記憶素材を個別提供。採取元への通知なし。</td>
+        <td class="log-date">令和8年4月</td>
       </tr>
     </tbody>
   </table>
 
-  <!-- サービス品目（非公開・公開停止） -->
-  <div class="sys-section">
-    <div class="sys-section-title">サービス品目（公開停止・審査保留）</div>
-  </div>
-
-  <div class="sys-note warning">
-    以下の品目は公開停止中または内部審査保留中です。詳細ページへのアクセスは品目名をサイト内検索に入力してください。
-  </div>
-
-  <table class="prod-table" style="margin-top:10px;">
+  <!-- サービス品目（非公開） -->
+  <div class="log-section-title">サービス品目（公開停止・審査保留）</div>
+  <div class="log-note-box warn">以下の品目は公開停止中または内部審査保留中です。詳細ページは別途管理されており、通常の経路からはアクセスできません。</div>
+  <table class="log-table">
     <thead>
       <tr>
-        <th style="width:90px;">商品コード</th>
-        <th>商品名</th>
-        <th style="width:90px;">公開状態</th>
-        <th style="width:70px;">在庫</th>
-        <th>担当者コメント</th>
+        <th class="log-code">コード</th>
+        <th>品目名</th>
+        <th style="width:90px;">状態</th>
+        <th style="width:80px;">在庫</th>
+        <th>更新ログ</th>
+        <th class="log-date">最終更新</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="prod-code">KT-M003</td>
-        <td class="prod-name"><a href="item-kioku-3.html">忘れていた夏（1回分）</a></td>
-        <td><span class="status status-suspended">公開停止</span></td>
+        <td class="log-code">KT-M003</td>
+        <td class="log-name">忘れていた夏（1回分）</td>
+        <td><span class="status-badge s-suspended">公開停止</span></td>
         <td>残り少数</td>
-        <td class="prod-note flag">採取元への通知未実施。採取同意書の確認が必要。公開判断を保留中。[担当K: 令和5年3月]</td>
+        <td class="log-note flag">公開判断を保留中。</td>
+        <td class="log-date">令和8年3月</td>
       </tr>
       <tr>
-        <td class="prod-code">KT-M004</td>
-        <td class="prod-name"><a href="item-kioku-4.html">あの人との時間（5分以内）</a></td>
-        <td><span class="status status-suspended">公開停止</span></td>
+        <td class="log-code">KT-M004</td>
+        <td class="log-name">あの人との時間（5分以内）</td>
+        <td><span class="status-badge s-suspended">公開停止</span></td>
         <td>在庫あり</td>
-        <td class="prod-note flag">採取元が故人の可能性。遺族への通知義務について法務確認要請中。[担当K: 令和5年3月]</td>
+        <td class="log-note flag">採取元が故人の可能性。</td>
+        <td class="log-date">令和8年3月</td>
       </tr>
       <tr>
-        <td class="prod-code">KT-M005</td>
-        <td class="prod-name"><a href="item-kioku-6.html">未使用の幼少期（一式）</a></td>
-        <td><span class="status status-special">特別管理</span></td>
+        <td class="log-code">KT-M005</td>
+        <td class="log-name">幼少期の記憶（一式）</td>
+        <td><span class="status-badge s-special">特別管理</span></td>
         <td>不定数</td>
-        <td class="prod-note flag">0歳〜7歳採取。採取元の現在の所在確認を再三要請したが対応なし。本品目の扱いについて上長への申し立てを行った。[担当K] ※ 上記コメントは削除済みとして処理（令和5年4月）</td>
+        <td class="log-note flag">0歳〜7歳の記憶情報。大規模採取作業時に採取実施。</td>
+        <td class="log-date">令和8年4月</td>
       </tr>
       <tr>
-        <td class="prod-code">KT-M006</td>
-        <td class="prod-name"><a href="item-kioku-7.html">整理済み記憶セット（混合）</a></td>
-        <td><span class="status status-special">特別管理</span></td>
+        <td class="log-code">KT-M006</td>
+        <td class="log-name">昭和時代の記憶セット（混合）</td>
+        <td><span class="status-badge s-special">特別管理</span></td>
         <td>在庫あり</td>
-        <td class="prod-note">複数名混合。採取元識別不可。条例第7条準拠で流通可能だが、倫理審査未了。NMCRI との分配比率交渉中。</td>
+        <td class="log-note flag">複数名混合・採取元識別不可。条例第7条準拠で流通可能。</td>
+        <td class="log-date">令和8年2月</td>
       </tr>
       <tr>
-        <td class="prod-code">KT-M007</td>
-        <td class="prod-name"><a href="item-kioku-8.html">はじめての記憶（複製不可）</a></td>
-        <td><span class="status status-special">特別管理</span></td>
-        <td>S-40-10-001〜</td>
-        <td class="prod-note flag">採取：昭和40年10月。件数 312件以上。詳細は別途管理文書を参照。本品目に関するいかなる外部照会も担当課長に報告すること。</td>
-      </tr>
-      <tr>
-        <td class="prod-code">KT-M008</td>
-        <td class="prod-name"><a href="testimonials.html">寄附者レビュー（管理用）</a></td>
-        <td><span class="status status-special">特別管理</span></td>
-        <td>—</td>
-        <td class="prod-note">寄附者の声ページの掲載管理。一部レビューに要対応案件あり。詳細は「<strong>寄附者の声</strong>」を検索。</td>
+        <td class="log-code">KT-M007</td>
+        <td class="log-name">はじめての記憶（複製不可）</td>
+        <td><span class="status-badge s-special">特別管理</span></td>
+        <td>在庫あり</td>
+        <td class="log-note flag">採取：昭和40年10月。</td>
+        <td class="log-date">令和8年1月</td>
       </tr>
     </tbody>
   </table>
 
-  <!-- 閲覧制限品目 -->
-  <div class="sys-section">
-    <div class="sys-section-title">閲覧制限品目（要認証）</div>
-  </div>
-
-  <table class="prod-table">
+  <!-- 新規入荷品目 -->
+  <div class="log-section-title">新規入荷品目</div>
+  <div class="log-note-box warn">以下の品目は令和8年4月以降に新規登録されました。詳細ページは準備中です。</div>
+  <table class="log-table">
     <thead>
       <tr>
-        <th style="width:90px;">商品コード</th>
-        <th>商品名</th>
-        <th style="width:90px;">公開状態</th>
+        <th class="log-code">コード</th>
+        <th>品目名</th>
+        <th style="width:90px;">状態</th>
         <th>備考</th>
+        <th class="log-date">最終更新</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="prod-code">KT-Z001</td>
-        <td class="prod-name"><span class="redacted">████████████████████</span></td>
-        <td><span class="status status-locked">閲覧制限</span></td>
-        <td class="prod-note">特別条例第10条・第11条に基づき閲覧制限。管理番号：S-40-10-312。詳細は担当課長まで。</td>
+        <td class="log-code">KT-Z001</td>
+        <td class="log-name"><span style="background:#555;color:#555;border-radius:2px;padding:0 4px;user-select:none;">████████████████████</span></td>
+        <td><span class="status-badge s-new">新規入荷</span></td>
+        <td class="log-note">令和8年4月。職員ID KAT-001の特別処理案件として。</td>
+        <td class="log-date">令和8年4月</td>
       </tr>
       <tr>
-        <td class="prod-code">KT-Z002</td>
-        <td class="prod-name"><span class="redacted">████████████████████</span></td>
-        <td><span class="status status-locked">閲覧制限</span></td>
-        <td class="prod-note">NMCRI共同研究案件。国家研究プロジェクト管轄。担当課では内容を確認できません。</td>
+        <td class="log-code">KT-Z002</td>
+        <td class="log-name"><span style="background:#555;color:#555;border-radius:2px;padding:0 4px;user-select:none;">████████████████████</span></td>
+        <td><span class="status-badge s-new">新規入荷</span></td>
+        <td class="log-note">特別処理案件後に新プログラムにより採取。</td>
+        <td class="log-date">令和8年4月</td>
       </tr>
     </tbody>
   </table>
 
-  <div class="sys-note alert" style="margin-top:20px;">
-    【注意】閲覧制限品目へのアクセス試行は記録されます。特別条例の全文については担当課にお問い合わせください。
-    内部書類への直接アクセスには別途認証が必要です。
+  <!-- 寄附者レビュー管理 -->
+  <div class="log-section-title">寄附者レビュー管理</div>
+  <div class="log-note-box">
+    一部レビューにサービス内容の意図せぬ開示が含まれる可能性あり。「<strong>寄附者の声</strong>」のページは現在一般公開リンクを削除。
   </div>
 
-  <!-- 寄附者の声 note -->
-  <div class="sys-section" style="margin-top:32px;">
-    <div class="sys-section-title">寄附者レビュー管理</div>
-  </div>
-  <div class="sys-note">
-    掲載済みレビューの一部に、サービス内容の意図せぬ開示が含まれる可能性があります。確認中のレビューについては「<strong>寄附者の声</strong>」を検索して個別に確認してください。<br>
-    対応担当：<span style="color:#888;">KAT-001（令和5年3月時点）→ 現在不在。引き継ぎ未了。</span>
-  </div>
+  <p style="font-size:11px; color:#bbb; margin-top:40px; border-top:1px solid #eef2ea; padding-top:12px;">
+    最終更新：令和8年4月11日　ふるさと納税担当課　システム管理班
+  </p>
 
-  <div class="sys-footer">
-    <div>最終更新：令和6年10月31日　担当課ふるさと納税システム管理班</div>
-  </div>
-  <div class="sys-footer-bottom">
-    <span class="sys-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
-    <span class="sys-page-id">Page ID: 19/27</span>
-  </div>
+</main>
 
-</div>
+<span class="page-id">Page ID: 19/27</span>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <p class="copyright">©かたつま町 / ふるさと納税担当課</p>
+    </div>
+    <div class="footer-address">
+      〒879-XXXX　かたつま郡かたつま町大字かたつま1番地<br>
+      かたつま町役場　ふるさと納税担当課
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+  </div>
+</footer>
 
+<script src="js/search.js"></script>
 <script>
 (function () {
-  /* 時刻表示 */
   function pad(n) { return n < 10 ? '0' + n : n; }
-  var el = document.getElementById('sys-time');
+  var el = document.getElementById('log-time');
   function tick() {
     var d = new Date();
-    if (el) el.textContent = d.getFullYear() + '/' + pad(d.getMonth() + 1) + '/' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+    if (el) el.textContent = d.getFullYear() + '/' + pad(d.getMonth()+1) + '/' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
   }
-  tick();
-  setInterval(tick, 1000);
+  tick(); setInterval(tick, 1000);
 
-  /* ページ記録 */
   var visits = JSON.parse(sessionStorage.getItem('kt_visits') || '[]');
-  var entry = {
-    t: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' }),
-    id: '19/27',
-    title: '返礼品管理ポータル',
-    url: 'catalog-kanri.html'
-  };
-  if (!visits.length || visits[visits.length - 1].url !== entry.url) {
-    visits.push(entry);
-    sessionStorage.setItem('kt_visits', JSON.stringify(visits));
-  }
+  var entry = { t: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' }), id: '19/27', title: '返礼品管理ログ', url: 'catalog-kanri.html' };
+  if (!visits.length || visits[visits.length - 1].url !== entry.url) { visits.push(entry); sessionStorage.setItem('kt_visits', JSON.stringify(visits)); }
 })();
 </script>
 
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>職員ポータル ログイン | かたつま町役場</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      background: #eef0ec;
+      min-height: 100vh;
+    }
+    .login-wrap {
+      width: 360px;
+      max-width: 90vw;
+      margin: 60px auto 0;
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .login-header-main {
+      font-size: 14px;
+      color: #2a4a2a;
+      letter-spacing: 0.06em;
+      font-weight: bold;
+    }
+    .login-header-sub {
+      font-size: 11px;
+      color: #888;
+      margin-top: 4px;
+    }
+    .login-box {
+      background: #fff;
+      border: 1px solid #ccd4c4;
+      padding: 32px 28px 28px;
+    }
+    .login-field {
+      margin-bottom: 16px;
+    }
+    .login-field label {
+      display: block;
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+    .login-field input {
+      width: 100%;
+      border: 1px solid #c8d0c0;
+      background: #f8faf6;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      color: #333;
+    }
+    .login-field input:focus {
+      border-color: #4a7a4a;
+      background: #fff;
+    }
+    .login-btn {
+      width: 100%;
+      background: #2a4a2a;
+      color: #e8f0e8;
+      border: none;
+      padding: 10px;
+      font-size: 13px;
+      font-family: inherit;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+    .login-btn:hover {
+      background: #3a5e3a;
+    }
+    .login-error {
+      display: none;
+      margin-top: 14px;
+      padding: 8px 12px;
+      background: #fdf0f0;
+      border: 1px solid #e0b0b0;
+      color: #a03030;
+      font-size: 12px;
+      text-align: center;
+    }
+    .login-notice {
+      margin-top: 18px;
+      font-size: 10px;
+      color: #aaa;
+      text-align: center;
+      line-height: 1.8;
+    }
+    .back-link {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 11px;
+    }
+    .back-link a {
+      color: #aaa;
+      text-decoration: none;
+    }
+    .back-link a:hover { text-decoration: underline; }
+  </style>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="site-logo">
+      <img src="../img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
+    </a>
+    <form class="search-form" id="site-search">
+      <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
+      <button type="submit">検索</button>
+    </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<nav>
+  <ul>
+    <li><a href="../catalog.html">返礼品一覧</a></li>
+    <li><a href="../about.html">自治体紹介</a></li>
+    <li><a href="../news.html">お知らせ</a></li>
+    <li><a href="../apply.html">寄附の手続き</a></li>
+    <li><a href="../contact.html">お問い合わせ</a></li>
+  </ul>
+</nav>
+<div class="login-wrap">
+  <div class="login-header">
+    <div class="login-header-main">かたつま町役場　職員ポータル</div>
+    <div class="login-header-sub">Staff Portal — 一般業務システム</div>
+  </div>
+  <div class="login-box">
+    <form id="login-form" autocomplete="off">
+      <div class="login-field">
+        <label>職員ID</label>
+        <input type="text" id="login-id" spellcheck="false">
+      </div>
+      <div class="login-field">
+        <label>パスワード</label>
+        <input type="password" id="login-pw">
+      </div>
+      <button type="submit" class="login-btn">ログイン</button>
+      <div class="login-error" id="login-error">職員番号またはパスワードが正しくありません</div>
+    </form>
+    <div class="login-notice">
+      ※ このシステムへのアクセスは記録されます。
+    </div>
+  </div>
+</div>
+
+<script src="../js/search.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script>
+<script>
+(function () {
+  /* 職員番号 / パスワードはここで設定する */
+  var VALID_ID = 'KAT-001';
+  var VALID_PW = '1208';
+
+  document.getElementById('login-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var id = document.getElementById('login-id').value;
+    var pw = document.getElementById('login-pw').value;
+    var err = document.getElementById('login-error');
+
+    if (id === VALID_ID && pw === VALID_PW) {
+      sessionStorage.setItem('staff_auth', '1');
+      window.location.href = 'kat001.html';
+    } else if (id === VALID_ID && pw !== VALID_PW) {
+      err.textContent = 'パスワードには四桁の数字を入力してください';
+      err.style.display = 'block';
+      document.getElementById('login-pw').value = '';
+    } else {
+      err.textContent = '職員IDまたはパスワードが正しくありません';
+      err.style.display = 'block';
+      document.getElementById('login-pw').value = '';
+    }
+  });
+})();
+</script>
+</body>
+</html>

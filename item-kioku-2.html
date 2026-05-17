@@ -1,23 +1,27 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <title>思い出アーカイブ（1年分）| かたつま町 ふるさと納税返礼品カタログ</title>
+  <title>しあわせな記憶（一回分）| かたつま町 ふるさと納税返礼品カタログ</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header>
   <div class="header-inner">
     <a href="index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -30,35 +34,37 @@
   </ul>
 </nav>
 <main>
-  <p class="breadcrumb"><a href="index.html">トップ</a><span>›</span><a href="catalog.html">返礼品一覧</a><span>›</span>思い出アーカイブ（1年分）</p>
+  <p class="breadcrumb"><a href="index.html">トップ</a><span>›</span><a href="catalog.html">返礼品一覧</a><span>›</span>しあわせな記憶（一回分）</p>
   <div class="item-detail">
-    <h1>思い出アーカイブ（1年分）</h1>
+    <h1>しあわせな記憶（一回分）</h1>
     <div class="item-img-placeholder dark" style="background-image:url(img/kioku-archive.png); background-size:cover; background-position:center;"></div>
     <table class="item-info-table">
-      <tr><th>寄附金額</th><td>25,000円</td></tr>
+      <tr><th>寄附金額</th><td>15,000円</td></tr>
       <tr>
         <th>内容</th>
-        <td>ご希望の期間（1年分）の記憶を専用システムにて保管するサービスです。保管期間中は、該当期間の記憶が保持者の記憶から切り離されます。「なかったこと」にはなりませんが、思い出せなくなります。</td>
+        <td>
+          誰かのしあわせな思い出を、一件分お届けするサービスです。体験することで、穏やかで温かい気持ちになれます。<br><br>
+          内容は選べません。届いてからのお楽しみです。贈り物にもご利用いただけます。
+        </td>
       </tr>
-      <tr><th>保管期間</th><td>1年分（申請時に期間をご指定ください）</td></tr>
-      <tr><th>在庫状況</th><td>受付中</td></tr>
-      <tr><th>配送</th><td>申請後、担当課より改めてご連絡いたします</td></tr>
+      <tr><th>採取元</th><td>詳細非公開。</td></tr>
+      <tr><th>在庫状況</th><td>受付中（随時補充）</td></tr>
+      <tr><th>配送</th><td>申請後、担当課よりご連絡いたします</td></tr>
       <tr>
         <th>注意事項</th>
-        <td>返還を希望される場合は、所定の手続きが必要です。返還の際、担当課の判断により一部の記憶が「整理」される場合があります。返還されない場合の取り扱いについては、特別条例に準じます。返品・キャンセルは承っておりません。</td>
+        <td>
+          ・体験後しばらくすると、自身の記憶があいまいになることがあります。これは仕様であり、異常ではありません。時間経過とともに正常に戻ります。<br>
+          ・採取元は自分の記憶がこの商品に含まれることを知りません。<br>
+          ・返品・キャンセルは承っておりません。
+        </td>
       </tr>
     </table>
-
-    <p style="font-size:13px; color:#777; line-height:1.9; margin-top:12px;">
-      「切り離された記憶」は、その期間が「なかったこと」になるわけではありません。ただ、思い出せなくなります。
-    </p>
 
     <div class="item-related">
       <h3>関連品目</h3>
       <ul>
-        <li><a href="item-kioku-1.html">記憶の整理・保管サービス（基本プラン）</a></li>
+        <li><a href="item-kioku-1.html">おもいで詰め合わせセット</a></li>
       </ul>
-      <p class="item-related-text">その他の品目については、サイト内検索をご利用ください。</p>
     </div>
   </div>
 </main>
@@ -81,5 +87,15 @@
 </footer>
 
 <script src="js/search.js"></script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

@@ -4,16 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <title>MEMO-C01 内部通信ログ | 記憶管理担当課</title>
+  <title>秘匿指示通信 | おもいで管理課</title>
   <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <div class="admin-sysbar">
-  <span>KTMS &nbsp;/&nbsp; 記憶管理担当課 内部管理システム &nbsp; v3.2</span>
+  <span>KTMS &nbsp;/&nbsp; おもいで管理課 内部管理システム &nbsp; v3.2</span>
   <span id="sys-time-top">--:--:--</span>
 </div>
 <div class="admin-header">
-  <span style="font-weight:bold; color:#1a3a5a;">記憶管理担当課　内部文書管理</span>
+  <span style="font-weight:bold; color:#1a3a5a;">おもいで管理課　内部文書管理</span>
   <span>
     セッション：<span id="session-id" style="font-family:monospace; color:#4a7ab0;">—</span>
     &nbsp;&nbsp;
@@ -25,105 +26,83 @@
   <div class="admin-sidebar">
     <div class="admin-sidebar-title">DOCUMENT INDEX</div>
     <ul class="admin-sidebar-nav">
-      <li><a href="index.html">内部書類一覧</a></li>
-      <li class="nav-divider"></li>
-      <li><a href="history.html">MEMO-H01　歴史記録</a></li>
-      <li><a href="memo-001.html">MEMO-001　昭和40年事案</a></li>
-      <li><a href="memo-002.html">MEMO-002　収集月報</a></li>
-      <li><a href="memo-003.html">MEMO-003　エージェント記録</a></li>
-      <li><a href="memo-004.html">MEMO-004　用途分類</a></li>
-      <li><a href="memo-005.html">MEMO-005　人員管理規程</a></li>
-      <li><a href="access-log.html">MEMO-L01　アクセスログ</a></li>
-      <li class="nav-divider"></li>
-      <li><a href="chat-log.html" class="active">MEMO-C01　通信ログ</a></li>
+      <li><a href="index.html">▸ 内部書類一覧</a></li>
+      <li class="nav-group-label"><i class="fa-regular fa-file"></i> FILES</li>
+      <li><a href="memo-007.html">FILE01　PROJECT-9について</a></li>
+      <li><a href="memo-003.html">FILE02　AGT-007通達</a></li>
+      <li><a href="memo-report.html">FILE03　稼働実績報告</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-display"></i> SYSTEM</li>
+      <li><a href="access-log.html">アクセスログ</a></li>
+      <li><a href="chat-log.html" class="active">秘匿指示通信</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-database"></i> DATA</li>
+      <li><a href="memory-viewer.html">採取記憶データ　KT-Z001</a></li>
+      <li class="nav-disabled"><a>採取記憶データ　KT-Z002</a></li>
     </ul>
   </div>
 
   <div class="admin-content">
     <div class="admin-main">
-      <p class="admin-title">MEMO-C01　内部通信ログ（令和5年4月〜12月抜粋）</p>
-      <p style="font-size:11px; color:#999; margin-bottom:18px;">作成：システム管理　分類：S / 永久保管　対象アカウント：KAT-001（加藤晴美）</p>
+      <p class="admin-title">秘匿指示通信　ログ抜粋</p>
+      <p style="font-size:11px; color:#4a6a8a; margin-bottom:18px;">分類：SS ／ 永久保管　送受信者：連携推進室 ↔ AGT-007</p>
 
       <div class="chat-log">
 
-        <div class="chat-entry">
-          <div class="chat-meta"><span class="chat-sender">KAT-001（加藤晴美）</span><span class="chat-arrow">→</span><span class="chat-recipient">管理システム</span>　令和5年4月7日 14:35</div>
-          <div class="chat-body">管理文書S-40-10-312へのアクセスを試みましたが「管理者権限が必要です」と表示されます。ふるさと納税返礼品の品目コード照合で参照が必要となりました。アクセス権限の付与をお願いできますか。</div>
+        <!-- フェーズ1：誘導開始・未到達報告 -->
+        <div class="chat-entry from-agt">
+          <div class="chat-meta"><span class="chat-sender">AGT-007</span><span class="chat-arrow">→</span><span class="chat-recipient">連携推進室</span>　令和8年1月〜3月（複数回）</div>
+          <div class="chat-body">誘導投稿を複数経路で展開。SNS・ブログ・掲示板・まとめ記事・動画コメントへの設置を完了。現時点でKTMS到達者なし。引き続き監視継続。</div>
         </div>
 
-        <div class="chat-entry">
-          <div class="chat-meta"><span class="chat-sender">管理システム</span><span class="chat-arrow">→</span><span class="chat-recipient">KAT-001</span>　令和5年4月7日 16:02</div>
-          <div class="chat-body">ご連絡ありがとうございます。S-40-10-312は特別管理区分の文書です。通常業務での参照は必要ありません。品目コードの照合については担当課の既存資料をご参照ください。</div>
+        <div class="chat-entry from-room">
+          <div class="chat-meta"><span class="chat-sender">連携推進室</span><span class="chat-arrow">→</span><span class="chat-recipient">AGT-007</span>　令和8年3月</div>
+          <div class="chat-body">了解。誘導継続を許可する。到達者が発生した場合は即時報告すること。</div>
         </div>
 
-        <div class="chat-entry">
-          <div class="chat-meta"><span class="chat-sender">KAT-001</span><span class="chat-arrow">→</span><span class="chat-recipient">管理システム</span>　令和5年4月8日 09:15</div>
-          <div class="chat-body">承知しました。ところで、昨日業務で倉庫に入った際、偶然その文書の物理コピーが棚にあるのを見てしまいました。中身は確認していませんが、表紙に「昭和40年10月 対象者名簿（312名）」と書いてあるのが見えました。通常業務で扱うような文書とは違う気がして、少し気になっています。</div>
+        <!-- フェーズ2：加藤の特別処理案件 -->
+        <div class="chat-entry from-room">
+          <div class="chat-meta"><span class="chat-sender">連携推進室</span><span class="chat-arrow">→</span><span class="chat-recipient">AGT-007</span>　令和8年4月7日</div>
+          <div class="chat-body">特別処理案件を発令する。対象：ふるさと納税担当職員（KAT-001）。本日、当該職員が制限区域文書に無断アクセスした事実を確認。外部告発の意図あり。条例第9条に基づき、速やかに記憶採取・処理を実施せよ。詳細はSP-001として記録する。</div>
         </div>
 
-        <div class="chat-entry">
-          <div class="chat-meta"><span class="chat-sender">管理システム</span><span class="chat-arrow">→</span><span class="chat-recipient">KAT-001</span>　令和5年4月8日 11:30</div>
-          <div class="chat-body">倉庫内の文書については担当者が適切に管理しております。業務範囲外の文書についての言及はご遠慮ください。ご不明な点は直接担当管理課にお問い合わせください。</div>
+        <div class="chat-entry from-agt">
+          <div class="chat-meta"><span class="chat-sender">AGT-007</span><span class="chat-arrow">→</span><span class="chat-recipient">連携推進室</span>　令和8年4月8日</div>
+          <div class="chat-body">SP-001、着手。対象の行動を封じ、採取処理を開始した。令和8年4月8日09:00 処理完了。採取番号：KT-Z001。</div>
         </div>
 
-        <div class="chat-entry system">
-          <div class="chat-meta">── 18日間 通信なし ──</div>
+        <div class="chat-entry from-room">
+          <div class="chat-meta"><span class="chat-sender">連携推進室</span><span class="chat-arrow">→</span><span class="chat-recipient">AGT-007</span>　令和8年4月11日</div>
+          <div class="chat-body">SP-001の完了を確認。KT-Z001を格納済みとする。対象は本日より通常業務に復帰。記憶の欠落は認識していない模様。誘導活動を再開せよ。</div>
         </div>
 
-        <div class="chat-entry">
-          <div class="chat-meta"><span class="chat-sender">KAT-001</span><span class="chat-arrow">→</span><span class="chat-recipient">管理システム</span>　令和5年4月23日 13:44</div>
-          <div class="chat-body">お世話になります。件の文書についてですが、その後気になって関連資料を調べておりました。昭和40年10月に「記憶消去処置」を受けた方の名簿を見つけました。対象者312名の一部が、現在もかたつま町の住民または当サービスの寄附者として登録されていることを確認しました。本人たちは自分に何が行われたかを知らないまま利用し続けているということになります。これは倫理的に問題があると思います。上長への相談を希望します。</div>
+        <!-- フェーズ3：KT-Z002（一回目プレイヤー）簡易処理 -->
+        <div class="chat-entry from-agt">
+          <div class="chat-meta"><span class="chat-sender">AGT-007</span><span class="chat-arrow">→</span><span class="chat-recipient">連携推進室</span>　令和8年4月中旬</div>
+          <div class="chat-body">誘導投稿経由でKTMS到達者を確認。内部文書への閲覧を確認した。対象は軽度の情報収集者と判断。採取番号：KT-Z002として記録。処理規模が軽微なため、簡易記憶処理を実施した。完了を報告する。</div>
         </div>
 
-        <div class="chat-entry">
-          <div class="chat-meta"><span class="chat-sender">管理システム</span><span class="chat-arrow">→</span><span class="chat-recipient">KAT-001</span>　令和5年4月23日 15:00</div>
-          <div class="chat-body">ご連絡の件について確認いたします。しばらくお待ちください。なお、この件については他の職員への共有はお控えください。</div>
+        <div class="chat-entry from-room">
+          <div class="chat-meta"><span class="chat-sender">連携推進室</span><span class="chat-arrow">→</span><span class="chat-recipient">AGT-007</span>　令和8年4月中旬</div>
+          <div class="chat-body">KT-Z002の完了を確認。誘導継続。</div>
+        </div>
+
+        <!-- フェーズ4：現在進行中セッション -->
+        <div class="chat-entry from-agt">
+          <div class="chat-meta"><span class="chat-sender">AGT-007</span><span class="chat-arrow">→</span><span class="chat-recipient">連携推進室</span>　<span id="log-timestamp-1">令和8年　取得中</span></div>
+          <div class="chat-body">新規到達者を確認。現在KTMSセッション進行中。内部文書への到達を順次確認している。採取番号未確定。監視を継続中。</div>
         </div>
 
         <div class="chat-entry system" style="background:#2a1a1a; border-color:#5a2a2a;">
-          <div class="chat-meta" style="color:#c44;">── 同日15:00 ── 以下はKAT-001には表示されていないメッセージです ──</div>
-          <div class="chat-body" style="color:#c44;">
-            <span class="chat-sender" style="color:#e66;">管理システム</span><span class="chat-arrow">→</span><span class="chat-recipient" style="color:#e66;">特別管理課　AGT-007</span><br><br>
-            KAT-001より要対応案件が発生しました。対象職員が昭和40年事案および対象者名簿に関する情報にアクセスしています。外部共有リスクあり。対処方針のご判断をお願いします。添付：KAT-001通信ログ全文。
-          </div>
-        </div>
-
-        <div class="chat-entry system">
-          <div class="chat-meta">── 約7ヶ月間 通信なし ──</div>
-        </div>
-
-        <div class="chat-entry">
-          <div class="chat-meta"><span class="chat-sender">KAT-001</span><span class="chat-arrow">→</span><span class="chat-recipient">管理システム</span>　令和5年11月13日 17:22</div>
-          <div class="chat-body">明日の「健康管理確認」の件ですが、日時と場所が通知に記載されていませんでした。改めてご確認いただけますか。また、通常の健康診断とは書式が異なっていたのが少し気になっています。</div>
-        </div>
-
-        <div class="chat-entry">
-          <div class="chat-meta"><span class="chat-sender">管理システム</span><span class="chat-arrow">→</span><span class="chat-recipient">KAT-001</span>　令和5年11月13日 17:45</div>
-          <div class="chat-body">明日午前10時、第3庁舎別棟にお越しください。詳細は当日ご説明いたします。ご不明な点がございましたら担当者がご案内いたします。</div>
-        </div>
-
-        <div class="chat-entry system">
-          <div class="chat-meta">── 令和5年11月14日　記録なし ──</div>
-        </div>
-
-        <div class="chat-entry system" style="background:#1a1a2a; border-color:#3a3a7a;">
-          <div class="chat-meta" style="color:#99a;">── 令和5年12月1日 ── 全職員向けシステム通知 ──</div>
-          <div class="chat-body" style="color:#bbb;">加藤晴美氏のアカウント（KAT-001）は、人員管理規程第4条第2項に基づき、本日付で無効化されました。同氏が担当していた業務については引き継ぎ手続きを完了しております。問い合わせは担当管理課まで。</div>
+          <div class="chat-meta" style="color:#c44;">── システムログ ──</div>
+          <div class="chat-body" style="color:#c44;" id="log-live-status">現在セッション継続中。監視中。</div>
         </div>
 
       </div>
 
       <p class="chat-truncated" style="margin-top:16px;">※ このログには一部削除・非表示のメッセージが含まれます</p>
 
-      <div style="margin-top:32px; padding:20px 24px; background:#0e0e0e; border:1px solid #2a2a2a; font-size:12px; color:#555; line-height:2.0; text-align:center;">
-        <div style="margin-bottom:10px; font-size:10px; color:#333; letter-spacing:0.08em;">LINKED RECORD</div>
-        令和5年11月14日以降、KAT-001（加藤晴美）のアカウントは無効化されています。<br>
-        同日の処理内容については、関連記録を参照してください。<br><br>
-        <a href="ending.html" style="color:#888; text-decoration:none; font-size:12px; border:1px solid #333; padding:8px 24px; display:inline-block; letter-spacing:0.06em;">→ 令和5年11月14日　処理記録</a>
-      </div>
     </div>
 
-    <span class="admin-page-id">KL-10/10</span>
+    <span class="admin-page-id">KL-5/6</span>
     <div class="admin-footer-bottom">
       <span class="admin-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
     </div>
@@ -131,6 +110,7 @@
 </div>
 
 <script>
+if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'); }
 (function () {
   function pad(n) { return n < 10 ? '0' + n : n; }
   var el = document.getElementById('sys-time-top');
@@ -143,6 +123,23 @@
   if (!s) { s = 'SID-' + Math.random().toString(36).substr(2,8).toUpperCase(); sessionStorage.setItem('kt_session_id', s); }
   var sid = document.getElementById('session-id');
   if (sid) sid.textContent = s;
+
+  (function () {
+    var d = new Date();
+    var ts = document.getElementById('log-timestamp-1');
+    if (ts) {
+      ts.textContent = '令和' + (d.getFullYear() - 2018) + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日 ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+    }
+    var liveStatus = document.getElementById('log-live-status');
+    if (liveStatus) {
+      function updateStatus() {
+        var now = new Date();
+        liveStatus.textContent = '現在セッション継続中。監視中。　' + pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+      }
+      updateStatus();
+      setInterval(updateStatus, 1000);
+    }
+  })();
 })();
 </script>
 </body>

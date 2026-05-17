@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -58,19 +58,54 @@
       padding-bottom: 6px;
       border-bottom: 1px solid #eee;
     }
+    .review-card {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 0 14px;
+    }
+    .review-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #dde8d8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .review-card.flagged .review-avatar {
+      background: #e8d8c0;
+    }
+    .review-card.gray .review-avatar {
+      background: #e0e0e0;
+    }
+    .review-avatar svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+      opacity: 0.85;
+    }
+    .review-content {
+      min-width: 0;
+    }
   </style>
 </head>
 <body>
 <header>
   <div class="header-inner">
     <a href="index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -89,121 +124,68 @@
   <p style="font-size:13px; color:#666; margin-bottom:8px; line-height:1.9;">かたつま町のふるさと納税をご利用いただいた方からのお声をご紹介します。</p>
   <p style="font-size:12px; color:#bbb; margin-bottom:28px;">※ 一部のレビューは担当課の確認を経て掲載しております。</p>
 
-  <div class="section-label">食品・農産物</div>
-
   <div class="review-card">
-    <div class="review-title">かたつまの霧 純米大吟醸 ★★★★★</div>
-    <div class="review-meta">40代・会社員</div>
-    <div class="review-body">
-      なめらかな口当たりと深い香りが印象的でした。地元の方が丁寧に造られていることが伝わってきます。大切な方への贈り物にも喜ばれました。また利用したいと思います。
+    <div class="review-avatar"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+    <div class="review-content">
+      <div class="review-title">山里味噌 3年熟成 ★★★★☆</div>
+      <div class="review-meta">50代・主婦</div>
+      <div class="review-body">
+        3年熟成の深みある味わいで、毎日のお味噌汁が格段においしくなりました。「昔から変わらない味」という説明通りで、体に馴染む感じがします。ご近所にも分けてあげたところ大変喜ばれました。
+      </div>
+      <div class="review-reply"><strong>【加藤（担当）よりご返信】</strong>嬉しいお声をありがとうございます！ご近所の方にも喜んでいただけたとのこと、作り手の方にもきっと伝わると思います。実は私の誕生日が12月8日なのですが、毎年この時期に味噌汁を飲むと妙にしみじみするんです。3年という時間が詰まったお味噌、ぜひまたいつでもどうぞ。</div>
     </div>
   </div>
 
   <div class="review-card">
-    <div class="review-title">山里味噌 3年熟成 ★★★★★</div>
-    <div class="review-meta">50代・主婦</div>
-    <div class="review-body">
-      3年熟成の深みある味わいで、毎日のお味噌汁が格段においしくなりました。「昔から変わらない味」という説明通りで、体に馴染む感じがします。ご近所にも分けてあげたところ大変喜ばれました。
-    </div>
-  </div>
-
-  <div class="review-card">
-    <div class="review-title">かたつま米 特別栽培 ★★★★☆</div>
-    <div class="review-meta">30代・会社員</div>
-    <div class="review-body">
-      炊き上がりの香りがよく、粒立ちがしっかりしていてとても美味しかったです。山間で育てられたお米だと思うと、食べながら不思議と静かな気持ちになります。リピートしています。
-    </div>
-  </div>
-
-  <div class="section-label">記録・保管サービス（記憶関連品目）</div>
-
-  <div class="review-card">
-    <div class="review-title">思い出アーカイブ（1年分） ★★★★☆</div>
-    <div class="review-meta">30代・会社員</div>
-    <div class="review-body">
-      申し込み後すぐに担当課から連絡があり、手続きは丁寧でした。特に体調の変化もなく、安心しました。保管された1年間のことは確かに思い出せなくなりましたが、それが目的なので問題ありません。担当の方が「これで楽になりましたね」とおっしゃっていたのが、なぜか今も耳に残っています。
-    </div>
-  </div>
-
-  <div class="review-card">
-    <div class="review-title">思い出アーカイブ（返却済み） ★★★☆☆</div>
-    <div class="review-meta">60代・農業</div>
-    <div class="review-body">
-      去年の春から夏にかけての記憶を預け、先日返却を受けました。返ってきたものをたどってみると、何かが違う気がします。その春にあったはずのことが記憶の中に見当たりません。その代わり、見覚えのない場所で知らない人と話している場面がいくつかあります。担当課に問い合わせると「返却の際に一部整理をさせていただく場合があります。特別条例に準じた処理です」とご説明いただきました。それ以上のお問い合わせはしていません。
-    </div>
-  </div>
-
-  <div class="review-card">
-    <div class="review-title">記憶の整理・保管サービス（基本プラン） ★★★☆☆</div>
-    <div class="review-meta">40代・自営業</div>
-    <div class="review-body">
-      受け取った直後は「これは自分の記憶ではない」と強く感じていましたが、1週間ほどしたら自分のもののように感じてきました。担当課に連絡したところ「仕様です」とのご回答でした。記憶の中の場所に行ってみたい気持ちが続いています。場所を特定しようとしたところ、翌日に担当課から「そのような行為はご遠慮ください」とご連絡をいただきました。
-    </div>
-  </div>
-
-  <div class="review-card">
-    <div class="review-title">思い出アーカイブ（子ども名義） ★★★★★</div>
-    <div class="review-meta">30代・会社員（子育て中）</div>
-    <div class="review-body">
-      子供の誕生から1年分の記憶を保管してもらいました。本人が大きくなったときに「返してあげよう」と思い申し込みました。担当課の方が「本人の同意は不要です。保護者として申請いただければ大丈夫です」とおっしゃっており、手続きはスムーズでした。子供が7歳になったとき、その1年のことを何も覚えていないと言いました。担当課によると、まだ返却の手続きが「完了していない」とのことです。
-    </div>
-  </div>
-
-  <div class="section-row" style="font-size:11px; color:#bbb; padding:8px 0; margin:4px 0 20px; border-bottom:1px solid #eee;">
-    ※ 以下のレビューは記憶提供品目の体験者様によるご投稿です。
-  </div>
-
-  <div class="review-card flagged">
-    <div class="review-title">忘れていた夏（1回分） ★★★☆☆</div>
-    <div class="review-meta">60代・農業</div>
-    <div class="review-body">
-      受け取った記憶の中に、見覚えのある農道の景色がありました。かたつま町に行ったことはないのに、なぜか懐かしい気持ちになります。記憶の中の子供が誰なのか調べようとしたところ、担当課から「採取元の特定はいかなる手段によっても承っておりません」と強くお断りされました。記憶の中の子供の顔は今もはっきり見えます。夢にも出てきます。かたつま町の夏のにおいを、私は知らないはずなのに、何故か知っています。
+    <div class="review-avatar"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+    <div class="review-content">
+      <div class="review-title">かたつま米 特別栽培 ★★★☆☆</div>
+      <div class="review-meta">30代・会社員</div>
+      <div class="review-body">
+        炊き上がりの香りがよく、粒立ちがしっかりしていてとても美味しかったです。山間で育てられたお米だと思うと、食べながら不思議と静かな気持ちになります。リピートしています。
+      </div>
+      <div class="review-reply"><strong>【加藤（担当）よりご返信】</strong>リピートしてくださっているとのこと、ありがとうございます！かたつま米は私も着任してから毎日食べていますが、本当においしくて。町の自慢の品です。引き続きよろしくお願いします。</div>
     </div>
   </div>
 
   <div class="review-card flagged">
-    <div class="review-title">整理済み記憶セット（混合） ★★★☆☆</div>
-    <div class="review-meta">40代・団体職員</div>
-    <div class="review-body">
-      届いたセットには複数名の断片が含まれていると説明書きがありました。最初の夜から夢に見知らぬ人々が登場するようになりました。その中に、白い建物の廊下を歩く小さな子供の映像が繰り返し出てきます。子供は振り向かず、ただ歩き続けます。担当課に問い合わせると「記憶の受容には時間がかかります。通常の反応です」とのことでした。最近は、その子供が誰なのか知っているような気がしています。知っている、と確信していると言い直します。
+    <div class="review-avatar"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+    <div class="review-content">
+      <div class="review-title">██████████ ★★★☆☆</div>
+      <div class="review-meta">50代・無職</div>
+      <div class="review-body">
+        3年前に寄附した者です。届いた記憶の中の子供は、白衣の人たちに囲まれていました。「いたくないよ」と繰り返した後、記憶が途切れています。
+      </div>
+      <div class="review-reply"><strong>【担当課よりご返信】</strong>こちらの商品は非公開となっているため、商品名を非表示にさせていただきました。</div>
     </div>
   </div>
 
-  <div class="review-card flagged">
-    <div class="review-title">未使用の幼少期 ★★★☆☆</div>
-    <div class="review-meta">50代・無職</div>
-    <div class="review-body">
-      子供の頃の空白期間を「補完したい」と担当課に相談したところ、本品目を紹介されました。5歳頃の記憶が私にはまったくないため、他の方の同年齢の記憶を受け取ることができると説明されました。届いた記憶の中の子供は、ある春の午後、白衣の人たちに囲まれていました。「いたくないよ」と繰り返し言っていた後、記憶が途切れています。担当課に「この子は今どこにいますか」と聞きました。「そのご質問にはお答えしておりません」とのことでした。担当の方の声は、穏やかでした。
+  <div class="review-card">
+    <div class="review-avatar"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+    <div class="review-content">
+      <div class="review-title">しあわせな記憶（一回分） ★★★★★</div>
+      <div class="review-meta">60代・農業</div>
+      <div class="review-body">
+        身内の不幸が続き、気力を失いかけていた時期に購入しました。体験した後、不思議と心が落ち着いて、穏やかな気持ちになれました。誰かの温かい日常の記憶だったのだと思います。つらい時期をこれで乗り越えられた気がします。本当に購入してよかったです。
+      </div>
+      <div class="review-reply"><strong>【加藤（担当）よりご返信】</strong>温かいお声をいただきありがとうございます。どの品目についてのご感想かが少し確認できていないのですが、喜んでいただけたのであれば何よりです。またぜひよろしくお願いいたします。</div>
     </div>
   </div>
 
-  <div class="review-card flagged">
-    <div class="review-title">各種品目について ★★☆☆☆</div>
-    <div class="review-meta">20代・学生</div>
-    <div class="review-body">
-      サイトをいろいろ調べているうちに「<strong>はじめての記憶</strong>」という品目が気になりました。担当課に問い合わせたところ「特別管理品目なので詳細はお答えできません。ただ、関心をお持ちいただいていることは記録いたしました」とのご回答でした。後日、担当者から封書が届きました。内容は「ご関心の品目については、直接サイト内検索でお調べください」の一文のみでした。今も気になっています。
+  <div class="review-card">
+    <div class="review-avatar"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+    <div class="review-content">
+      <div class="review-title">かたつまの霧 純米大吟醸 ★★★☆☆</div>
+      <div class="review-meta">40代・会社員</div>
+      <div class="review-body">
+        なめらかな口当たりと深い香りが印象的でした。地元の方が丁寧に造られていることが伝わってきます。大切な方への贈り物にも喜ばれました。また利用したいと思います。
+      </div>
+      <div class="review-reply"><strong>【加藤（担当）よりご返信】</strong>ありがとうございます！贈り物にも選んでいただけてとても嬉しいです。かたつまの霧は地元でも自慢の一本です。またぜひよろしくお願いいたします。</div>
     </div>
-  </div>
-
-  <div class="review-card flagged">
-    <div class="review-title">サービス全般について ★★☆☆☆</div>
-    <div class="review-meta">30代・会社員</div>
-    <div class="review-body">
-      このサイトをいろいろ見ていたら、普通のふるさと納税サイトではなさそうなページにたどり着きました。気がついたら担当者から連絡が来ていました。「よく来てくださいました」と言われたような気がします。申し込んだ記憶はないのですが、「申請は完了しています」と言われました。このレビューを書いている間も、どこかで読まれている気がしています。
-    </div>
-  </div>
-
-  <div class="review-card gray">
-    <div class="review-title">（送信者名：非公開） ★★★★★</div>
-    <div class="review-meta">年代・職業：非公開</div>
-    <div class="review-body">
-      このレビュー欄に書いたことが担当課に読まれると後から気づきました。レビューを取り消したかったのですが、「本サービスに関するレビューは一度送信されると削除できません」とのご説明でした。それ以上の連絡はしていません。
-    </div>
-    <div class="review-reply"><strong>【担当課よりご返信】</strong>ご確認ありがとうございます。なお、本レビューは正常に記録されております。</div>
   </div>
 
 </main>
-<span class="page-id">Page ID: 24/27</span>
+<span class="page-id">Page ID: 25/27</span>
 <footer>
   <div class="footer-inner">
     <div class="footer-left">
@@ -222,5 +204,15 @@
 </footer>
 
 <script src="js/search.js"></script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

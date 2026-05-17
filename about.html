@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -16,20 +16,22 @@
     }
     .about-hero h2 {
       font-size: 1.3em;
-      color: #e8f5e0;
+      color: #fff;
       margin-bottom: 12px;
       font-weight: normal;
       letter-spacing: 0.04em;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.75), 0 0 20px rgba(0,0,0,0.45);
     }
     .about-hero p {
       font-size: 14px;
       line-height: 2.0;
-      color: #cce8c0;
+      color: #fff;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.7), 0 0 16px rgba(0,0,0,0.4);
     }
     .about-hero .mayor-sign {
       text-align: right;
       font-size: 12px;
-      color: #a8d898;
+      color: #fff;
       margin-top: 16px;
     }
     .stat-grid {
@@ -162,13 +164,17 @@
 <header>
   <div class="header-inner">
     <a href="index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -190,8 +196,8 @@
     <h2>町長挨拶</h2>
     <p>
       かたつま町は、山々と霧に囲まれた静かな町です。昭和29年の発足以来、住民の健康と記録を何よりも大切にしてまいりました。<br><br>
-      人口は年々減少しておりますが、ご心配は要りません。かたつま町では、住民一人ひとりの記録が適切に管理・保全されております。これまでも、そしてこれからも。<br><br>
-      ふるさと納税を通じて全国の皆様と繋がることができましたことを、大変光栄に思っております。皆様のご寄附は、町の持続的な事業に役立てられます。どうか末長いご支援をよろしくお願いいたします。
+      人口は年々減少しておりますが、ご心配は要りません。住民一人ひとりの記録は、適切に管理・保全されております。これまでも、そしてこれからも。<br><br>
+      皆様のご寄附は、町の持続的な事業に役立てられます。どうか末長いご支援をよろしくお願いいたします。
     </p>
     <p class="mayor-sign">かたつま町長</p>
   </div>
@@ -215,11 +221,6 @@
         <div class="stat-value">1,847<span class="stat-unit">件</span></div>
         <div class="stat-note">令和6年度実績</div>
       </div>
-      <div class="stat-box">
-        <div class="stat-label">記録保管件数</div>
-        <div class="stat-value" style="font-size:14px; padding-top:3px;">公開しておりません</div>
-        <div class="stat-note">担当課にお問い合わせください</div>
-      </div>
     </div>
 
     <table style="width:100%; border-collapse:collapse; background:#fff; font-size:13px;">
@@ -236,19 +237,19 @@
     <div class="feature-grid">
       <div class="feature-box">
         <h3>霧と山あいの気候</h3>
-        <p>かたつま町は標高300〜600mの山間部に位置し、年間を通じて霧が多く発生します。この霧が生み出す独特の湿潤な気候は、米や野菜の栽培に適しており、農産物の品質の高さに繋がっています。町を訪れた方は、みなさん「静かでいいところですね」とおっしゃいます。</p>
+        <p>標高300〜600mの山間部に位置し、年間を通じて霧が多く発生します。この湿潤な気候が農産物の品質を支えています。</p>
       </div>
       <div class="feature-box">
         <h3>清流と加工業</h3>
-        <p>町内を流れる清流は古くから生活用水・農業用水として利用されており、現在も高い水質評価を受けています。酒造や味噌製造など、水を活かした加工業が盛んです。清らかな水は、あらゆるものを正しく保存するのに適しています。</p>
+        <p>町内を流れる清流は現在も高い水質評価を受けており、酒造や味噌製造など水を活かした加工業が盛んです。</p>
       </div>
       <div class="feature-box">
         <h3>健康・長寿の町</h3>
-        <p>かたつま町は統計上、精神科・心療内科への住民紹介数がきわめて低い町です。担当課では住民の健康維持を積極的に支援しており、独自の健康管理プログラムを昭和30年代より継続しております。詳細は担当課にお問い合わせください。</p>
+        <p>統計上、精神科・心療内科への住民紹介数がきわめて低い町です。独自の健康管理プログラムを昭和30年代より継続しております。詳細は担当課にお問い合わせください。</p>
       </div>
       <div class="feature-box">
         <h3>記録と保全への取り組み</h3>
-        <p>かたつま町では、昭和20年代より住民記録の電子化・効率化に早期から取り組んできました。現在も国立記憶・認知研究所（NMCRI）との連携のもと、先進的な記録保全技術の研究・活用を推進しております。</p>
+        <p>昭和30年代より住民記録の保全に取り組んできました。現在もNMCRIとの連携のもと、先進的な記録保全技術の研究・活用を推進しております。</p>
       </div>
     </div>
   </div>
@@ -258,12 +259,10 @@
     <h2>連携・協力機関</h2>
     <div class="collab-box">
       <h3>国立記憶・認知研究所（NMCRI）</h3>
-      <p>
-        かたつま町は昭和35年より国立記憶・認知研究所（NMCRI）と技術提携を行っております。令和3年には包括連携協定を締結。記録保管サービスの提供においてNMCRIの処理技術を活用しております。詳細については担当課にお問い合わせください。
-      </p>
+      <p>昭和35年より技術提携。令和元年に包括連携協定を締結。記録保管サービスの処理技術においてNMCRIと連携しております。</p>
     </div>
     <div class="notice-small">
-      ※ NMCRIとの連携事業に関する詳細資料の一般公開は行っておりません。情報公開請求については担当課の指示に従ってください。
+      ※ NMCRIとの連携事業に関する詳細資料の一般公開は行っておりません。
     </div>
   </div>
 
@@ -276,11 +275,9 @@
       <tr><th style="padding:9px 14px; background:#f2f2f2; border-bottom:1px solid #e0e0e0; text-align:left; white-space:nowrap; color:#555;">昭和35年</th><td style="padding:9px 14px; border-bottom:1px solid #e8e8e8; color:#333;">NMCRIとの技術提携開始（記録保全に関する共同研究協定）</td></tr>
       <tr><th style="padding:9px 14px; background:#f2f2f2; border-bottom:1px solid #e0e0e0; text-align:left; white-space:nowrap; color:#555;">昭和40年</th><td style="padding:9px 14px; border-bottom:1px solid #e8e8e8; color:#888;">（記録なし）</td></tr>
       <tr><th style="padding:9px 14px; background:#f2f2f2; border-bottom:1px solid #e0e0e0; text-align:left; white-space:nowrap; color:#555;">昭和41年</th><td style="padding:9px 14px; border-bottom:1px solid #e8e8e8; color:#333;">特別条例の制定（担当課にお問い合わせください）</td></tr>
-      <tr><th style="padding:9px 14px; background:#f2f2f2; border-bottom:1px solid #e0e0e0; text-align:left; white-space:nowrap; color:#555;">昭和50年</th><td style="padding:9px 14px; border-bottom:1px solid #e8e8e8; color:#333;">役場庁舎を現在地に移転。記憶管理担当課を正式に設置</td></tr>
-      <tr><th style="padding:9px 14px; background:#f2f2f2; border-bottom:1px solid #e0e0e0; text-align:left; white-space:nowrap; color:#555;">平成20年</th><td style="padding:9px 14px; border-bottom:1px solid #e8e8e8; color:#333;">ふるさと納税制度に対応開始。一部記録保全サービスを返礼品として提供開始</td></tr>
-      <tr><th style="padding:9px 14px; background:#f2f2f2; border-bottom:1px solid #e0e0e0; text-align:left; white-space:nowrap; color:#555;">令和2年</th><td style="padding:9px 14px; border-bottom:1px solid #e8e8e8; color:#333;">返礼品カタログのウェブ公開。受付件数が過去最多を更新</td></tr>
-      <tr><th style="padding:9px 14px; background:#f2f2f2; border-bottom:1px solid #e0e0e0; text-align:left; white-space:nowrap; color:#555;">令和3年</th><td style="padding:9px 14px; border-bottom:1px solid #e8e8e8; color:#333;">NMCRIとの包括連携協定を締結。新型記録処理技術の共同開発プログラムを開始</td></tr>
-      <tr><th style="padding:9px 14px; background:#f2f2f2; text-align:left; white-space:nowrap; color:#555;">令和4年</th><td style="padding:9px 14px; color:#333;">ふるさと納税受付件数が過去最多を再度更新</td></tr>
+      <tr><th style="padding:9px 14px; background:#f2f2f2; border-bottom:1px solid #e0e0e0; text-align:left; white-space:nowrap; color:#555;">昭和50年</th><td style="padding:9px 14px; border-bottom:1px solid #e8e8e8; color:#333;">役場庁舎を現在地に移転。おもいで管理課（旧：記憶管理課）を正式に設置</td></tr>
+      <tr><th style="padding:9px 14px; background:#f2f2f2; border-bottom:1px solid #e0e0e0; text-align:left; white-space:nowrap; color:#555;">令和元年</th><td style="padding:9px 14px; border-bottom:1px solid #e8e8e8; color:#333;">NMCRIとの包括連携協定を締結</td></tr>
+      <tr><th style="padding:9px 14px; background:#f2f2f2; border-bottom:1px solid #e0e0e0; text-align:left; white-space:nowrap; color:#555;">令和2年</th><td style="padding:9px 14px; border-bottom:1px solid #e8e8e8; color:#333;">返礼品カタログのウェブ公開。一部記録保全サービスを返礼品として提供開始</td></tr>
     </table>
   </div>
 
@@ -305,7 +302,7 @@
         <p>観光・移住・定住促進に関するご相談</p>
       </div>
       <div class="dept-card special">
-        <span class="dept-name">記憶管理担当課</span>
+        <span class="dept-name">おもいで管理課</span>
         <p>記録保全サービス・特別条例関連・その他のご相談。窓口は平日のみ。詳細は<a href="contact.html">お問い合わせフォーム</a>まで。</p>
       </div>
     </div>
@@ -333,5 +330,15 @@
 </footer>
 
 <script src="js/search.js"></script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

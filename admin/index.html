@@ -1,21 +1,22 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <title>内部書類一覧 | 記憶管理担当課 KTMS</title>
+  <title>内部書類一覧 | おもいで管理課 KTMS</title>
   <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
 <div class="admin-sysbar">
-  <span>KTMS &nbsp;/&nbsp; 記憶管理担当課 内部管理システム &nbsp; v3.2</span>
+  <span>KTMS &nbsp;/&nbsp; おもいで管理課 内部管理システム &nbsp; v3.2</span>
   <span id="sys-time-top">--:--:--</span>
 </div>
 
 <div class="admin-header">
-  <span style="font-weight:bold; color:#1a3a5a;">記憶管理担当課　内部文書管理</span>
+  <span style="font-weight:bold; color:#1a3a5a;">おもいで管理課　内部文書管理</span>
   <span>
     セッション：<span id="session-id" style="font-family:monospace; color:#4a7ab0;">—</span>
     &nbsp;&nbsp;
@@ -28,17 +29,17 @@
   <div class="admin-sidebar">
     <div class="admin-sidebar-title">DOCUMENT INDEX</div>
     <ul class="admin-sidebar-nav">
-      <li><a href="index.html" class="active">内部書類一覧</a></li>
-      <li class="nav-divider"></li>
-      <li><a href="history.html">MEMO-H01　歴史記録</a></li>
-      <li><a href="memo-001.html">MEMO-001　昭和40年事案</a></li>
-      <li><a href="memo-002.html">MEMO-002　収集月報</a></li>
-      <li><a href="memo-003.html">MEMO-003　エージェント記録</a></li>
-      <li><a href="memo-004.html">MEMO-004　用途分類</a></li>
-      <li><a href="memo-005.html">MEMO-005　人員管理規程</a></li>
-      <li><a href="access-log.html">MEMO-L01　アクセスログ</a></li>
-      <li class="nav-divider"></li>
-      <li><a href="#" style="color:#c06030; font-size:11px; cursor:default; pointer-events:none;">MEMO-C01　通信ログ ⚠ 制限中</a></li>
+      <li><a href="index.html" class="active">▸ 内部書類一覧</a></li>
+      <li class="nav-group-label"><i class="fa-regular fa-file"></i> FILES</li>
+      <li><a href="memo-007.html">FILE01　PROJECT-9について</a></li>
+      <li><a href="memo-003.html">FILE02　AGT-007通達</a></li>
+      <li><a href="memo-report.html">FILE03　稼働実績報告</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-display"></i> SYSTEM</li>
+      <li><a href="access-log.html">アクセスログ</a></li>
+      <li><a href="chat-log.html">秘匿指示通信</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-database"></i> DATA</li>
+      <li><a href="memory-viewer.html">採取記憶データ　KT-Z001</a></li>
+      <li class="nav-disabled"><a>採取記憶データ　KT-Z002</a></li>
     </ul>
   </div>
 
@@ -47,7 +48,7 @@
     <div class="admin-page-sub">DOCUMENT INDEX &nbsp;／&nbsp; アクセス権限：閲覧専用　／　記録保管区分：S</div>
 
     <div class="admin-infobar">
-      <span><span class="label">最終更新：</span><span class="val">令和6年10月31日</span></span>
+      <span><span class="label">最終更新：</span><span class="val">令和8年4月11日</span></span>
       <span><span class="label">閲覧ページ数：</span><span class="val"><span id="access-count">-</span></span></span>
       <span><span class="label">セッション：</span><span class="val" id="session-id-2" style="font-family:monospace;">—</span></span>
     </div>
@@ -59,26 +60,10 @@
         <span class="col-status" style="text-align:right;">状態</span>
       </div>
 
-      <a href="history.html" class="admin-doclist-row">
-        <span class="doc-id">MEMO-H01</span>
+      <a href="memo-007.html" class="admin-doclist-row">
+        <span class="doc-id">MEMO-007</span>
         <span>
-          <div class="doc-title">かたつま町 歴史記録（管理用・非公式）</div>
-        </span>
-        <span class="doc-status status-open">閲覧可</span>
-      </a>
-
-      <a href="memo-001.html" class="admin-doclist-row">
-        <span class="doc-id">MEMO-001</span>
-        <span>
-          <div class="doc-title">昭和40年10月事案の記録（要約）</div>
-        </span>
-        <span class="doc-status status-open">閲覧可</span>
-      </a>
-
-      <a href="memo-002.html" class="admin-doclist-row">
-        <span class="doc-id">MEMO-002</span>
-        <span>
-          <div class="doc-title">記憶収集月報（令和6年10月）</div>
+          <div class="doc-title">PROJECT-9 自立型敵対思想勢力抑制工作員　概要</div>
         </span>
         <span class="doc-status status-open">閲覧可</span>
       </a>
@@ -86,23 +71,7 @@
       <a href="memo-003.html" class="admin-doclist-row">
         <span class="doc-id">MEMO-003</span>
         <span>
-          <div class="doc-title">エージェント生成記録（令和3年度）</div>
-        </span>
-        <span class="doc-status status-open">閲覧可</span>
-      </a>
-
-      <a href="memo-004.html" class="admin-doclist-row">
-        <span class="doc-id">MEMO-004</span>
-        <span>
-          <div class="doc-title">収集記憶の用途分類（内部基準）</div>
-        </span>
-        <span class="doc-status status-open">閲覧可</span>
-      </a>
-
-      <a href="memo-005.html" class="admin-doclist-row">
-        <span class="doc-id">MEMO-005</span>
-        <span>
-          <div class="doc-title">人員管理規程（記憶提供者 → 人材化プロセス）</div>
+          <div class="doc-title">エージェント記録（AGT-007）</div>
         </span>
         <span class="doc-status status-open">閲覧可</span>
       </a>
@@ -115,14 +84,13 @@
         <span class="doc-status status-open">閲覧可</span>
       </a>
 
-      <div class="admin-doclist-row locked">
-        <span class="doc-id" style="color:#c06030;">MEMO-C01</span>
+      <a href="chat-log.html" class="admin-doclist-row">
+        <span class="doc-id">MEMO-C01</span>
         <span>
-          <div class="doc-title">内部通信ログ（令和3年〜令和5年）</div>
-          <div class="lock-note">⚠ アクセス制限中</div>
+          <div class="doc-title">通信ログ・記憶データ（KT-Z001）</div>
         </span>
-        <span class="doc-status status-lock">制限中</span>
-      </div>
+        <span class="doc-status status-open">閲覧可</span>
+      </a>
     </div>
 
     <div class="admin-notice">
@@ -137,6 +105,11 @@
 </div>
 
 <script src="../js/search.js"></script>
+<script>
+if (!sessionStorage.getItem('ktms_auth')) {
+  window.location.replace('login.html');
+}
+</script>
 <script>
 (function () {
   function pad(n) { return n < 10 ? '0' + n : n; }

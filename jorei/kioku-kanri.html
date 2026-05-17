@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -24,13 +24,17 @@
 <header>
   <div class="header-inner">
     <a href="../index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="../img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -72,7 +76,6 @@
         <li>採取が住民の福祉の増進に資すると担当課が認める場合</li>
         <li>採取が行政運営の効率化に必要と担当課が認める場合</li>
         <li>昭和40年10月以降に担当課が別途定めた特定状況に該当する場合</li>
-        <li>採取元が本サービスに関連するページに3回以上アクセスした場合</li>
       </ol>
     </div>
 
@@ -102,18 +105,29 @@
     </div>
 
     <div class="jorei-article">
+      <h3>第9条（秘密保持の強制執行）</h3>
+      <p>担当課は、本条例に関わる情報の漏洩を防止するため、必要と認める者に対して強制的手段による記憶処理を実施することができる。この処理は本条例第2条に定める採取の一形態とし、対象者の同意を要しない。強制処理の実施は「特別処理案件」として記録される。処理の実施基準、対象者の選定および処理の範囲については担当課の裁量による。</p>
+    </div>
+
+    <div class="jorei-article">
       <h3>附則</h3>
       <p>この条例は昭和41年4月1日から施行する。本条例に定めのない事項については、担当課の判断による。</p>
     </div>
 
-    <div class="jorei-kanri">
-      <p style="font-size:12px; color:#999; margin-bottom:4px;">管理番号</p>
-      <p>KR-<strong>1966</strong></p>
-      <p class="jorei-warning">※管理番号の数字部分は内部参照番号です。条例制定年度（昭和41年＝西暦1966年）に対応しています。</p>
+    <div class="jorei-kanri" style="padding:24px 28px; text-align:center;">
+      <p style="font-size:12px; color:#888; margin-bottom:16px;">担当課職員はこの条例を基づき内部管理システムから各情報を管理してください。</p>
+      <a href="../admin/login.html" style="display:inline-block; background:#1a2a4a; color:#e8f0f8; text-decoration:none; font-size:13px; letter-spacing:0.05em; padding:10px 28px; border:1px solid #3a5a8a;">
+        おもいで管理課 内部管理システム（KTMS）
+      </a>
     </div>
 
-    <div class="jorei-meta">
-      <p>かたつま町 記憶管理担当課</p>
+    <div class="jorei-meta" style="border-top:none; padding-top:0; margin-top:0;">
+      <div style="margin-bottom:16px; padding:10px 14px; background:#f8f4f0; border:1px solid #d8c8b8; border-left:3px solid #a08060; font-size:11px; color:#6a4a30; line-height:1.9; text-align:left;">
+        <strong>【担当課内部通知】</strong><br>
+        令和8年1月より稼働を開始した新プログラムに基づくエージェントの運用により、第9条に定める強制処理の積極的実施体制に移行しています。対象案件については通常手続きを経ず処理を行う場合があります。<br>
+        <span style="color:#9a7a5a; margin-top:6px; display:inline-block;">新プログラム始動開始：R0801</span>
+      </div>
+      <p>かたつま町 おもいで管理課</p>
       <p>このページへのアクセスは記録されます</p>
     </div>
   </div>
@@ -137,5 +151,15 @@
 </footer>
 
 <script src="../js/search.js"></script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

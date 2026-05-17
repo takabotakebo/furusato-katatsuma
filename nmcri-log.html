@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -47,13 +47,17 @@
 <header>
   <div class="header-inner">
     <a href="index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -73,7 +77,7 @@
     附属資料の詳細については担当課にご請求ください。
   </p>
 
-  <div class="section-note">全 4 件を表示　／　最終更新：令和7年2月</div>
+  <div class="section-note">全 6 件を表示　／　最終更新：令和8年5月</div>
 
   <table class="doc-list">
     <thead>
@@ -86,34 +90,46 @@
     </thead>
     <tbody>
       <tr>
+        <td class="doc-date">令和8年5月</td>
+        <td class="doc-from">かたつま町 おもいで管理課</td>
+        <td>特定採取対象者に係る特殊処理手続きの照会について</td>
+        <td class="doc-ref">かた記管第94号</td>
+      </tr>
+      <tr>
+        <td class="doc-date">令和8年4月</td>
+        <td class="doc-from">NMCRI 第3研究室</td>
+        <td>【至急】連携自治体における情報管理上の懸念事項への対応要請</td>
+        <td class="doc-ref">NMCRI三研第12号</td>
+      </tr>
+      <tr>
         <td class="doc-date">令和6年11月</td>
-        <td class="doc-from">かたつま町 記憶管理担当課</td>
+        <td class="doc-from">かたつま町 おもいで管理課</td>
         <td>令和6年度下半期 協定実施状況報告</td>
         <td class="doc-ref">かた記管第89号</td>
       </tr>
       <tr>
-        <td class="doc-date">令和5年9月</td>
-        <td class="doc-from">NMCRI 連携推進室</td>
-        <td>【重要】新処理プロトコル移行に係る協力依頼</td>
-        <td class="doc-ref">NMCRI連推第77号</td>
-      </tr>
-      <tr>
-        <td class="doc-date">令和3年12月</td>
+        <td class="doc-date">令和元年12月</td>
         <td class="doc-from">NMCRI 連携推進室</td>
         <td>包括連携協定締結後の初年度実施方針について</td>
         <td class="doc-ref">NMCRI連推第101号</td>
       </tr>
       <tr>
-        <td class="doc-date">令和3年7月</td>
+        <td class="doc-date">令和元年12月</td>
         <td class="doc-from">かたつま町長</td>
         <td>国立記憶・認知研究所との包括連携協定締結について（通知）</td>
         <td class="doc-ref">かた総第77号</td>
+      </tr>
+      <tr>
+        <td class="doc-date">令和元年10月</td>
+        <td class="doc-from">NMCRI 連携推進室</td>
+        <td>【重要】新処理プロトコル移行に係る協力依頼</td>
+        <td class="doc-ref">NMCRI連推第77号</td>
       </tr>
     </tbody>
   </table>
 
   <p style="font-size:12px; color:#aaa; margin-bottom:32px;">
-    ※ 各文書の本文・附属資料は非公開です。情報公開請求については記憶管理担当課の指示に従ってください。<br>
+    ※ 各文書の本文・附属資料は非公開です。情報公開請求についてはおもいで管理課の指示に従ってください。<br>
     ※ NMCRI公式サイト：<a href="nmcri/index.html" style="color:#2a5080;">国立記憶・認知研究所（NMCRI）</a>
   </p>
 
@@ -139,5 +155,15 @@
 </footer>
 
 <script src="js/search.js"></script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

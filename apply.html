@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -11,13 +11,17 @@
 <header>
   <div class="header-inner">
     <a href="index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -41,7 +45,7 @@
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">返礼品を選ぶ</div>
-          <div class="step-desc">返礼品一覧からご希望の品目をお選びください。記憶・保管カテゴリの品目については、サイト内検索をご利用ください。</div>
+          <div class="step-desc">返礼品一覧からご希望の品目をお選びください。記憶・保管カテゴリの一部品目については、担当課への別途申請が必要です。</div>
         </div>
       </div>
       <div class="usage-step">
@@ -185,5 +189,15 @@ document.getElementById('apply-form').addEventListener('submit', function(e) {
   }
 });
 </script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

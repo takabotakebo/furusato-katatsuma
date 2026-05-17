@@ -1,11 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>記憶データビューア | 記憶管理担当課</title>
+  <title>記憶データビューア | おもいで管理課</title>
   <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body { background: #0a0a0a; color: #ccc; }
 
@@ -94,68 +95,178 @@
     .sc-btn.primary { border-color: #8a4040; color: #c88; }
     .sc-btn.primary:hover { background: #8a4040; color: #fff; }
 
-    /* 記憶フラグメント表示エリア */
-    #fragment-area {
-      min-height: 340px;
-      font-size: 14px;
-      line-height: 2.4;
-      color: #999;
-      display: none;
-      background: url(../img/scan-noise.png) repeat center/200px auto;
-      background-blend-mode: overlay;
+    /* スキャンライン（横縞） */
+    body.scanning::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,0.10) 3px,
+        rgba(0,0,0,0.10) 4px
+      );
+      pointer-events: none;
+      z-index: 9998;
     }
 
-    .frag {
-      opacity: 0;
-      transition: opacity 0.8s ease;
-      margin-bottom: 28px;
-      padding: 0 0 18px;
-      border-bottom: 1px solid #1a1a1a;
+    /* スキャンビーム */
+    body.scanning::after {
+      content: '';
+      position: fixed;
+      top: -30%;
+      left: 0; right: 0;
+      height: 30%;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(80,180,120,0.03) 40%,
+        rgba(80,180,120,0.07) 50%,
+        rgba(80,180,120,0.03) 60%,
+        transparent 100%
+      );
+      pointer-events: none;
+      z-index: 9997;
+      animation: scan-beam 4s linear infinite;
     }
-    .frag.visible { opacity: 1; }
+
+    @keyframes scan-beam {
+      0%   { top: -30%; }
+      100% { top: 110%; }
+    }
+
+    /* スライドビューア */
+    #fragment-area {
+      display: none;
+    }
+
+    #frag-slide {
+      min-height: 420px;
+      padding: 48px 48px 40px;
+      border: 1px solid #1e1e1e;
+      position: relative;
+    }
+
+    #frag-counter {
+      font-size: 10px;
+      color: #2a2a2a;
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+    }
 
     .frag-label {
       font-size: 10px;
       color: #444;
       letter-spacing: 0.1em;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
     .frag-text {
-      font-size: 14px;
+      font-size: 15px;
       color: #aaa;
-      line-height: 2.2;
+      line-height: 2.4;
+      min-height: 200px;
     }
 
-    .frag-text em {
-      color: #ccc;
-      font-style: normal;
+    .frag-text em  { color: #ccc; font-style: normal; }
+    .frag-text .glitch { color: #c44; font-family: monospace; }
+
+    #frag-nav {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .frag-text .glitch {
-      color: #c44;
-      font-family: monospace;
+    #frag-prev-btn, #frag-next-btn {
+      background: transparent;
+      border: 1px solid #2a2a2a;
+      color: #444;
+      font-size: 11px;
+      font-family: inherit;
+      letter-spacing: 0.08em;
+      padding: 8px 24px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    #frag-prev-btn:hover:not(:disabled),
+    #frag-next-btn:hover:not(:disabled) { border-color: #666; color: #aaa; }
+    #frag-prev-btn:disabled,
+    #frag-next-btn:disabled { opacity: 0.15; cursor: default; }
+
+    #frag-hint {
+      font-size: 10px;
+      color: #222;
+      letter-spacing: 0.06em;
+    }
+
+    /* グリッチCanvasオーバーレイ */
+    #glitch-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 9990;
+      pointer-events: none;
+    }
+    #glitch-overlay.active { display: block; }
+    #glitch-canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* フリッカーアニメーション */
+    @keyframes frag-flicker-in {
+      0%   { opacity: 0; }
+      10%  { opacity: 0.4; }
+      18%  { opacity: 0.1; }
+      30%  { opacity: 0.7; }
+      38%  { opacity: 0.2; }
+      52%  { opacity: 0.9; }
+      58%  { opacity: 0.5; }
+      72%  { opacity: 1; }
+      78%  { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    #frag-slide.flicker {
+      animation: frag-flicker-in 1.0s ease forwards;
     }
 
     /* 警告オーバーレイ */
     #alert-overlay {
-      display: none;
+      display: flex;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.96);
-      z-index: 200;
+      z-index: 10000;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 2.0s ease;
+    }
+
+    @keyframes alert-glitch-in {
+      0%   { opacity: 0;    transform: translate(0,0) skewX(0deg); filter: brightness(3) hue-rotate(180deg); }
+      8%   { opacity: 0.6;  transform: translate(-6px,0) skewX(3deg); filter: brightness(2) hue-rotate(90deg); }
+      15%  { opacity: 0.2;  transform: translate(8px,0) skewX(-2deg); filter: brightness(4) hue-rotate(270deg); }
+      25%  { opacity: 0.8;  transform: translate(-4px,0) skewX(1deg); filter: brightness(1.5) hue-rotate(0deg); }
+      35%  { opacity: 0.4;  transform: translate(5px,0) skewX(-3deg); filter: brightness(2) hue-rotate(120deg); }
+      50%  { opacity: 0.9;  transform: translate(-2px,0) skewX(0deg); filter: brightness(1.2) hue-rotate(0deg); }
+      65%  { opacity: 0.7;  transform: translate(2px,0) skewX(1deg);  filter: brightness(1.1); }
+      80%  { opacity: 1;    transform: translate(0,0) skewX(0deg);    filter: brightness(1); }
+      100% { opacity: 1;    transform: translate(0,0) skewX(0deg);    filter: brightness(1); }
     }
 
     #alert-overlay.show {
-      display: flex;
-      animation: fade-in 1s ease;
+      opacity: 1;
+      pointer-events: auto;
+      animation: alert-glitch-in 1.8s steps(1) forwards;
     }
-
-    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 
     .alert-box {
       max-width: 520px;
@@ -272,13 +383,13 @@
 
 <div id="viewer-shell">
   <div class="viewer-header">
-    <span>記憶管理担当課　データビューアシステム　v2.4</span>
+    <span>おもいで管理課　データビューアシステム　v2.4</span>
     <span><a href="../index.html" style="color:#333; font-size:10px; text-decoration:none; letter-spacing:0.04em;">← サイトトップへ</a>　<span id="sys-time"></span></span>
   </div>
 
   <div class="viewer-title">
     記憶データ：KAT-001（加藤晴美）
-    <span>採取番号：KT-AGENT-001　分類：人員化済み素材</span>
+    <span>採取番号：KT-Z001　分類：人員化済み素材</span>
   </div>
 
   <!-- 同期確認ダイアログ -->
@@ -286,7 +397,7 @@
     <div class="sc-title">記憶装置接続　確認</div>
     <div class="sc-body">
       対象記憶データ：<strong>KAT-001（加藤晴美）</strong><br>
-      採取番号：KT-AGENT-001<br><br>
+      採取番号：KT-Z001<br><br>
       記憶データを閲覧するには、<br>
       <strong>記憶装置への同期</strong>が必要です。
     </div>
@@ -304,8 +415,19 @@
   <div id="scan-bar"><div id="scan-fill"></div></div>
   <div id="scan-label">記憶装置に同期しています…</div>
 
-  <!-- フラグメント表示エリア -->
-  <div id="fragment-area"></div>
+  <!-- フラグメント表示エリア（スライド式） -->
+  <div id="fragment-area">
+    <div id="frag-slide">
+      <div id="frag-counter"></div>
+      <div class="frag-label" id="frag-label"></div>
+      <div class="frag-text" id="frag-text"></div>
+    </div>
+    <div id="frag-nav">
+      <button id="frag-prev-btn">← 前へ</button>
+      <span id="frag-hint">↓ スクロールまたはクリックで移動</span>
+      <button id="frag-next-btn">次へ →</button>
+    </div>
+  </div>
 
   <!-- 演出後メッセージ -->
   <div id="after-viewer">
@@ -314,12 +436,8 @@
       記憶データの閲覧を完了しました。<br>
       この記録はセッション情報とともに採取されました。
     </div>
-    <div class="aw-hint">
-      MEMO-C01（KAT-001 内部通信ログ）は以下に移動されています。<br><br>
-      <a href="chat-log.html" style="color:#a0c8a0; font-size:12px; border:1px solid #3a5a3a; padding:8px 20px; display:inline-block; letter-spacing:0.04em; text-decoration:none;">→ MEMO-C01 内部通信ログを確認する</a>
-    </div>
-    <div style="margin-top:24px; text-align:center;">
-      <a href="index.html" style="color:#555; font-size:11px; text-decoration:none; letter-spacing:0.04em;">← 内部書類一覧へ戻る</a>
+    <div style="margin-top:20px; text-align:center;">
+      <button id="btn-end-viewer" class="sc-btn primary">記憶の閲覧を終了する</button>
     </div>
   </div>
 
@@ -327,6 +445,11 @@
     <span style="font-size:10px; color:#333; flex:1; line-height:1.5;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
     <span style="font-size:10px; color:#333; white-space:nowrap; font-family:monospace;">KL-9/10</span>
   </div>
+</div>
+
+<!-- グリッチ→ブラックアウト演出レイヤー -->
+<div id="glitch-overlay">
+  <canvas id="glitch-canvas"></canvas>
 </div>
 
 <!-- 警告オーバーレイ（採取通知） -->
@@ -337,8 +460,10 @@
       同期の完了により、<strong>あなたの現在の閲覧記憶が採取されました。</strong><br><br>
       採取された記憶：<br>
       ・このサイトを初めて開いたときの記憶<br>
-      ・「なにもなかった3日間」を検索したときの記憶<br>
+      ・「大規模採取作業」という言葉を見たときの記憶<br>
       ・加藤晴美という名前を見たときの記憶<br>
+      ・「新生還流計画」の内容を知ったときの記憶<br>
+      ・「PROJECT-9」の存在を知ったときの記憶<br>
       ・今この画面を読んでいる記憶<br><br>
       お預かりしたデータは、担当課にて適切に処理いたします。
     </div>
@@ -348,6 +473,7 @@
 </div>
 
 <script>
+if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'); }
 (function () {
   /* 時刻 */
   var timeEl = document.getElementById('sys-time');
@@ -377,33 +503,38 @@
     history.back();
   });
 
-  /* 同期ボタン → 演出開始 */
+  /* 同期ボタン → 演出開始＋スキャン開始 */
   document.getElementById('btn-sync').addEventListener('click', function () {
     document.getElementById('sync-confirm').style.display = 'none';
+    document.body.classList.add('scanning');
     startViewer();
   });
 
   /* フラグメントデータ */
   var fragments = [
     {
-      label: 'FRAGMENT_001　令和5年4月7日 08:22',
-      text: '今日も普通の朝だ、と思っていた。\n通勤途中、桜がまだ少し残っていた。\n役場に着いて、同僚とコーヒーを飲んだ。いつもの朝。\nデスクに戻ると、古いファイルフォルダが届いていた。'
+      label: 'FRAGMENT_001',
+      text: '今日も普通の朝だ、と思っていた。\n通勤途中、桜がまだ少し残っていた。\n役場に着いて、同僚とコーヒーを飲んだ。いつもの朝。\n棚卸しの途中で、古いファイルフォルダが出てきた。'
     },
     {
-      label: 'FRAGMENT_002　令和5年4月7日 13:58',
-      text: '「S-40-10-312」という番号がある。\n開いてはいけない気がした。でも開いた。\n昭和40年10月。なにもなかった3日間。\n312名。\n子供たちの名前があった。出生記録から照合された名前たち。\n同意書がない。\n一枚もない。'
+      label: 'FRAGMENT_002',
+      text: '「S-40-10-312」という番号がある。\n開いてはいけない気がした。でも開いた。\n昭和40年10月。大規模採取作業。\n312名。\n子供たちの名前があった。出生記録から照合された名前たち。'
     },
     {
-      label: 'FRAGMENT_003　令和5年4月7日 14:18',
-      text: '自分の名前を探していた。\nかたつま町生まれ。昭和42年生まれ。\n昭和40年10月のリストには、自分の名前はない。\n少し安堵した、その直後、出生記録一覧に別のリストを見つけた。\n「二次採取対象者（昭和47年〜52年生まれ）」\nそこに自分の名前があった。'
+      label: 'FRAGMENT_003',
+      text: '名前を探した。\n\n昭和40年10月のリストには、自分は関係ない。\nでも続きがあった。\n\n出生記録一覧に別のリストがあった。\n「継続採取対象者名簿」\n\nそこに自分の名前があった。\n\n出身地の欄に「かたつま町」とあった。\n知らなかった。自分がこの町で生まれていたことを。\n\nだから移住したとき、どこか懐かしい気がしたのかもしれない。\n\nでも——なぜ懐かしいと感じたのか、その記憶がない。\n初めて来たはずなのに、懐かしかった。\nその「懐かしさ」の中身が、どこにもない。\n\nとられていたのだ、と思った。'
     },
     {
-      label: 'FRAGMENT_004　令和5年4月7日 14:31',
-      text: '自分のどの記憶が「ない」のかを考えようとして、気づいた。\n5歳の誕生日の記憶がない。\n保育園で何かがあったはずだが、何も覚えていない。\n6歳の入学式の写真は親のアルバムにある。でも自分の記憶の中に、その朝がない。\nあの頃、「健康診断」があったと母が言っていた。'
+      label: 'FRAGMENT_004',
+      text: '証拠を集めなければ、と思った。\n印刷した。スキャンした。何枚も。\n外部に持ち出さなければ。誰かに渡さなければ。\n\nそのとき、通知が来ていたことに気づいた。\n係長からの呼び出し。\n「8日に記憶管理担当課に来てほしい、健康管理確認がある」\n\n同時に、おもいで管理課から窓口停止の通知。4月8日〜10日。\n\n知られている。'
     },
     {
-      label: 'FRAGMENT_005　令和5年4月7日 14:33',
-      text: '<em>このデータを見ているあなたへ。</em>\n\n私は加藤晴美といいます。この記憶は14:33に採取が開始されたものです。\nこの後、私は何をするつもりだったのか、もう確認する方法がありません。\n\n<em>ただ、覚えておいてください。</em>\n<em>なにもなかった3日間のことを。</em>\n<em>312名のことを。子供たちのことを。</em>\n\n<span class="glitch">-- KAT-001（加藤晴美）　令和5年4月7日 14:33 --</span>'
+      label: 'FRAGMENT_005',
+      text: '夜のうちに準備した。\nコピーした書類を封筒に入れた。宛先まで書いた。\n\n夜明け前に出発しようとした。\n\nドアを開けたとき、山之内が立っていた。\n\n——ずっとそこにいたのかもしれない。'
+    },
+    {
+      label: 'FRAGMENT_006',
+      text: '腕を掴まれた。\n引き戻された。\n\n抵抗しようとした。できなかった。\n廊下を引きずられる感覚があった。\n\n薄暗い部屋に座らされた。\nこめかみに何かが当てられた。冷たくて、固かった。\n\n「やめてください」と言った。\n声になっていたかどうかわからない。\n\n頭の奥から、何かが抜けていくような感じがした。\n痛みとは違った。もっと深いところが、なくなっていく感じ。\n\n伝えなければいけないことがあった。\n渡さなければいけないものがあった。\nそれが何だったか、思い出そうとするたびに、遠ざかった。\n\n——遠ざかった。'
     }
   ];
 
@@ -433,26 +564,153 @@
     function showFragments() {
       if (scanLabel) scanLabel.textContent = '同期完了。記憶データを展開しています。';
 
-      fragments.forEach(function (f, i) {
-        var div = document.createElement('div');
-        div.className = 'frag';
-        div.innerHTML =
-          '<div class="frag-label">' + f.label + '</div>' +
-          '<div class="frag-text">' + f.text.replace(/\n/g, '<br>') + '</div>';
-        fragArea.appendChild(div);
-        setTimeout(function () { div.classList.add('visible'); }, i * 1800 + 400);
+      var glitchChars = '█▓▒░│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌';
+      var currentIndex = 0;
+      var totalFrags = fragments.length;
+      var isAnimating = false;
+
+      var slideEl   = document.getElementById('frag-slide');
+      var counterEl = document.getElementById('frag-counter');
+      var labelEl   = document.getElementById('frag-label');
+      var textEl    = document.getElementById('frag-text');
+      var nextBtn   = document.getElementById('frag-next-btn');
+      var prevBtn   = document.getElementById('frag-prev-btn');
+      var hintEl    = document.getElementById('frag-hint');
+
+      function glitchText(el, finalText, duration) {
+        var steps = 12;
+        var interval = duration / steps;
+        var count = 0;
+        var timer = setInterval(function () {
+          count++;
+          if (count >= steps) {
+            clearInterval(timer);
+            el.innerHTML = finalText.replace(/\n/g, '<br>');
+            return;
+          }
+          var ratio = count / steps;
+          var result = '';
+          for (var ci = 0; ci < finalText.length; ci++) {
+            var ch = finalText[ci];
+            if (ch === '\n') { result += '<br>'; continue; }
+            if (Math.random() > ratio) {
+              result += '<span class="glitch">' + glitchChars[Math.floor(Math.random() * glitchChars.length)] + '</span>';
+            } else {
+              result += ch;
+            }
+          }
+          el.innerHTML = result;
+        }, interval);
+      }
+
+      function showSlide(index) {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        var f = fragments[index];
+        nextBtn.disabled = true;
+
+        /* カウンター・ラベル更新 */
+        counterEl.textContent = (index + 1) + ' / ' + totalFrags;
+        labelEl.textContent = f.label;
+        textEl.innerHTML = '';
+
+        /* フリッカーアニメーション再トリガー */
+        slideEl.classList.remove('flicker');
+        void slideEl.offsetWidth; /* reflow */
+        slideEl.classList.add('flicker');
+
+        /* グリッチテキスト */
+        glitchText(textEl, f.text, 900);
+
+        var isLast = (index === totalFrags - 1);
+
+        setTimeout(function () {
+          isAnimating = false;
+          prevBtn.disabled = (index === 0);
+          if (isLast) {
+            nextBtn.disabled = true;
+            hintEl.textContent = '';
+            setTimeout(function () {
+              document.getElementById('after-viewer').style.display = 'block';
+            }, 1200);
+          } else {
+            nextBtn.disabled = false;
+          }
+        }, 1100);
+      }
+
+      /* 次へボタン */
+      nextBtn.addEventListener('click', function () {
+        if (isAnimating || currentIndex >= totalFrags - 1) return;
+        currentIndex++;
+        showSlide(currentIndex);
       });
 
-      /* 全フラグメント後にアラート */
-      setTimeout(function () {
-        showAlert();
-      }, fragments.length * 1800 + 2200);
+      /* 前へボタン */
+      prevBtn.addEventListener('click', function () {
+        if (isAnimating || currentIndex <= 0) return;
+        currentIndex--;
+        showSlide(currentIndex);
+      });
+
+      /* ホイール・タッチスワイプで前後移動 */
+      var wheelCooldown = false;
+
+      function isAtBottom() {
+        var scrollBottom = window.scrollY + window.innerHeight;
+        var docHeight = document.documentElement.scrollHeight;
+        return scrollBottom >= docHeight - 40;
+      }
+
+      function isAtTop() {
+        return window.scrollY <= 10;
+      }
+
+      window.addEventListener('wheel', function (e) {
+        if (isAnimating || wheelCooldown) return;
+        if (e.deltaY > 20 && isAtBottom() && currentIndex < totalFrags - 1) {
+          wheelCooldown = true;
+          setTimeout(function () { wheelCooldown = false; }, 1400);
+          currentIndex++;
+          showSlide(currentIndex);
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        } else if (e.deltaY < -20 && isAtTop() && currentIndex > 0) {
+          wheelCooldown = true;
+          setTimeout(function () { wheelCooldown = false; }, 1400);
+          currentIndex--;
+          showSlide(currentIndex);
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+      }, { passive: true });
+
+      /* タッチスワイプ */
+      var touchStartY = 0;
+      window.addEventListener('touchstart', function (e) {
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      window.addEventListener('touchend', function (e) {
+        if (isAnimating) return;
+        var dy = touchStartY - e.changedTouches[0].clientY;
+        if (dy > 50 && isAtBottom() && currentIndex < totalFrags - 1) {
+          currentIndex++;
+          showSlide(currentIndex);
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        } else if (dy < -50 && isAtTop() && currentIndex > 0) {
+          currentIndex--;
+          showSlide(currentIndex);
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+      }, { passive: true });
+
+      /* 最初のスライドを表示 */
+      showSlide(0);
     }
   }
 
   function showAlert() {
     var overlay = document.getElementById('alert-overlay');
-    if (overlay) overlay.classList.add('show');
+    if (!overlay) return;
 
     var visits2 = JSON.parse(sessionStorage.getItem('kt_visits') || '[]');
     var countEl = document.getElementById('alert-count');
@@ -460,11 +718,133 @@
       countEl.textContent = '（今回のセッション閲覧数：' + visits2.length + ' ページ）';
     }
 
+    overlay.classList.add('show');
+
     document.getElementById('alert-btn-ok').addEventListener('click', function () {
       overlay.classList.remove('show');
-      document.getElementById('after-viewer').style.display = 'block';
+      setTimeout(function () {
+        window.location.href = 'ending.html';
+      }, 800);
     });
   }
+
+  /* 「記憶の閲覧を終了する」ボタン：スキャン停止→グリッチCanvas→ポップアップ */
+  document.getElementById('btn-end-viewer').addEventListener('click', function () {
+    document.body.classList.remove('scanning');
+
+    var gl = document.getElementById('glitch-overlay');
+    var canvas = document.getElementById('glitch-canvas');
+    gl.classList.add('active');
+
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+
+    var startTime = null;
+    var DURATION = 2200; /* ms */
+
+    function rand(min, max) { return min + Math.random() * (max - min); }
+    function randInt(min, max) { return Math.floor(rand(min, max + 1)); }
+
+    function drawFrame(ts) {
+      if (!startTime) startTime = ts;
+      var elapsed = ts - startTime;
+      var progress = Math.min(elapsed / DURATION, 1); /* 0→1 */
+
+      ctx.clearRect(0, 0, W, H);
+
+      /* フェーズ1（0〜0.7）：激しいグリッチ　フェーズ2（0.7〜1）：ブラックアウトへ */
+      var intensity = progress < 0.7
+        ? 1 - progress * 0.3           /* 序盤は強く */
+        : 1 - (progress - 0.7) / 0.3; /* 後半は減衰 */
+
+      /* ---- 黒ベース（後半で覆う） ---- */
+      var blackAlpha = progress < 0.6 ? 0 : (progress - 0.6) / 0.4;
+      ctx.fillStyle = 'rgba(0,0,0,' + blackAlpha + ')';
+      ctx.fillRect(0, 0, W, H);
+
+      if (intensity <= 0.01) {
+        /* 完全ブラックアウト */
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, W, H);
+        return; /* ループ停止 */
+      }
+
+      /* ---- 水平スライスずれ ---- */
+      var sliceCount = Math.floor(rand(12, 28) * intensity);
+      for (var i = 0; i < sliceCount; i++) {
+        var sy   = randInt(0, H);
+        var sh   = randInt(1, Math.floor(40 * intensity));
+        var shiftX = rand(-80, 80) * intensity;
+        /* ページ本体を切り取ってずらして描画（背景色で代替） */
+        ctx.fillStyle = 'rgba(' +
+          randInt(0,255) + ',' + randInt(0,255) + ',' + randInt(0,255) + ',' +
+          rand(0.05, 0.25) * intensity + ')';
+        ctx.fillRect(shiftX < 0 ? 0 : shiftX, sy, W, sh);
+      }
+
+      /* ---- RGBカラーブロック ---- */
+      var blockCount = Math.floor(rand(6, 18) * intensity);
+      var colors = [
+        [255, 0, 60], [0, 220, 255], [255, 255, 0],
+        [0, 255, 120], [255, 0, 200], [180, 0, 255]
+      ];
+      for (var j = 0; j < blockCount; j++) {
+        var c = colors[randInt(0, colors.length - 1)];
+        var bx = randInt(0, W - 200);
+        var by = randInt(0, H - 30);
+        var bw = randInt(20, 300);
+        var bh = randInt(1, 16);
+        ctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + rand(0.15, 0.55) * intensity + ')';
+        ctx.fillRect(bx, by, bw, bh);
+      }
+
+      /* ---- 白フラッシュ帯 ---- */
+      if (Math.random() < 0.15 * intensity) {
+        var fy = randInt(0, H);
+        var fh = randInt(2, 8);
+        ctx.fillStyle = 'rgba(255,255,255,' + rand(0.3, 0.7) * intensity + ')';
+        ctx.fillRect(0, fy, W, fh);
+      }
+
+      /* ---- ピクセルノイズ ---- */
+      var noiseCount = Math.floor(rand(200, 800) * intensity);
+      for (var k = 0; k < noiseCount; k++) {
+        var nx = randInt(0, W);
+        var ny = randInt(0, H);
+        ctx.fillStyle = 'rgba(' +
+          randInt(100,255) + ',' + randInt(0,255) + ',' + randInt(100,255) + ',' +
+          rand(0.4, 1.0) + ')';
+        ctx.fillRect(nx, ny, randInt(1,4), randInt(1,4));
+      }
+
+      /* ---- 縦線ノイズ ---- */
+      var vlineCount = Math.floor(rand(2, 8) * intensity);
+      for (var v = 0; v < vlineCount; v++) {
+        var vx = randInt(0, W);
+        ctx.fillStyle = 'rgba(' +
+          randInt(0,255) + ',' + randInt(0,255) + ',' + randInt(0,255) + ',' +
+          rand(0.1, 0.4) * intensity + ')';
+        ctx.fillRect(vx, 0, randInt(1,3), H);
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(drawFrame);
+      } else {
+        /* 最終ブラックアウト確定 */
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, W, H);
+      }
+    }
+
+    requestAnimationFrame(drawFrame);
+
+    /* グリッチ完了後にアラート表示 */
+    setTimeout(function () {
+      showAlert();
+    }, 2200);
+  });
 
 })();
 </script>

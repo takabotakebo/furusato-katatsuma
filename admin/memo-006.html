@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>MEMO-006 特別処理案件記録 | おもいで管理課</title>
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div class="admin-sysbar">
+  <span>KTMS &nbsp;/&nbsp; おもいで管理課 内部管理システム &nbsp; v3.2</span>
+  <span id="sys-time-top">--:--:--</span>
+</div>
+<div class="admin-header">
+  <span style="font-weight:bold; color:#1a3a5a;">おもいで管理課　内部文書管理</span>
+  <span>
+    セッション：<span id="session-id" style="font-family:monospace; color:#4a7ab0;">—</span>
+    &nbsp;&nbsp;
+    <a href="../index.html" class="admin-back-link">← 公開サイトへ戻る</a>
+  </span>
+</div>
+<div class="admin-layout">
+  <div class="admin-sidebar">
+    <div class="admin-sidebar-title">DOCUMENT INDEX</div>
+    <ul class="admin-sidebar-nav">
+      <li><a href="index.html">▸ 内部書類一覧</a></li>
+      <li class="nav-group-label"><i class="fa-regular fa-file"></i> FILES</li>
+      <li><a href="memo-007.html">FILE01　PROJECT-9について</a></li>
+      <li><a href="memo-003.html">FILE02　AGT-007通達</a></li>
+      <li><a href="memo-report.html">FILE03　稼働実績報告</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-display"></i> SYSTEM</li>
+      <li><a href="access-log.html">アクセスログ</a></li>
+      <li><a href="chat-log.html">秘匿指示通信</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-database"></i> DATA</li>
+      <li><a href="memory-viewer.html">採取記憶データ　KT-Z001</a></li>
+      <li class="nav-disabled"><a>採取記憶データ　KT-Z002</a></li>
+    </ul>
+  </div>
+  <div class="admin-content">
+    <p class="admin-title">MEMO-006　特別処理案件記録（令和8年4月）</p>
+    <div class="memo-body">特別処理案件記録
+分類：SS / 担当課長承認 / 永久保管
+記録：おもいで管理課　令和8年4月11日
+
+■ 対象者
+
+氏名：加藤 晴美（KAT-001）
+所属：ふるさと納税担当課
+採取番号：KT-Z001
+
+■ 経緯
+
+令和8年4月7日、対象者が文書整理作業中に
+「新生還流計画 概要資料」に誤ってアクセスした。
+（アクセスログ：MEMO-L01 令和8年4月7日 22:14 参照）
+
+対象者は閲覧後、職員ポータルの業務記録に記録を残した。
+記録内容から、対象者が 大規模採取作業の概要、
+昭和40年10月事案（S-40-10-312）の詳細、
+および記憶採取業務の実態を把握したことが確認された。
+
+■ 対応
+
+令和8年4月8日〜10日、窓口業務一時停止を名目に実施。
+特別条例第3条第4項に基づき、担当課長が承認。
+
+対象記憶：
+・令和8年4月7日 22時以降の業務記録の記憶
+・「新生還流計画」の内容に関する記憶
+・「告発」の意図に関連するすべての感情的記憶
+・外部に連絡しようとした際の記憶
+
+採取処理：完了（令和8年4月8日 09:00）
+登録品目：KT-Z001（「特別処理案件として処理」記載のみ。詳細非公開）
+
+■ 処理後の状況
+
+令和8年4月11日、対象者は通常業務に復帰。
+業務上の支障なし。記憶の欠落は「疲労による空白」として認識していると推測される。
+職員ポータルにはメモが残存しているが、対象者は自身が書いたことを認識していない可能性がある。
+
+■ 備考
+
+対象者が残したメモの中に、KTMSログインIDの記載があった（KMT-049）。
+対象者は付箋を発見したと記載しているが、
+当該付箋の出所は現時点で未確認。
+
+KMT-049（職員：北村 誠二　おもいで管理課補佐）については
+別途、セキュリティ手順の再確認を要請した。
+</div>
+    <span class="admin-page-id">KL-11/12</span>
+    <div class="admin-footer-bottom">
+      <span class="admin-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+    </div>
+  </div>
+</div>
+<script>
+if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'); }
+(function () {
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  var el = document.getElementById('sys-time-top');
+  function tick() {
+    var d = new Date();
+    if (el) el.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  tick(); setInterval(tick, 1000);
+  var s = sessionStorage.getItem('kt_session_id');
+  if (!s) { s = 'SID-' + Math.random().toString(36).substr(2,8).toUpperCase(); sessionStorage.setItem('kt_session_id', s); }
+  var sid = document.getElementById('session-id');
+  if (sid) sid.textContent = s;
+})();
+</script>
+</body>
+</html>

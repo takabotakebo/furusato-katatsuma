@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>接続中 | KTMS</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', monospace;
+      background: #f4f4f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #333;
+    }
+    .loading-box {
+      background: #fff;
+      border: 1px solid #d0ccc0;
+      border-radius: 4px;
+      padding: 48px 56px;
+      width: 420px;
+      max-width: 90vw;
+    }
+    .loading-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: #999;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    .loading-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #1a2a1a;
+      margin-bottom: 8px;
+    }
+    .loading-sub {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 32px;
+      line-height: 1.8;
+    }
+    .loading-bar-wrap {
+      background: #e8e8e4;
+      border-radius: 2px;
+      height: 6px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .loading-bar {
+      height: 100%;
+      width: 0%;
+      background: #2a4a1e;
+      border-radius: 2px;
+      transition: width 0.12s linear;
+    }
+    .loading-status {
+      font-size: 11px;
+      color: #aaa;
+      letter-spacing: 0.04em;
+    }
+    .loading-note {
+      font-size: 11px;
+      color: #bbb;
+      margin-top: 28px;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+<div class="loading-box">
+  <div class="loading-label">KTMS — おもいで管理課</div>
+  <div class="loading-title">内部システムに接続しています</div>
+  <div class="loading-sub">認証情報を確認中です。しばらくお待ちください。</div>
+  <div class="loading-bar-wrap">
+    <div class="loading-bar" id="bar"></div>
+  </div>
+  <div class="loading-status" id="status">接続準備中...</div>
+  <div class="loading-note">
+    ※ このページへのアクセスは記録されています。<br>
+    ※ 内部資料へのアクセスには担当課の承認が必要です。
+  </div>
+  <div style="margin-top:24px; border-top:1px solid #ddd; padding-top:16px; text-align:center;">
+    <a href="../portal/login.html" style="font-size:11px; color:#aaa; text-decoration:none; letter-spacing:0.03em;">一般職員用システムはこちら</a>
+  </div>
+</div>
+
+<script>
+if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'); }
+(function () {
+  var bar    = document.getElementById('bar');
+  var status = document.getElementById('status');
+
+  var steps = [
+    { pct: 18,  text: '接続準備中...',           delay: 300  },
+    { pct: 40,  text: 'セッション確立中...',      delay: 500  },
+    { pct: 62,  text: 'アクセスログを記録中...',  delay: 700  },
+    { pct: 80,  text: '認証確認中...',            delay: 600  },
+    { pct: 96,  text: 'ファイル一覧を読み込み中...', delay: 500 },
+    { pct: 100, text: '接続完了',                 delay: 400  },
+  ];
+
+  var i = 0;
+  function next() {
+    if (i >= steps.length) {
+      setTimeout(function () {
+        window.location.href = 'index.html';
+      }, 300);
+      return;
+    }
+    var s = steps[i++];
+    bar.style.width = s.pct + '%';
+    status.textContent = s.text;
+    setTimeout(next, s.delay);
+  }
+
+  setTimeout(next, 200);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>受信メール：MNE法新処理プロトコルへの移行について | かたつま町</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .mail-wrap { max-width: 720px; margin: 0 auto; padding: 20px 0 48px; }
+    .mail-folder-label {
+      font-size: 11px;
+      color: #999;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    .mail-frame {
+      border: 1px solid #d0d8e4;
+      border-radius: 3px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .mail-header {
+      background: #f2f5fa;
+      padding: 16px 20px;
+      border-bottom: 1px solid #d0d8e4;
+      font-size: 12px;
+      color: #5a6a7a;
+      line-height: 2.0;
+    }
+    .mail-header-row {
+      display: flex;
+      gap: 8px;
+    }
+    .mail-header-label {
+      color: #8aaac8;
+      width: 56px;
+      flex-shrink: 0;
+    }
+    .mail-subject {
+      font-size: 14px;
+      font-weight: bold;
+      color: #1a2a4a;
+      padding: 14px 20px 12px;
+      border-bottom: 1px solid #e8eef4;
+    }
+    .mail-body {
+      padding: 20px 24px;
+      font-size: 13px;
+      color: #333;
+      line-height: 2.1;
+    }
+    .mail-body p { margin-bottom: 12px; }
+    .mail-body p:last-child { margin-bottom: 0; }
+    .mail-section-head {
+      font-weight: bold;
+      color: #1a2a4a;
+      margin-top: 4px;
+    }
+    .pdf-area {
+      margin: 0 24px 20px;
+      border: 1px solid #d0d8e4;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .pdf-area-header {
+      background: #e8eef4;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #5a6a7a;
+      border-bottom: 1px solid #d0d8e4;
+    }
+    .pdf-area-icon {
+      width: 24px;
+      height: 30px;
+      background: #c04040;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 9px;
+      font-weight: bold;
+      color: #fff;
+      letter-spacing: 0.05em;
+    }
+    .pdf-area-name { font-weight: bold; color: #333; }
+    .pdf-area-note { font-size: 11px; color: #aaa; margin-left: auto; }
+    .pdf-content {
+      background: #fafbfc;
+      padding: 24px 28px;
+      font-size: 13.5px;
+      color: #222;
+      line-height: 2.1;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .pdf-content h2 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #1a2a4a;
+      border-bottom: 1px solid #c8d4e0;
+      padding-bottom: 6px;
+      margin: 22px 0 12px;
+      letter-spacing: 0.04em;
+    }
+    .pdf-content h2:first-child { margin-top: 0; }
+    .pdf-content p { margin-bottom: 12px; }
+    .pdf-content p:last-child { margin-bottom: 0; }
+    .pdf-content .item-label {
+      display: inline-block;
+      background: #1a2a4a;
+      color: #fff;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 2px;
+      margin-right: 6px;
+      vertical-align: middle;
+      letter-spacing: 0.04em;
+    }
+    .mail-note {
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 28px;
+      padding-top: 14px;
+      border-top: 1px solid #eee;
+      line-height: 1.9;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
+    </a>
+    <form class="search-form" id="site-search">
+      <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
+      <button type="submit">検索</button>
+    </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<nav>
+  <ul>
+    <li><a href="catalog.html">返礼品一覧</a></li>
+    <li><a href="about.html" class="current">自治体紹介</a></li>
+    <li><a href="news.html">お知らせ</a></li>
+    <li><a href="apply.html">寄附の手続き</a></li>
+    <li><a href="contact.html">お問い合わせ</a></li>
+  </ul>
+</nav>
+<main>
+  <p class="breadcrumb"><a href="index.html">トップ</a><span>›</span><a href="about.html">自治体紹介</a><span>›</span>受信メール</p>
+
+  <div class="mail-wrap">
+    <p class="mail-folder-label">保管フォルダ：連携機関　受信メール（内部参照用）</p>
+
+    <div class="mail-frame">
+      <div class="mail-header">
+        <div class="mail-header-row"><span class="mail-header-label">差出人</span><span>国立記憶・認知研究所 連携推進室　&lt;liaison@nmcri.go.jp&gt;</span></div>
+        <div class="mail-header-row"><span class="mail-header-label">宛先</span><span>かたつま町おもいで管理課　担当窓口</span></div>
+        <div class="mail-header-row"><span class="mail-header-label">受信日</span><span>令和元年10月14日（月）09:42</span></div>
+        <div class="mail-header-row"><span class="mail-header-label">整理番号</span><span>NMCRI連推第77号</span></div>
+      </div>
+      <div class="mail-subject">MNE法　新処理プロトコルのご案内</div>
+      <div class="mail-body">
+        <p>かたつま町おもいで管理課　御中</p>
+        <p>平素より格別のご協力を賜り、厚く御礼申し上げます。<br>
+        国立記憶・認知研究所 連携推進室でございます。</p>
+        <p>このたび、MNE法の処理プロトコルを改訂いたしました。<br>
+        新プロトコルの概要につきましては、添付資料をご確認ください。</p>
+        <p>今後ともよろしくお願い申し上げます。</p>
+        <p style="font-size:12px; color:#888;">────────────────────<br>
+        国立記憶・認知研究所　連携推進室<br>
+        liaison@nmcri.go.jp<br>
+        ────────────────────</p>
+      </div>
+      <div class="pdf-area">
+        <div class="pdf-area-header">
+          <div class="pdf-area-icon">PDF</div>
+          <span class="pdf-area-name">NMCRI_MNE_新プロトコル概要説明_R5.pdf</span>
+          <span class="pdf-area-note">添付ファイル　/ 全18ページ中　抜粋表示（p.2–4）</span>
+        </div>
+        <div class="pdf-content">
+          <h2>1. 改訂の背景</h2>
+          <p>MNE法の旧プロトコル（第1世代）は、昭和38年の初期導入以来、経眼窩的アクセスによる直接的な記憶操作を標準手順としてきた。しかし対象者への身体的負荷が大きく、処置後の痕跡管理や事後対応に多大なコストを要していた。また近年、採取の事実が対象者に発覚するケースが増加していることを受け、令和5年度末をもって同手法を廃止し、第2プロトコルへ移行することとした。</p>
+
+          <h2>2. 新プロトコルの概要</h2>
+          <p><span class="item-label">計測</span>頭皮電極アレイ（32ch）による非接触型の脳波収録。対象者の安静状態において記憶関連の神経電気信号を取得する。</p>
+          <p><span class="item-label">採取</span>収録データから標的記憶に対応する信号パターンを抽出・符号化し、所定のフォーマットで保存する。</p>
+          <p><span class="item-label">書込／削除</span>逆位相信号の印加により標的記憶の減衰・消去を行う。代替記憶の挿入（書込処理）については別途手順書を参照のこと。</p>
+          <p>本プロトコルは、対象者が処置を自覚しない条件での実施を前提としている。通常の健康診断・問診の形式で完結するため、対象者への案内は「脳波測定による健康チェック」として行うことを推奨する。</p>
+
+          <h2>3. 対象範囲の拡大</h2>
+          <p>旧プロトコルでは、採取に際して対象者の個別確保・処置・事後管理が必要であったため、実施件数は年間数人程度に限られていた。新プロトコルへの移行により、こうした制約はすべて解消される。健康診断の枠組みで住民全員に対して継続的な採取を実施することが可能となり、連携自治体全域を対象とした運用が実現する。</p>
+
+          <h2>4. 自治体側の対応</h2>
+          <p>連携自治体においては、定期健康管理として住民を呼び出す既存の仕組みをそのまま活用されたい。採取セッションの記録・保管方法については、別途担当窓口より通知する。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mail-note">
+      ※ 本メールは連携機関 往復文書一覧（公開対象）には含まれません。担当課内部の参照用です。<br>
+      ※ 本ページへのアクセスは記録されています。
+    </div>
+  </div>
+</main>
+<span class="page-id">Page ID: 28/27</span>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <p class="copyright">©かたつま町 / ふるさと納税担当課</p>
+    </div>
+    <div class="footer-address">
+      〒879-XXXX　かたつま郡かたつま町大字かたつま1番地<br>
+      かたつま町役場　ふるさと納税担当課
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-disclaimer">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</span>
+  </div>
+</footer>
+
+<script src="js/search.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script>
+</body>
+</html>

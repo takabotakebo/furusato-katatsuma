@@ -1,19 +1,20 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <title>MEMO-L01 アクセスログ | 記憶管理担当課</title>
+  <title>MEMO-L01 アクセスログ | おもいで管理課</title>
   <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <div class="admin-sysbar">
-  <span>KTMS &nbsp;/&nbsp; 記憶管理担当課 内部管理システム &nbsp; v3.2</span>
+  <span>KTMS &nbsp;/&nbsp; おもいで管理課 内部管理システム &nbsp; v3.2</span>
   <span id="sys-time-top">--:--:--</span>
 </div>
 <div class="admin-header">
-  <span style="font-weight:bold; color:#1a3a5a;">記憶管理担当課　内部文書管理</span>
+  <span style="font-weight:bold; color:#1a3a5a;">おもいで管理課　内部文書管理</span>
   <span>
     セッション：<span id="session-id" style="font-family:monospace; color:#4a7ab0;">—</span>
     &nbsp;&nbsp;
@@ -25,17 +26,17 @@
   <div class="admin-sidebar">
     <div class="admin-sidebar-title">DOCUMENT INDEX</div>
     <ul class="admin-sidebar-nav">
-      <li><a href="index.html">内部書類一覧</a></li>
-      <li class="nav-divider"></li>
-      <li><a href="history.html">MEMO-H01　歴史記録</a></li>
-      <li><a href="memo-001.html">MEMO-001　昭和40年事案</a></li>
-      <li><a href="memo-002.html">MEMO-002　収集月報</a></li>
-      <li><a href="memo-003.html">MEMO-003　エージェント記録</a></li>
-      <li><a href="memo-004.html">MEMO-004　用途分類</a></li>
-      <li><a href="memo-005.html">MEMO-005　人員管理規程</a></li>
-      <li><a href="access-log.html" class="active">MEMO-L01　アクセスログ</a></li>
-      <li class="nav-divider"></li>
-      <li><a href="#" style="color:#c06030; font-size:11px; cursor:default; pointer-events:none;">MEMO-C01　通信ログ ⚠ 制限中</a></li>
+      <li><a href="index.html">▸ 内部書類一覧</a></li>
+      <li class="nav-group-label"><i class="fa-regular fa-file"></i> FILES</li>
+      <li><a href="memo-007.html">FILE01　PROJECT-9について</a></li>
+      <li><a href="memo-003.html">FILE02　AGT-007通達</a></li>
+      <li><a href="memo-report.html">FILE03　稼働実績報告</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-display"></i> SYSTEM</li>
+      <li><a href="access-log.html" class="active">アクセスログ</a></li>
+      <li><a href="chat-log.html">秘匿指示通信</a></li>
+      <li class="nav-group-label"><i class="fa-solid fa-database"></i> DATA</li>
+      <li><a href="memory-viewer.html">採取記憶データ　KT-Z001</a></li>
+      <li class="nav-disabled"><a>採取記憶データ　KT-Z002</a></li>
     </ul>
   </div>
 
@@ -62,28 +63,6 @@
 
   <p style="font-size:11px; color:#c44; margin-top:20px; line-height:1.8;">※ このログはかたつま町のサーバーに送信されました</p>
 
-  <div style="margin-top:32px; text-align:center; padding: 28px 0; border-top: 1px solid #ddd;">
-    <p style="font-size:12px; color:#888; margin-bottom:16px; line-height:1.9;">
-      採取対象者の記憶データを閲覧できます。<br>
-      <span style="color:#c44; font-size:11px;">※ アクセスには記録が伴います。</span>
-    </p>
-    <a href="memory-viewer.html" target="_top" style="
-      display: inline-block;
-      padding: 12px 36px;
-      background: #1a1a1a;
-      color: #c44;
-      border: 1px solid #c44;
-      font-size: 13px;
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      transition: background 0.2s, color 0.2s;
-    " onmouseover="this.style.background='#c44';this.style.color='#000';" onmouseout="this.style.background='#1a1a1a';this.style.color='#c44';">
-      KAT-001 の記憶データを閲覧する
-    </a>
-    <p style="font-size:10px; color:#444; margin-top:14px; letter-spacing:0.05em;">
-      採取番号：KT-AGENT-001　分類：人員化済み素材
-    </p>
-  </div>
 
   </div>
     <span class="admin-page-id">KL-8/10</span>
@@ -94,6 +73,7 @@
 </div>
 
 <script>
+if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'); }
 (function () {
   var visits = JSON.parse(sessionStorage.getItem('kt_visits') || '[]');
   var tbody = document.getElementById('log-tbody');

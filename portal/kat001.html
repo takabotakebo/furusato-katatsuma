@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>職員ポータル | KAT-001</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      background: #eef0ec;
+      color: #333;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .portal-subheader {
+      background: #2a4a2a;
+      padding: 8px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .portal-subheader-title {
+      color: #c8e0c8;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+    }
+    .portal-subheader-user {
+      font-size: 11px;
+      color: #7a9a7a;
+    }
+
+    .drive-wrap {
+      max-width: 900px;
+      margin: 28px auto 40px;
+      padding: 0 20px;
+    }
+    .drive-path {
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 14px;
+      letter-spacing: 0.03em;
+    }
+    .drive-path span { color: #bbb; margin: 0 5px; }
+
+    .drive-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .drive-toolbar-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #2a4a2a;
+      letter-spacing: 0.04em;
+    }
+    .drive-info {
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    /* グリッドビュー */
+    .drive-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+    }
+
+    .drive-card {
+      background: #fff;
+      border: 1px solid #ccd4c4;
+      cursor: pointer;
+      transition: background 0.1s;
+      text-align: center;
+      padding: 20px 14px 16px;
+      user-select: none;
+    }
+    .drive-card:hover { background: #f4f8f2; border-color: #aabcaa; }
+
+
+    .drive-card-icon {
+      font-size: 36px;
+      line-height: 1;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .drive-card-name {
+      font-size: 12px;
+      color: #333;
+      font-weight: bold;
+      line-height: 1.5;
+      word-break: break-all;
+    }
+    .drive-card-meta {
+      font-size: 10px;
+      color: #aaa;
+      margin-top: 6px;
+    }
+    .drive-badge {
+      display: inline-block;
+      background: #c04040;
+      color: #fff;
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 2px;
+      margin-top: 6px;
+    }
+    .drive-badge.read {
+      background: #bbb;
+    }
+
+    /* ファイルビューア */
+    .file-viewer {
+      display: none;
+      margin-top: 20px;
+      border: 1px solid #ccd4c4;
+      background: #fafcf8;
+    }
+    .file-viewer.open { display: block; }
+
+    .file-viewer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #f0f4ee;
+      border-bottom: 1px solid #dde4d8;
+    }
+    .file-viewer-head-title {
+      font-size: 12px;
+      font-weight: bold;
+      color: #2a4a2a;
+    }
+    .file-viewer-close {
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: #888;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1;
+    }
+    .file-viewer-close:hover { color: #333; }
+    .file-viewer-head-meta {
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    .file-viewer-body {
+      padding: 20px 24px 24px;
+      font-size: 12px;
+      line-height: 2.0;
+      color: #444;
+    }
+
+    /* 日誌スタイル */
+    .diary-entry {
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #e4e8e0;
+    }
+    .diary-entry:last-child { border-bottom: none; margin-bottom: 0; }
+    .diary-date {
+      font-size: 11px;
+      color: #888;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .diary-text {
+      white-space: pre-wrap;
+      color: #444;
+      line-height: 2.0;
+      font-size: 12px;
+    }
+    .diary-alert {
+      background: #fff8f0;
+      border-left: 3px solid #c06040;
+      padding: 10px 14px;
+      margin-top: 12px;
+      font-size: 11px;
+      color: #804020;
+      line-height: 1.8;
+    }
+
+    /* PDFスタイル */
+    .pdf-frame {
+      background: #fff;
+      border: 1px solid #c8c0a8;
+      padding: 36px 44px;
+      font-size: 14px;
+      line-height: 2.0;
+      color: #1a1a14;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18), inset 0 0 60px rgba(180,160,120,0.08);
+      transform: rotate(-0.3deg);
+      position: relative;
+      filter: contrast(1.04) brightness(0.97);
+    }
+    .pdf-frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('../img/pdf-paper-texture.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .pdf-frame h1 {
+      font-size: 17px;
+      font-weight: bold;
+      color: #1a2a4a;
+      border-bottom: 2px solid #1a2a4a;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      letter-spacing: 0.08em;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .pdf-frame h2 {
+      font-size: 13px;
+      font-weight: bold;
+      color: #1a2a4a;
+      margin: 24px 0 10px;
+      border-left: 3px solid #3a5a8a;
+      padding-left: 9px;
+      letter-spacing: 0.04em;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .pdf-frame p { margin-bottom: 14px; }
+    .pdf-meta {
+      font-size: 11px;
+      color: #aaa;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .redacted {
+      background: #222;
+      color: #222;
+      display: inline;
+      padding: 0 3px;
+      border-radius: 1px;
+    }
+
+    /* 付箋スタイル */
+    .sticky-note {
+      display: inline-block;
+      background: #fffde7;
+      border: 1px solid #f0d060;
+      padding: 22px 28px;
+      font-size: 22px;
+      font-family: 'Zen Kurenaido', 'Hiragino Maru Gothic ProN', cursive;
+      line-height: 2.2;
+      color: #333;
+      transform: rotate(-1.2deg);
+      box-shadow: 2px 3px 8px rgba(0,0,0,0.10);
+      margin: 12px 0 8px;
+      width: 380px;
+    }
+    .sticky-label {
+      font-size: 10px;
+      color: #bbb;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .account-notice {
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-12px);
+      width: min(320px, 90vw);
+      background: #fff5f5;
+      border: 1px solid #e0a0a0;
+      box-shadow: 0 4px 16px rgba(160,48,48,0.12);
+      padding: 12px 18px;
+      font-size: 12px;
+      color: #a03030;
+      line-height: 1.9;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .account-notice.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    .account-notice-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      background: #e8a0a0;
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 11px;
+      cursor: pointer;
+      line-height: 20px;
+      padding: 0;
+      text-align: center;
+      transform: translate(50%, -50%);
+    }
+    .account-notice-close:hover { background: #c06060; }
+
+    .portal-footer {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 8px 20px 40px;
+      font-size: 10px;
+      color: #bbb;
+    }
+
+    @media (max-width: 600px) {
+      .drive-grid {
+        display: block;
+      }
+      .drive-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-align: left;
+        padding: 12px 14px;
+        margin-bottom: 6px;
+      }
+      .drive-card-icon {
+        font-size: 24px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+      .drive-card-name {
+        font-size: 12px;
+      }
+      .drive-card-meta {
+        margin-top: 2px;
+      }
+      .drive-badge {
+        display: inline-block;
+        margin-top: 0;
+        margin-left: 6px;
+        vertical-align: middle;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="account-notice" id="account-notice">
+  このアカウント（KAT-001）は令和8年4月をもって新しいアカウントに移行されました。<br>
+  以降の業務記録は新アカウントにて管理されます。
+  <button class="account-notice-close" onclick="document.getElementById('account-notice').classList.remove('show')" aria-label="閉じる">×</button>
+</div>
+
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="site-logo">
+      <img src="../img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
+    </a>
+    <form class="search-form" id="site-search">
+      <input type="text" id="search-input" placeholder="サイト内検索" autocomplete="off">
+      <button type="submit">検索</button>
+    </form>
+  </div>
+</header>
+
+<div class="portal-subheader">
+  <div class="portal-subheader-title">職員ポータル　業務ファイル管理</div>
+  <div class="portal-subheader-user">ログイン中：加藤 晴美　／　ふるさと納税担当課</div>
+</div>
+
+<div class="drive-wrap">
+
+  <div class="drive-path">
+    職員ポータル <span>›</span> マイファイル
+  </div>
+
+  <div class="drive-toolbar">
+    <div class="drive-toolbar-title">マイファイル</div>
+    <div class="drive-info">最終アクセス：令和8年4月11日 09:38</div>
+  </div>
+
+  <div class="drive-grid">
+
+    <!-- 日誌1 -->
+    <div class="drive-card" onclick="openFile('file-diary-1')">
+      <span class="drive-card-icon">📓</span>
+      <div class="drive-card-name">日誌_04月01日.txt</div>
+      <div class="drive-card-meta">令和8年4月1日</div>
+      <span class="drive-badge">未読</span>
+    </div>
+
+    <!-- 日誌2 -->
+    <div class="drive-card" onclick="openFile('file-diary-2')">
+      <span class="drive-card-icon">📓</span>
+      <div class="drive-card-name">日誌_04月02日.txt</div>
+      <div class="drive-card-meta">令和8年4月2日</div>
+      <span class="drive-badge">未読</span>
+    </div>
+
+    <!-- 日誌3 -->
+    <div class="drive-card" onclick="openFile('file-diary-3')">
+      <span class="drive-card-icon">📓</span>
+      <div class="drive-card-name">日誌_04月03日.txt</div>
+      <div class="drive-card-meta">令和8年4月3日</div>
+      <span class="drive-badge">未読</span>
+    </div>
+
+    <!-- 日誌4 -->
+    <div class="drive-card" onclick="openFile('file-diary-4')">
+      <span class="drive-card-icon">📓</span>
+      <div class="drive-card-name">日誌_04月07日.txt</div>
+      <div class="drive-card-meta">令和8年4月7日</div>
+      <span class="drive-badge">未読</span>
+    </div>
+
+
+    <!-- PDF -->
+    <div class="drive-card" onclick="openFile('file-pdf')">
+      <span class="drive-card-icon">📋</span>
+      <div class="drive-card-name">最終目標_新生還流計画.pdf</div>
+      <div class="drive-card-meta">令和8年3月</div>
+      <span class="drive-badge">未読</span>
+    </div>
+
+    <!-- 付箋メモ -->
+    <div class="drive-card" onclick="openFile('file-sticky')">
+      <span class="drive-card-icon">📌</span>
+      <div class="drive-card-name">メモ（拾得物）.txt</div>
+      <div class="drive-card-meta">令和8年4月7日</div>
+      <span class="drive-badge">未読</span>
+    </div>
+
+
+  </div>
+
+  <!-- ビューアエリア -->
+
+  <!-- 日誌1 -->
+  <div class="file-viewer" id="file-diary-1">
+    <div class="file-viewer-head">
+      <div class="file-viewer-head-title">日誌_04月01日.txt</div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <span class="file-viewer-head-meta">令和8年4月1日　加藤 晴美</span>
+        <button class="file-viewer-close" onclick="closeFile('file-diary-1')">✕</button>
+      </div>
+    </div>
+    <div class="file-viewer-body">
+      <div class="diary-entry">
+        <div class="diary-date">令和8年4月1日　月曜日</div>
+        <div class="diary-text">今日から新年度。棚卸しの季節。
+
+品目ごとに発送件数と受取確認書の枚数を照合していたんだけど、何件か合わないものが出てきた。
+農産物とかは全部ぴったり合う。
+合わないのは「記録保管サービス関連」って書いてある分だけ。品目名が書いていない。
+
+処理漏れかなと思って何度も見直したけど、やっぱり差がある。
+去年の分をさかのぼってみたら、毎月同じように差がある。12件とか、多い月は15件とか。
+
+一応上司に話したら、「そこは別の処理フローがあるから、件数が合わなくて当然なんだよ」と言われた。
+そういうものなのかな、とは思ったけど、納得したわけじゃない。
+「別の処理フロー」って何だろう。聞き返せなかった。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 日誌2 -->
+  <div class="file-viewer" id="file-diary-2">
+    <div class="file-viewer-head">
+      <div class="file-viewer-head-title">日誌_04月02日.txt</div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <span class="file-viewer-head-meta">令和8年4月2日　加藤 晴美</span>
+        <button class="file-viewer-close" onclick="closeFile('file-diary-2')">✕</button>
+      </div>
+    </div>
+    <div class="file-viewer-body">
+      <div class="diary-entry">
+        <div class="diary-date">令和8年4月2日　火曜日</div>
+        <div class="diary-text">昨日のことが気になって、昼休みに書庫に行った。
+
+「記録保管サービス関連」の発送がどこから来ているのか、紙の資料を探してみた。
+棚の奥のほうに、背表紙に何も書いていないバインダーが何冊かあった。
+他の書類と混ざるように置いてあって、ちょっと探しにくかった。
+
+中を開いたら「新生還流計画」という文字が出てきた。
+NMCRIの名前は連携事業の担当として一度だけ聞いたことがあるけど、「循環計画」というのは初めて見た。
+
+最初の数ページを読んだところで、誰かが書庫に入ってきたから閉じてしまった。
+見ていないふりをして出た。
+
+気になるページだけ、こっそりコピーしておいた。
+まだちゃんと読んでいない。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 日誌3 -->
+  <div class="file-viewer" id="file-diary-3">
+    <div class="file-viewer-head">
+      <div class="file-viewer-head-title">日誌_04月03日.txt</div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <span class="file-viewer-head-meta">令和8年4月3日　加藤 晴美</span>
+        <button class="file-viewer-close" onclick="closeFile('file-diary-3')">✕</button>
+      </div>
+    </div>
+    <div class="file-viewer-body">
+      <div class="diary-entry">
+        <div class="diary-date">令和8年4月3日　木曜日</div>
+        <div class="diary-text">昨日の夜、コピーした書類を全部読んだ。
+
+最初は何が書いてあるのかよくわからなかった。
+「大規模採取作業」「新生還流計画」……一回読んだだけでは頭に入ってこなかった。
+
+読み返して、ようやくわかった。
+
+読み進めるうちに、何をしようとしているのかがだんだんわかってきた。
+この町の人たちの記憶が、何十年もかけて集められてきた。
+誰かのために。
+
+返礼品として売られているものが何なのかも、やっとわかった。
+私が毎月処理していた「別フロー」が何だったのかも。
+
+気持ちが悪い。
+でも、怒りのほうが大きい。
+
+誰かに渡せる証拠が必要だと思って、今日こっそりスキャンしてPDFにした。
+このフォルダに保存してある。</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 日誌4 -->
+  <div class="file-viewer" id="file-diary-4">
+    <div class="file-viewer-head">
+      <div class="file-viewer-head-title">日誌_04月07日.txt</div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <span class="file-viewer-head-meta">令和8年4月7日　加藤 晴美</span>
+        <button class="file-viewer-close" onclick="closeFile('file-diary-4')">✕</button>
+      </div>
+    </div>
+    <div class="file-viewer-body">
+      <div class="diary-entry">
+        <div class="diary-date">令和8年4月7日　月曜日</div>
+        <div class="diary-text">あれから4日、隙を見ては調べ続けた。
+
+過去に告発しようとした人たちの記録が、ところどころ出てきた。
+何人かいたらしい。みんな、途中で消えている。
+記録の上では「対処完了」と書いてある。
+
+自分も同じことになるんだと思う。
+
+今日、係長に呼ばれた。
+「8日に記憶管理担当課に来てほしい、健康管理確認がある」と言われた。
+同時に、おもいで管理課から窓口停止の通知が出た。
+4月8日〜10日。
+
+タイミングが出来すぎている。
+
+KTMSに入れれば、もっと詳しい記録があるはずだ。
+外に持ち出せる証拠になる。
+書類の束から出てきた付箋に、ログインIDだけ書いてあった。
+でもパスワードがわからない。
+
+パスワードさえわかれば。
+このサイトのどこかに手がかりがあるかもしれない。
+記憶管理条例のページの末尾に、管理システムへの入口がある。
+
+付箋には「新プログラムエージェント」とも書いてあった。
+「エージェント」……どこかで見たような気がする。
+
+だめだ、時間がない。
+
+私だったら誕生日をそのままパスワードにするのに。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF -->
+  <div class="file-viewer" id="file-pdf">
+    <div class="file-viewer-head">
+      <div class="file-viewer-head-title">最終目標_新生還流計画.pdf</div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <span class="file-viewer-head-meta">NMCRI 連携推進室　令和8年3月</span>
+        <button class="file-viewer-close" onclick="closeFile('file-pdf')">✕</button>
+      </div>
+    </div>
+    <div class="file-viewer-body">
+      <div class="pdf-frame">
+        <div class="pdf-meta">
+          機密区分：<span style="color:#c04040; font-weight:bold;">限定公開（担当課長以上）</span><br>
+          作成：NMCRI 連携推進室　／　令和元年
+        </div>
+        <h1>最終目標：新生還流計画</h1>
+
+        <h2>1. 計画の概要</h2>
+        <p>新生還流計画は、昭和30年に有馬 惟一氏（ありま ただかず）の出資により、NMCRIとかたつま町が共同で立ち上げた長期研究プロジェクトである。</p>
+        <p>有馬氏は昭和30年以降、本計画への資金提供を継続しており、発起人として現在も関与している。昭和34年にMNE法（Memory Neural Extraction）が確立されたことを受け、同年より本格的な研究運用が開始された。</p>
+        <p><strong>本計画の最終目標：</strong>成人の意識・記憶を乳児の脳へ安定的に移植することによる「意識の継承」——すなわち、事実上の不死技術の実現。</p>
+
+        <h2>2. 技術開発の段階構成</h2>
+        <p>本計画は三段階で構成される。</p>
+        <table style="width:100%; border-collapse:collapse; margin:12px 0; font-size:12px;">
+          <tr style="background:#f0f4ee;">
+            <td style="padding:8px 12px; border:1px solid #ddd; width:30%; font-weight:bold; color:#1a2a4a;">第一段階</td>
+            <td style="padding:8px 12px; border:1px solid #ddd;">記憶の読み出しと保存<br><span style="color:#4a8a4a; font-size:11px;">● MNE法により完了</span></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px; border:1px solid #ddd; font-weight:bold; color:#1a2a4a;">第二段階</td>
+            <td style="padding:8px 12px; border:1px solid #ddd;">乳児の初回意識記録（ファーストメモリ）の分析<br><span style="color:#4a8a4a; font-size:11px;">● 完了（昭和40年大規模採取作業データを基礎資料として使用）</span></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px; border:1px solid #ddd; font-weight:bold; color:#1a2a4a;">第三段階</td>
+            <td style="padding:8px 12px; border:1px solid #ddd;">記憶素材の外部流通による書き込み反応実験<br><span style="color:#4a8a4a; font-size:11px;">● 実施中（返礼品流通はこの実験体確保を目的とする）</span></td>
+          </tr>
+          <tr style="background:#fff8f0;">
+            <td style="padding:8px 12px; border:1px solid #ddd; font-weight:bold; color:#c04040;">第四段階</td>
+            <td style="padding:8px 12px; border:1px solid #ddd;">乳児への意識書き込みの安定化<br><span style="color:#c04040; font-size:11px;">● 進行中</span></td>
+          </tr>
+        </table>
+        <p>乳児を移植先とするのは、自我の形成前であるため既存の人格による拒絶反応が生じにくいからである。</p>
+
+        <h2>3. 昭和40年10月の大規模採取作業</h2>
+        <p>昭和40年10月8〜10日、かたつま町住民312名を対象とした特別採取作業を実施した。採取された記憶素材は「S-40-10シリーズ」として分類・保管され、一部は返礼品カタログへの掲載を経て外部流通している。</p>
+        <p>なお、同年秋、採取の事実が住民の一部に発覚し、集団的な告発行動に移ろうとしていた。担当課は当該住民の記憶消去処理を実施し、対処した。</p>
+
+        <h2>4. ファーストメモリ採取プログラム</h2>
+        <p>昭和40年の大規模採取作業において得られた乳児の初回意識記録を基礎データとし、その後もかたつま町において出生した乳児を対象に、生後1年以内の採取を継続している。これにより、乳児の意識状態に関するデータを蓄積している。</p>
+        <p>採取素材は「初回意識記録（ファーストメモリ）」として分類され、意識移植の受容性研究における基礎データとして活用される。一部は返礼品として外部流通する。</p>
+
+        <h2>5. 現在の進捗と見通し</h2>
+        <p>第三段階（書き込み反応実験）は順調に推移しており、蓄積データをもとに第四段階（乳児への意識書き込み）の実験移行を予定している。実験の結果が安定した段階で、実運用に移行する。</p>
+        <p>有馬氏の年齢的な制約を踏まえ、NMCRIは現在、本計画の完了を最優先課題として位置づけている。</p>
+
+        <h2>6. 一般職員向け説明文言</h2>
+        <p>一般担当者が対外説明を求められた場合は以下の文言を使用すること。</p>
+        <p style="background:#f0f4ee; padding:10px 14px; font-style:italic; color:#555; line-height:1.9;">「記録保管サービスを通じた地域住民の思い出保存事業です」</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 付箋メモ -->
+  <div class="file-viewer" id="file-sticky">
+    <div class="file-viewer-head">
+      <div class="file-viewer-head-title">メモ（拾得物）.txt</div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <span class="file-viewer-head-meta">令和8年4月7日　加藤 晴美</span>
+        <button class="file-viewer-close" onclick="closeFile('file-sticky')">✕</button>
+      </div>
+    </div>
+    <div class="file-viewer-body">
+      <p style="font-size:12px; color:#666; margin-bottom:16px; line-height:1.8;">4月7日、書類の整理中に束の中から付箋が出てきた。おもいで管理課の職員が置き忘れたものだと思う。KTMSのログインIDが書いてあった。パスワードは書いていなかった。</p>
+      <div class="sticky-note">
+        <span style="font-size:15px; color:#888;">新プログラムエージェント</span><br>ログインID：<strong>AGT-007</strong>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="portal-footer">
+  かたつま町役場 職員ポータル &nbsp;／&nbsp; このシステムへのアクセスは記録されます
+</div>
+
+<script src="../js/search.js"></script>
+<script>
+if (!sessionStorage.getItem('staff_auth')) { window.location.replace('login.html'); }
+
+var currentFile = null;
+
+function openFile(id) {
+  if (currentFile && currentFile !== id) {
+    var prev = document.getElementById(currentFile);
+    if (prev) prev.classList.remove('open');
+  }
+  var el = document.getElementById(id);
+  if (!el) return;
+  if (el.classList.contains('open')) {
+    el.classList.remove('open');
+    currentFile = null;
+  } else {
+    el.classList.add('open');
+    currentFile = id;
+    // 対応するカードの未読バッジを既読に
+    var cards = document.querySelectorAll('[onclick="openFile(\'' + id + '\')"]');
+    cards.forEach(function(card) {
+      var badge = card.querySelector('.drive-badge');
+      if (badge) {
+        badge.textContent = '既読';
+        badge.classList.add('read');
+      }
+    });
+    // 全バッジが既読になったか確認
+    var allBadges = document.querySelectorAll('.drive-badge');
+    var allRead = Array.prototype.every.call(allBadges, function(b) {
+      return b.classList.contains('read');
+    });
+    if (allRead) {
+      var notice = document.getElementById('account-notice');
+      if (notice) notice.classList.add('show');
+    }
+  }
+}
+
+function closeFile(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('open');
+  if (currentFile === id) currentFile = null;
+}
+</script>
+</body>
+</html>

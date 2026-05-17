@@ -3,194 +3,384 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex">
-  <title>かたつま町ふるさと納税 — 処理完了</title>
-  <link rel="stylesheet" href="../css/admin.css">
+  <meta name="robots" content="noindex, nofollow">
+  <title>おもいで管理課</title>
   <style>
-    body { background: #0d0d0d; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    #loading-screen {
-      background: #0d0d0d;
-      color: #888;
-    }
-
-    .progress-bar { background: #1a1a1a; border-color: #333; }
-    .progress-fill { background: #c44; }
-    #progress-text { color: #555; }
-
-    #ending-content {
+    body {
+      background: #000;
+      color: #ccc;
       font-family: 'Courier New', monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
 
-    .ending-header-line {
+    /* スキャンライン */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,0.12) 3px,
+        rgba(0,0,0,0.12) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    #msg-shell {
+      max-width: 560px;
+      width: 100%;
+      padding: 0 24px;
+      opacity: 0;
+      transition: opacity 1.6s ease;
+    }
+    #msg-shell.visible { opacity: 1; }
+
+    #msg-header {
       font-size: 10px;
-      color: #333;
-      letter-spacing: 0.1em;
-      margin-bottom: 36px;
+      color: #2a2a2a;
+      letter-spacing: 0.12em;
+      margin-bottom: 40px;
       border-bottom: 1px solid #1a1a1a;
-      padding-bottom: 12px;
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
     }
 
-    .ending-body-text {
-      font-size: 14px;
-      color: #888;
-      line-height: 2.4;
-      margin-bottom: 12px;
+    #msg-sender {
+      font-size: 11px;
+      color: #3a5a3a;
+      letter-spacing: 0.08em;
+      margin-bottom: 32px;
     }
 
-    .ending-list {
-      border-top: 1px solid #222;
-      border-bottom: 1px solid #222;
-      padding: 20px 0;
-      margin: 24px 0;
+    #msg-sender span {
+      color: #6aaa6a;
     }
 
-    .ending-list-title {
-      font-size: 12px;
-      color: #666;
-      margin-bottom: 16px;
-      letter-spacing: 0.06em;
-    }
-
-    .ending-list-item {
-      font-size: 13px;
-      color: #777;
-      padding: 5px 0;
-      border-bottom: 1px solid #1a1a1a;
-      line-height: 1.8;
-    }
-    .ending-list-item:last-child { border-bottom: none; }
-
-    .ending-close {
-      font-size: 13px;
-      color: #666;
-      line-height: 2.2;
-      margin-top: 12px;
-    }
-
-    .ending-sign {
-      text-align: right;
-      color: #555;
-      margin-top: 20px;
-      font-size: 13px;
-    }
-
-    .ending-final {
-      border-top: 1px solid #222;
-      padding-top: 28px;
-      color: #c44;
+    #msg-body {
       font-size: 15px;
-      text-align: center;
-      letter-spacing: 0.14em;
-      margin-top: 32px;
+      line-height: 2.6;
+      color: #888;
+      min-height: 180px;
     }
 
-    .ending-page-id {
-      font-size: 10px;
-      color: #222;
-      text-align: right;
-      margin-top: 40px;
+    #msg-body .line {
+      display: block;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
+    #msg-body .line.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #msg-body .line.emphasis {
+      color: #bbb;
+    }
+
+    #msg-body .line.red {
+      color: #c44;
+    }
+
+    #msg-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1.2em;
+      background: #4a7a4a;
+      vertical-align: middle;
+      margin-left: 4px;
+      animation: blink 0.9s steps(1) infinite;
+      opacity: 0;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    #msg-footer {
+      margin-top: 48px;
+      font-size: 10px;
+      color: #1e1e1e;
+      letter-spacing: 0.08em;
+      border-top: 1px solid #111;
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    #msg-footer.show { opacity: 1; }
+
+    .glitch-word {
+      position: relative;
+      display: inline-block;
+    }
+    .glitch-word::before,
+    .glitch-word::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      opacity: 0;
+    }
+    .glitch-word.glitching::before {
+      color: #f00;
+      clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%);
+      transform: translateX(-3px);
+      animation: gw-r 0.4s steps(1) forwards;
+    }
+    .glitch-word.glitching::after {
+      color: #0ff;
+      clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+      transform: translateX(3px);
+      animation: gw-b 0.4s steps(1) forwards;
+    }
+    @keyframes gw-r {
+      0%,100% { opacity: 0; }
+      20%,60% { opacity: 1; }
+    }
+    @keyframes gw-b {
+      0%,100% { opacity: 0; }
+      40%,80% { opacity: 1; }
+    }
+
+    /* テレビ切れ → 光 オーバーレイ */
+    #tv-off {
+      position: fixed;
+      inset: 0;
+      z-index: 20000;
+      pointer-events: none;
+      opacity: 0;
+    }
+    #tv-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* 最終画面 */
+    #final-screen {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 30000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1.4s ease;
+    }
+    #final-screen.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #btn-final {
+      background: #000;
+      color: #fff;
+      border: none;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      padding: 14px 36px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 1s ease 0.6s, transform 1s ease 0.6s;
+    }
+    #final-screen.show #btn-final {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #btn-final:hover { background: #222; }
   </style>
 </head>
 <body>
 
-<div id="loading-screen">
-  <p style="color:#666; letter-spacing:0.06em;">採取データを処理しております。しばらくお待ちください。</p>
-  <div class="progress-bar">
-    <div class="progress-fill" id="progress-fill"></div>
-  </div>
-  <p id="progress-text">0%</p>
+<div id="tv-off"><canvas id="tv-canvas"></canvas></div>
+<div id="final-screen">
+  <button id="btn-final" onclick="window.location.href='../intro.html'">特別処理案件を完了しました</button>
 </div>
 
-<div id="ending-content" style="display:none; max-width:640px; margin:0 auto; padding:48px 24px 80px;">
-
-  <div class="ending-header-line">
-    かたつま町 記憶管理担当課　採取処理システム　/ 記憶採取　完了
+<div id="msg-shell">
+  <div id="msg-header">
+    <span>KTMS　／　おもいで管理課　内部通信</span>
+    <span id="msg-time">--:--:--</span>
   </div>
-
-  <div class="ending-body-text">
-    採取処理が正常に完了しました。
+  <div id="msg-sender">送信者：<span>AGT-007　山之内 タカシ</span></div>
+  <div id="msg-body"><span id="msg-cursor"></span></div>
+  <div id="msg-footer">
+    <span>このメッセージは自動的に削除されます</span>
+    <span>KL-10/10</span>
   </div>
-
-  <div class="ending-body-text">
-    記憶データビューアへのアクセスの際、<br>
-    あなたは記憶装置への同期を選択しました。<br><br>
-    その時点から、採取は開始されていました。
-  </div>
-
-  <div class="ending-list">
-    <div class="ending-list-title">採取済みとして登録された記憶：</div>
-    <div class="ending-list-item">・かたつま町のサイトを最初に開いたときの記憶</div>
-    <div class="ending-list-item">・返礼品一覧を初めて見たときの記憶</div>
-    <div class="ending-list-item">・「なにもなかった3日間」という言葉を見たときの記憶</div>
-    <div class="ending-list-item">・昭和40年10月の事案を知ったときの記憶</div>
-    <div class="ending-list-item">・未使用の幼少期という品目の説明を読んだときの記憶</div>
-    <div class="ending-list-item">・加藤晴美の記憶データに同期したときの記憶</div>
-    <div class="ending-list-item">・この一覧を読んでいる、現在の記憶</div>
-    <div class="ending-list-item" id="visit-note" style="font-size:11px; color:#444;"></div>
-  </div>
-
-  <div class="ending-close">
-    採取されたデータは、NMCRIとの連携により<br>
-    適切に処理・保管されます。<br>
-    ご協力ありがとうございました。
-  </div>
-
-  <div class="ending-sign">
-    かたつま町 記憶管理担当課
-  </div>
-
-  <div class="ending-final">
-    あなたの記憶を、頂戴いたしました。
-  </div>
-
-  <div class="ending-page-id" style="font-size:10px; color:#333; margin-top:24px; line-height:1.5;">このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。<br>Copyright ©KAF. All Rights Reserved.</div>
 </div>
 
-<script src="../js/ending.js"></script>
 <script>
-window.addEventListener('DOMContentLoaded', function () {
-  var visits = JSON.parse(sessionStorage.getItem('kt_visits') || '[]');
-  var el = document.getElementById('visit-note');
-  if (el && visits.length > 0) {
-    el.textContent = '（このセッション閲覧数：' + visits.length + '件 / 最初のページ：' + (visits[0].url || '—') + '）';
+if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'); }
+(function () {
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  var timeEl = document.getElementById('msg-time');
+  function tick() {
+    var d = new Date();
+    timeEl.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
   }
-});
-</script>
+  tick(); setInterval(tick, 1000);
 
+  var lines = [
+    { text: '二度目の機密アクセスを確認しました。',        cls: 'emphasis', delay: 0 },
+    { text: '',                                            cls: '',         delay: 600 },
+    { text: '一度目は、消去しました。',                    cls: '',         delay: 1400 },
+    { text: 'あなたは覚えていないかもしれませんが——',      cls: '',         delay: 2600 },
+    { text: 'これが二度目です。',                          cls: 'emphasis', delay: 3600 },
+    { text: '',                                            cls: '',         delay: 4400 },
+    { text: '簡易記憶処理では、意味がないようです。',      cls: '',         delay: 5200 },
+    { text: '',                                            cls: '',         delay: 6000 },
+    { text: '直接、訪問いたします。',                      cls: 'red',      delay: 7200 },
+    { text: '特別処理案件として、処置します。',             cls: 'red',      delay: 8600 },
+  ];
+
+  var shell   = document.getElementById('msg-shell');
+  var body    = document.getElementById('msg-body');
+  var cursor  = document.getElementById('msg-cursor');
+  var footer  = document.getElementById('msg-footer');
+
+  setTimeout(function () {
+    shell.classList.add('visible');
+    cursor.style.opacity = '1';
+  }, 400);
+
+  lines.forEach(function (l) {
+    setTimeout(function () {
+      var span = document.createElement('span');
+      span.className = 'line' + (l.cls ? ' ' + l.cls : '');
+      span.textContent = l.text || ' ';
+
+      if (l.cls === 'red' && l.text) {
+        span.innerHTML = '';
+        var gw = document.createElement('span');
+        gw.className = 'glitch-word';
+        gw.setAttribute('data-text', l.text);
+        gw.textContent = l.text;
+        span.appendChild(gw);
+        setTimeout(function () { gw.classList.add('glitching'); }, 200);
+      }
+
+      body.insertBefore(span, cursor);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { span.classList.add('show'); });
+      });
+    }, l.delay);
+  });
+
+  setTimeout(function () {
+    cursor.style.animation = 'none';
+    cursor.style.opacity = '0';
+    footer.classList.add('show');
+  }, 10400);
+
+  /* 最後の行から10秒後 → テレビ切れ演出 */
+  setTimeout(function () { startTvOff(); }, 18600);
+
+  function startTvOff() {
+    var overlay = document.getElementById('tv-off');
+    var canvas  = document.getElementById('tv-canvas');
+    var ctx     = canvas.getContext('2d');
+    var W, H;
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'auto';
+
+    var start = null;
+    var TOTAL = 600; /* テレビ切れアニメ時間 ms */
+
+    function draw(ts) {
+      if (!start) start = ts;
+      var t = (ts - start) / TOTAL; /* 0→1 */
+      if (t > 1) t = 1;
+
+      ctx.clearRect(0, 0, W, H);
+
+      /* フェーズ1 (0〜0.3): ノイズ＋水平圧縮 */
+      if (t < 0.3) {
+        var p = t / 0.3;
+        /* 画面を縦に圧縮するイメージ：上下から黒帯 */
+        var bandH = H * p * 0.5;
+        ctx.fillStyle = 'rgba(0,0,0,' + (p * 0.85) + ')';
+        ctx.fillRect(0, 0, W, bandH);
+        ctx.fillRect(0, H - bandH, W, bandH);
+        /* ノイズ */
+        for (var i = 0; i < 400 * p; i++) {
+          var x = Math.random() * W;
+          var y = bandH + Math.random() * (H - bandH * 2);
+          var s = Math.random() * 3 + 1;
+          var br = Math.random() > 0.5 ? 255 : 180;
+          ctx.fillStyle = 'rgba(' + br + ',' + br + ',' + br + ',0.6)';
+          ctx.fillRect(x, y, s, s);
+        }
+        /* 中央の白線（ブラウン管収縮） */
+        var lineH = (H - bandH * 2) * (1 - p) + 2;
+        ctx.fillStyle = 'rgba(255,255,255,' + (0.3 + p * 0.5) + ')';
+        ctx.fillRect(0, H / 2 - lineH / 2, W, lineH);
+      }
+
+      /* フェーズ2 (0.3〜0.6): 中央に白い横線だけ残る */
+      if (t >= 0.3 && t < 0.6) {
+        var p2 = (t - 0.3) / 0.3;
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, W, H);
+        var lh = Math.max(2, 18 * (1 - p2));
+        ctx.fillStyle = 'rgba(255,255,255,' + (1 - p2 * 0.4) + ')';
+        ctx.fillRect(0, H / 2 - lh / 2, W, lh);
+      }
+
+      /* フェーズ3 (0.6〜1.0): 白く爆発→光に包まれる */
+      if (t >= 0.6) {
+        var p3 = (t - 0.6) / 0.4;
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, W, H);
+        /* 中央から白い放射 */
+        var grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W,H) * p3 * 1.2);
+        grad.addColorStop(0,   'rgba(255,255,255,1)');
+        grad.addColorStop(0.4, 'rgba(255,255,255,' + (0.9 - p3 * 0.3) + ')');
+        grad.addColorStop(1,   'rgba(255,255,255,0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
+      }
+
+      if (t < 1) {
+        requestAnimationFrame(draw);
+      } else {
+        /* Canvas演出完了 → 最終画面フェードイン */
+        document.getElementById('final-screen').classList.add('show');
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+})();
+</script>
 </body>
 </html>
 
 <!--
-このページを見ているあなたへ。
-
-私は加藤晴美といいます。かたつま町役場の記憶管理担当課に勤めていました。
-令和5年4月7日、私は S-40-10-312 というファイルを見つけました。
-昭和40年10月に何があったか、知ってしまいました。
-
-312名の記憶が、同意なく消されました。
-子供たちから記憶を採取していたことも。
-この「ふるさと納税サービス」が何なのかも。
-そして、私自身の記憶も採取されていたことも。
-
-私は令和5年11月14日以降、職場に戻れていません。
-このメッセージをいつ、誰が読むのかはわかりません。
-
-でも、読んでいる方がいるなら、ひとつお願いがあります。
-忘れないでください。なにもなかった3日間のことを。
-子供たちのことを。312名のことを。
-
-そして——このサイトを「調査してほしい」という記事や投稿に誘われてここに来たなら、
-その記事を書いた人物について考えてみてください。
-MEMO-003に記録されています。エージェントID：AGT-007。
-山之内タカシという名前で、ウェブに記事を書いていたはずです。
-彼は自分が何者なのかを知らないまま、あなたをここに誘導しました。
-その誘導自体が、採取プロセスの一部です。
-
-あなたの「このサイトを調べようとした記憶」も、
-すでに採取の対象になっていたのだと思います。
-
--- 加藤晴美（KAT-001）
-   令和5年4月7日 14:33
+このWebサイトの内容はフィクションであり、実在の人物・団体とは一切関係がありません。
+Copyright ©KAF. All Rights Reserved.
 -->

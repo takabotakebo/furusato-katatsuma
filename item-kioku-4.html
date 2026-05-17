@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -98,13 +98,17 @@
 <header>
   <div class="header-inner">
     <a href="index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索・品目名検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -117,7 +121,7 @@
   </ul>
 </nav>
 <main>
-  <p class="breadcrumb"><a href="index.html">トップ</a><span>›</span><a href="catalog.html">返礼品一覧</a><span>›</span>あの人との時間（5分以内）</p>
+  <p class="breadcrumb"><a href="index.html">トップ</a><span>›</span><a href="catalog-kanri.html">返礼品管理ログ</a><span>›</span>あの人との時間（5分以内）</p>
   <div class="item-detail">
     <h1>あの人との時間（5分以内）</h1>
     <div class="item-img-placeholder dark" style="background-image:url(img/kioku-hito.png); background-size:cover; background-position:center;"></div>
@@ -137,21 +141,18 @@
           隣に座っている人物（老齢の女性、採取元の母親と推定）と、会話のない静かな午後です。
           縁側の外には小さな庭があり、柿の木に実がなっています。午後の光。お茶の匂い。<br><br>
           <em>この記憶の中で、隣の女性は4分12秒の時点でこちらを向き、じっと見つめます。</em>
-          その視線は誰かを探しているようですが、採取元は何も答えません。
-          5分が過ぎた直後、記憶は終わります。なぜ5分でこの記憶が終わるのか、担当課では説明できません。<br><br>
+          その視線は誰かを探しているようですが、採取元は何も答えません。<br><br>
           なお、この記憶の中の女性は採取の翌年に亡くなっています。
         </td>
       </tr>
-      <tr><th>採取時期</th><td>平成8年（1996年）秋　採取番号：KT-M004-96-10</td></tr>
-      <tr><th>採取元</th><td>男性、採取時54歳（詳細非公開）。採取同意書：不存在（法務確認中　担当：KAT-001）</td></tr>
-      <tr><th>採取元の状態</th><td>採取後、「母の最後の記憶がない」と担当課に問い合わせがあった記録あり。返答せず。</td></tr>
+      <tr><th>採取時期</th><td>令和3年秋　採取番号：KT-M004-R3-10</td></tr>
+      <tr><th>採取元</th><td>男性、採取時54歳（詳細非公開）。</td></tr>
+      <tr><th>採取元の状態</th><td>採取後、採取元男性が「母との最後の記憶がない」と騒いでいたところを、追加で記憶を採取。沈静化に成功。その後消息不明。</td></tr>
       <tr><th>在庫状況</th><td>在庫あり（1点）</td></tr>
       <tr><th>配送</th><td>申請後、NMCRI経由にて配送。体験には専用デバイスが必要です（別途費用）</td></tr>
       <tr>
         <th>注意事項</th>
         <td>
-          受領後、「この縁側を知っている」と感じる方がいます。
-          記憶の中の女性が「こちらを見た瞬間」に強い既視感を覚える場合があります。
           返品・キャンセルは承っておりません。
         </td>
       </tr>
@@ -163,7 +164,7 @@
     <div class="memory-preview">
       <div class="preview-header">
         <span class="preview-label">MEMORY FRAGMENT PREVIEW</span>
-        <span class="preview-id">KT-M004-96-10　収録時間：5分00秒</span>
+        <span class="preview-id">KT-M004-R3-10　収録時間：5分00秒</span>
       </div>
 
       <div class="preview-page">
@@ -205,30 +206,17 @@
       <div class="preview-page end-zone">
         <span class="preview-time">00:05:00　—— 記憶、終端</span>
         <p class="preview-text">
-          記憶はここで終わります。<br>
-          なぜこの記憶が5分で終わるのか、担当課では説明できません。
+          記憶はここで終わります。
         </p>
-        <span class="preview-note">[ 採取元注記：本人は後日「母の最後の記憶がない」と担当課に問い合わせた記録があります。担当課は返答しておりません ]</span>
+        <span class="preview-note">[ 採取元注記：本人は後日「母との最後の記憶がない」と騒いでいたところを、追加で記憶を採取。沈静化に成功 ]</span>
         <div class="preview-divider">— — —</div>
       </div>
     </div>
 
-    <p style="font-size:13px; color:#666; line-height:2.2; margin-top:4px;">
-      その午後、縁側には二人の人間がいました。一方は記憶を失い、もう一方はその翌年に亡くなりました。残ったのはこの5分間だけです。
-    </p>
-
     <div class="item-system-note">
-      担当課注：採取元からの返還申請は受け付けておりません。条例 KR-1966 第8条により、
-      採取済み記憶の返還には別途手続きが必要です。採取元はこの手続きを知りません。
+      おもいで管理課（旧：記憶管理課）注：採取元からの返還申請は受け付けておりません。特別条例の規定により、採取済み記憶の返還には別途手続きが必要です。採取元はこの手続きを知りません。
     </div>
-
-    <div class="item-related">
-      <h3>関連品目（検索でアクセス）</h3>
-      <ul>
-        <li class="item-related-text">▸ <strong>忘れていた夏（1回分）</strong>　—　同時期の水辺採取素材。「終端のノイズ」が共鳴します</li>
-        <li class="item-related-text">▸ <strong>整理済み記憶セット（混合）</strong>　—　類似の「最後の時間」記憶が含まれます</li>
-      </ul>
-    </div>
+    <a href="catalog-kanri.html" class="back-to-portal">返礼品管理ログに戻る</a>
   </div>
 </main>
 <span class="page-id">Page ID: 21/27</span>
@@ -250,5 +238,15 @@
 </footer>
 
 <script src="js/search.js"></script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>

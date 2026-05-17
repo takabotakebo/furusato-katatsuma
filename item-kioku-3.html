@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -105,13 +105,17 @@
 <header>
   <div class="header-inner">
     <a href="index.html" class="site-logo">
-      <span class="logo-text">かたつま町</span>
-      <span class="logo-sub">ふるさと納税返礼品カタログ</span>
+      <img src="img/logo.png" alt="かたつま町 ふるさと納税返礼品カタログ" class="site-logo-img">
+      <div class="logo-text-wrap"><span class="logo-text">かたつま町</span>
+      <span class="logo-sub">ふるさと納税 特設サイト</span></div>
     </a>
     <form class="search-form" id="site-search">
       <input type="text" id="search-input" placeholder="サイト内検索・品目名検索" autocomplete="off">
       <button type="submit">検索</button>
-    </form>
+      </form>
+    <button class="hamburger" id="hamburger-btn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav>
@@ -124,7 +128,7 @@
   </ul>
 </nav>
 <main>
-  <p class="breadcrumb"><a href="index.html">トップ</a><span>›</span><a href="catalog.html">返礼品一覧</a><span>›</span>忘れていた夏（1回分）</p>
+  <p class="breadcrumb"><a href="index.html">トップ</a><span>›</span><a href="catalog-kanri.html">返礼品管理ログ</a><span>›</span>忘れていた夏（1回分）</p>
   <div class="item-detail">
     <h1>忘れていた夏（1回分）</h1>
     <div class="item-img-placeholder dark" style="background-image:url(img/kioku-natsu.png); background-size:cover; background-position:center;"></div>
@@ -138,21 +142,21 @@
       <tr>
         <th>内容</th>
         <td>
-          かたつま町近郊の水辺にて採取された、昭和後期のある夏の記憶（1場面分）です。<br><br>
+          定期健康管理プログラムにより採取された、ある夏の記憶（1場面分）です。<br><br>
           記憶の持ち主は採取時11〜12歳の女児。夏休みの午後、町外れの用水路で遊んでいた場面。水の冷たさ、逆光の中のトンボ、遠くで呼ぶ兄の声。感覚情報の保存率：97.2%。<br><br>
           終端部にノイズあり。採取作業者とみられる人物が映り込んでいましたが、配送前に処理済みです。
         </td>
       </tr>
-      <tr><th>採取時期</th><td>昭和54年（1979年）8月　採取番号：KT-M003-79-08</td></tr>
-      <tr><th>採取元</th><td>女性、採取時12歳（詳細非公開）。採取同意書：審査保留中（担当：KAT-001）</td></tr>
-      <tr><th>現在の採取元</th><td>確認中。担当課では所在を把握しておりません。</td></tr>
+      <tr><th>採取時期</th><td>令和4年8月　採取番号：KT-M003-R4-08</td></tr>
+      <tr><th>採取元</th><td>女性、採取時12歳（詳細非公開）。</td></tr>
+      <tr><th>現在の採取元</th><td>かたつま町在住。担当課では所在を把握しています。</td></tr>
       <tr><th>在庫状況</th><td>残り3点（再入荷予定なし）</td></tr>
       <tr><th>配送</th><td>申請後、NMCRI（国立記憶・認知研究所）経由にてお届けします</td></tr>
       <tr>
         <th>注意事項</th>
         <td>
           受領後、「この夏を知っている」と感じることがあります。これは記憶素材の特性によるものです。
-          この記憶の中の女の子は現在も存命の可能性があります。担当課では確認しておりません。
+          この記憶の中の女の子は現在も存命しているため接触はお控えください。
           返品・キャンセルは承っておりません。
         </td>
       </tr>
@@ -164,7 +168,7 @@
     <div class="memory-preview">
       <div class="preview-header">
         <span class="preview-label">MEMORY FRAGMENT PREVIEW</span>
-        <span class="preview-id">KT-M003-79-08　品質：★★★★★</span>
+        <span class="preview-id">KT-M003-R4-08　品質：★★★★★</span>
       </div>
 
       <div class="preview-page">
@@ -207,23 +211,10 @@
       </div>
     </div>
 
-    <p style="font-size:13px; color:#666; line-height:2.2; margin-top:4px;">
-      記憶の中で彼女は一度だけこちらを振り返ります。誰かがいると気づいた顔で。
-    </p>
-
     <div class="item-system-note">
-      担当課注：本品目の採取同意書は提出されておりません。採取同意書不備の品目については、
-      条例 KR-1966 第5条の規定により流通可能とされています。詳細は「<strong>記憶管理条例</strong>」をご確認ください。
+      おもいで管理課（旧：記憶管理課）注：採取同意書不備の品目については、特別条例の規定により流通可能とされています。詳細は担当課にお問い合わせください。
     </div>
-
-    <div class="item-related">
-      <h3>関連品目（検索でアクセス）</h3>
-      <ul>
-        <li class="item-related-text">▸ <strong>あの人との時間（5分以内）</strong>　—　類似の「終端ノイズ」を含む素材です</li>
-        <li class="item-related-text">▸ <strong>整理済み記憶セット（混合）</strong>　—　本品目の断片が含まれる可能性があります</li>
-        <li><a href="item-kioku-2.html">思い出アーカイブ（1年分）</a>　— 公開品目</li>
-      </ul>
-    </div>
+    <a href="catalog-kanri.html" class="back-to-portal">返礼品管理ログに戻る</a>
   </div>
 </main>
 <span class="page-id">Page ID: 20/27</span>
@@ -245,5 +236,15 @@
 </footer>
 
 <script src="js/search.js"></script>
-</body>
+<script>
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var nav = document.querySelector('nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+})();
+</script></body>
 </html>
