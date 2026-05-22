@@ -296,11 +296,11 @@
 <script>
 if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'); }
 (function () {
-  var shareText = 'WEBARG「おもいでのふるさと」、調査完了しました。\n・・・しました？';
+  var shareText = 'WEBARG「おもいでのふるさと」、調査完了しました。\n・・・しました？\n#おもいでのふるさとARG';
   var shareUrl  = 'https://note.com/kaf_386/n/nf8a32839915d';
   var btn = document.getElementById('btn-share');
   if (btn) {
-    btn.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(shareUrl) + '&hashtags=' + encodeURIComponent('おもいでのふるさとARG');
+    btn.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(shareUrl);
   }
 })();
 (function () {
@@ -370,7 +370,7 @@ if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'
     var bar   = document.getElementById('progress-bar');
     var pct   = document.getElementById('progress-pct');
     wrap.classList.add('show');
-    var DURATION = 30000;
+    var DURATION = 20000;
     var startTime = null;
     function animBar(ts) {
       if (!startTime) startTime = ts;
