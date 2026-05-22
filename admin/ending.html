@@ -154,6 +154,31 @@
       40%,80% { opacity: 1; }
     }
 
+    /* プログレスバー */
+    #progress-wrap {
+      margin-top: 40px;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    #progress-wrap.show { opacity: 1; }
+    #progress-label {
+      font-size: 10px;
+      color: #3a5a3a;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+    #progress-track {
+      width: 100%;
+      height: 2px;
+      background: #1a1a1a;
+    }
+    #progress-bar {
+      height: 2px;
+      width: 0%;
+      background: #4a7a4a;
+      transition: none;
+    }
+
     /* テレビ切れ → 光 オーバーレイ */
     #tv-off {
       position: fixed;
@@ -258,6 +283,10 @@
   </div>
   <div id="msg-sender">送信者：<span>AGT-007　山之内 タカシ</span></div>
   <div id="msg-body"><span id="msg-cursor"></span></div>
+  <div id="progress-wrap">
+    <div id="progress-label">記憶処理 <span id="progress-pct">0</span>% 完了</div>
+    <div id="progress-track"><div id="progress-bar"></div></div>
+  </div>
   <div id="msg-footer">
     <span>このメッセージは自動的に削除されます</span>
     <span>KL-8/8</span>
@@ -335,8 +364,28 @@ if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'
     footer.classList.add('show');
   }, 10400);
 
-  /* 最後の行から15秒後 → テレビ切れ演出 */
-  setTimeout(function () { startTvOff(); }, 23600);
+  /* 最後の行（8600ms）からプログレスバー開始 → 8秒で100% → テレビ切れ演出 */
+  setTimeout(function () {
+    var wrap  = document.getElementById('progress-wrap');
+    var bar   = document.getElementById('progress-bar');
+    var pct   = document.getElementById('progress-pct');
+    wrap.classList.add('show');
+    var DURATION = 30000;
+    var startTime = null;
+    function animBar(ts) {
+      if (!startTime) startTime = ts;
+      var p = Math.min((ts - startTime) / DURATION, 1);
+      var val = Math.floor(p * 100);
+      bar.style.width = val + '%';
+      pct.textContent = val;
+      if (p < 1) {
+        requestAnimationFrame(animBar);
+      } else {
+        startTvOff();
+      }
+    }
+    requestAnimationFrame(animBar);
+  }, 8600);
 
   function startTvOff() {
     var overlay = document.getElementById('tv-off');
