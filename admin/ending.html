@@ -335,8 +335,8 @@ if (!sessionStorage.getItem('ktms_auth')) { window.location.replace('login.html'
     footer.classList.add('show');
   }, 10400);
 
-  /* 最後の行から10秒後 → テレビ切れ演出 */
-  setTimeout(function () { startTvOff(); }, 18600);
+  /* 最後の行から18秒後 → テレビ切れ演出 */
+  setTimeout(function () { startTvOff(); }, 26600);
 
   function startTvOff() {
     var overlay = document.getElementById('tv-off');
